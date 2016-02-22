@@ -56,17 +56,6 @@ before_script:
 
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
-  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++03"; fi
-  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++03"; fi
-  - echo $CC
-  - echo $CXX
-  - echo $CXXFLAGS
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DebugUtils
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Detour
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DetourCrowd
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DetourTileCache
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Recast
-  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Tests
   - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++1y"; fi
   - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++1y -stdlib=libc++"; fi
   - echo $CC
