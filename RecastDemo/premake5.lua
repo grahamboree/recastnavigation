@@ -135,8 +135,6 @@ project "RecastDemo"
 	-- linux library cflags and libs
 	configuration { "linux", "gmake" }
 		buildoptions { 
-			"-std=c++14",
-			"-stdlib=libc++",
 			"`pkg-config --cflags sdl2`",
 			"`pkg-config --cflags gl`",
 			"`pkg-config --cflags glu`" 
@@ -167,11 +165,7 @@ project "RecastDemo"
 	configuration { "macosx" }
 		kind "ConsoleApp" -- xcode4 failes to run the project if using WindowedApp
 		includedirs { "/Library/Frameworks/SDL2.framework/Headers" }
-		buildoptions {
-			"-std=c++14",
-			"-stdlib=libc++",
-			"-Weverything"
-		}
+		buildoptions { "-Weverything" }
 		links { 
 			"OpenGL.framework", 
 			"SDL2.framework",

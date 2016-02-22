@@ -49,5 +49,7 @@ before_script:
 
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
+  - if [ "$CXX" == "clang++" ]; then export CXXFLAGS="-std=c++14 -stdlib=libc++"; fi
+  - if [ "$CXX" == "g++" ]; then export CXXFLAGS="-std=c++1y"; fi
   - make -C RecastDemo/Build/gmake config=$CONFIGURATION
   - RecastDemo/Bin/Tests
