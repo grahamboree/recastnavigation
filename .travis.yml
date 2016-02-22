@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 
 language: cpp
 
@@ -17,17 +17,16 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
+    - libyajl-dev
+    - libxml2-dev
+    - libxqilla-dev
     - gcc-4.8
     - g++-4.8
     - clang
+    - libc++-dev
 
 before_install:
-  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq libyajl-dev libxml2-dev libxqilla-dev
-  - if [ "$CC" = "gcc" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CC" = "gcc" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  - if [ "$CC" = "clang" ]; then sudo apt-get install -qq libstdc++-4.8-dev; fi
 
 install:
   # Download and build SDL2 from source.
@@ -57,6 +56,17 @@ before_script:
 
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
+  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++03"; fi
+  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++03"; fi
+  - echo $CC
+  - echo $CXX
+  - echo $CXXFLAGS
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DebugUtils
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Detour
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DetourCrowd
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION DetourTileCache
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Recast
+  - make -C RecastDemo/Build/gmake config=$CONFIGURATION Tests
   - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++1y"; fi
   - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++1y -stdlib=libc++"; fi
   - echo $CC
