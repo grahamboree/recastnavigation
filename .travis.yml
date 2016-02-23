@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 
 language: cpp
 
@@ -28,13 +28,13 @@ addons:
 before_install:
   - if [ "$CC" == "gcc" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
     #- if [ "$CC" == "clang" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
-  - if [ "$CC" == "clang" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx; fi
-  - if [ "$CC" == "clang" ]; then cd libcxx/lib && bash buildit; fi
-  - if [ "$CC" == "clang" ]; then sudo cp ./libc++.so.1.0 /usr/lib/; fi
-  - if [ "$CC" == "clang" ]; then sudo mkdir /usr/include/c++/v1; fi
-  - if [ "$CC" == "clang" ]; then cd .. && sudo cp -r include/* /usr/include/c++/v1/; fi
-  - if [ "$CC" == "clang" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
-  - if [ "$CC" == "clang" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd - && cd ..; fi
+    #- if [ "$CC" == "clang" ]; then svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx; fi
+    #- if [ "$CC" == "clang" ]; then cd libcxx/lib && bash buildit; fi
+    #- if [ "$CC" == "clang" ]; then sudo cp ./libc++.so.1.0 /usr/lib/; fi
+    #- if [ "$CC" == "clang" ]; then sudo mkdir /usr/include/c++/v1; fi
+    #- if [ "$CC" == "clang" ]; then cd .. && sudo cp -r include/* /usr/include/c++/v1/; fi
+    #- if [ "$CC" == "clang" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
+    #- if [ "$CC" == "clang" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd - && cd ..; fi
 
 install:
   # Download and build SDL2 from source.
@@ -64,8 +64,8 @@ before_script:
 
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
-  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++1y"; fi
-  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++1y -stdlib=libc++"; fi
+  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=gnu++11"; fi
+  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=gnu++11"; fi
   - echo $CC
   - echo $CXX
   - echo $CXXFLAGS
