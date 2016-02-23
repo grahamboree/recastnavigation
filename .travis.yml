@@ -34,7 +34,7 @@ before_install:
   - if [ "$CC" == "clang" ]; then sudo mkdir /usr/include/c++/v1; fi
   - if [ "$CC" == "clang" ]; then cd .. && sudo cp -r include/* /usr/include/c++/v1/; fi
   - if [ "$CC" == "clang" ]; then cd /usr/lib && sudo ln -sf libc++.so.1.0 libc++.so; fi
-  - if [ "$CC" == "clang" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd; fi
+  - if [ "$CC" == "clang" ]; then sudo ln -sf libc++.so.1.0 libc++.so.1 && cd - && cd ..; fi
 
 install:
   # Download and build SDL2 from source.
