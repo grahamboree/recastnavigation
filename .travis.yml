@@ -23,7 +23,6 @@ addons:
     - gcc-4.8
     - g++-4.8
     - clang
-    - libc++
 
 before_install:
   - if [ "$CC" == "gcc" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
@@ -56,15 +55,16 @@ before_script:
 
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
-  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=c++03"; fi
-  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=c++03 -D__extern_always_inline=\"extern __always_inline\""; fi
+  - export ORIG_CXXFLAGS=$CXXFLAGS
+  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="$ORIG_CXXFLAGS -std=c++03"; fi
+  - if [ "$CC" == "clang" ]; then export CXXFLAGS="$ORIG_CXXFLAGS -std=c++03 -D__extern_always_inline=\"extern __always_inline\""; fi
   - make -C RecastDemo/Build/gmake -f DebugUtils.make config=$CONFIGURATION
   - make -C RecastDemo/Build/gmake -f Detour.make config=$CONFIGURATION
   - make -C RecastDemo/Build/gmake -f DetourCrowd.make config=$CONFIGURATION
   - make -C RecastDemo/Build/gmake -f DetourTileCache.make config=$CONFIGURATION
   - make -C RecastDemo/Build/gmake -f Recast.make config=$CONFIGURATION
 
-  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=gnu++11"; fi
-  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=gnu++11 -D__extern_always_inline=\"extern __always_inline\""; fi
+  - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="$ORIG_CXXFLAGS -std=gnu++1y"; fi
+  - if [ "$CC" == "clang" ]; then export CXXFLAGS="$ORIG_CXXFLAGS -std=gnu++1y -D__extern_always_inline=\"extern __always_inline\""; fi
   - make -C RecastDemo/Build/gmake config=$CONFIGURATION
   - RecastDemo/Bin/Tests
