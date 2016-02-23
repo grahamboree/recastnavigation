@@ -65,7 +65,7 @@ before_script:
 # Run make in the directory containing generated makefiles, on the configuration specified by the environment variable.
 script:
   - if [ "$CC" == "gcc-4.8" ]; then export CXXFLAGS="-std=gnu++11"; fi
-  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=gnu++11"; fi
+  - if [ "$CC" == "clang" ]; then export CXXFLAGS="-std=gnu++11 -D__extern_always_inline=\"extern __always_inline\""; fi
   - echo $CC
   - echo $CXX
   - echo $CXXFLAGS
