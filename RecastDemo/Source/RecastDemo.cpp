@@ -517,7 +517,7 @@ void RecastDemo::RenderSampleSelectionDialog()
 		delete sample;
 		sample = newSample;
 		sample->setContext(&ctx);
-		if (geom && sample)
+		if (geom)
 		{
 			sample->handleMeshChanged(geom);
 		}
@@ -562,6 +562,13 @@ void RecastDemo::RenderLevelSelectionDialog()
 		{
 			delete geom;
 			geom = nullptr;
+
+			// Destroy the sample if it already had geometry loaded, as we've just deleted it!
+			if (sample && sample->getInputGeom())
+			{
+				delete sample;
+				sample = nullptr;
+			}
 
 			showLog = true;
 			logScroll = 0;
@@ -610,10 +617,12 @@ void RecastDemo::RenderTestCaseSelectionDialog()
 					}
 				}
 			}
-			if (newSample)
+
+			delete sample;
+			sample = newSample;
+
+			if (sample)
 			{
-				delete sample;
-				sample = newSample;
 				sample->setContext(&ctx);
 				showSampleMenu = false;
 			}
@@ -621,16 +630,16 @@ void RecastDemo::RenderTestCaseSelectionDialog()
 			// Load geom.
 			meshName = test->getGeomFileName();
 
-			delete geom;
-			geom = nullptr;
-
 			path = meshesFolder + "/" + meshName;
 
+			delete geom;
 			geom = new InputGeom();
 			if (!geom || !geom->load(&ctx, path))
 			{
 				delete geom;
 				geom = nullptr;
+				delete sample;
+				sample = nullptr;
 				showLog = true;
 				logScroll = 0;
 				ctx.dumpLog("Geom load log %s:", meshName.c_str());
