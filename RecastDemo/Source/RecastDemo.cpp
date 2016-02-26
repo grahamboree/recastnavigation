@@ -50,7 +50,7 @@ RecastDemo::RecastDemo()
 	, origMousePos{ 0, 0 }
 	, cameraEulers{ 45, -45 }
 	, cameraPos{ 0, 0, 0 }
-	, camr(1000)
+	, farClipDistance(1000)
 	, origCameraEulers{ 0, 0 }
 	, moveW(0)
 	, moveS(0)
@@ -59,8 +59,6 @@ RecastDemo::RecastDemo()
 	, scrollZoom(0)
 	, rotate(false)
 	, movedDuringRotate(false)
-	, rayStart{ 0, 0, 0 }
-	, rayEnd{ 0, 0, 0 }
 	, mouseOverMenu(false)
 	, showMenu(true)
 	, showLog(false)
@@ -87,7 +85,6 @@ RecastDemo::RecastDemo()
 	samples["Solo Mesh"] = []() { return new Sample_SoloMesh(); };
 	samples["Tile Mesh"] = []() { return new Sample_TileMesh(); };
 	samples["Temp Obstacles"] = []() { return new Sample_TempObstacles(); };
-	//samples["Debug"] = []() { return new Sample_Debug(); };
 }
 
 RecastDemo::~RecastDemo()
@@ -178,8 +175,8 @@ bool RecastDemo::initSDL(bool presentationMode)
 	float fogColor[] = { 0.32f, 0.31f, 0.30f, 1.0f };
 	glEnable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_LINEAR);
-	glFogf(GL_FOG_START, camr * 0.1f);
-	glFogf(GL_FOG_END, camr * 1.25f);
+	glFogf(GL_FOG_START, farClipDistance * 0.1f);
+	glFogf(GL_FOG_END, farClipDistance * 1.25f);
 	glFogfv(GL_FOG_COLOR, fogColor);
 
 	// Enable backface culling and set the depth buffer culling function.
@@ -348,8 +345,29 @@ bool RecastDemo::ReadUserInput()
 	return false;
 }
 
-void RecastDemo::HitTestMesh()
+void RecastDemo::HitTestMesh(GLdouble* modelviewMatrix, GLdouble* projectionMatrix)
 {
+	GLdouble x, y, z;
+
+	// Get mouse direction ray.
+	GLint projectionResult = gluUnProject(mousePos[0], mousePos[1], 0.0f,
+		modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
+	dtAssert(projectionResult);
+	float rayStart[] = {
+		static_cast<float>(x),
+		static_cast<float>(y),
+		static_cast<float>(z)
+	};
+
+	projectionResult = gluUnProject(mousePos[0], mousePos[1], 1.0f,
+		modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
+	dtAssert(projectionResult);
+	float rayEnd[] = {
+		static_cast<float>(x),
+		static_cast<float>(y),
+		static_cast<float>(z)
+	};
+
 	// Hit test mesh.
 	float hitTime;
 	bool hit = geom->raycastMesh(rayStart, rayEnd, hitTime);
@@ -672,138 +690,8 @@ void RecastDemo::RenderTestCaseSelectionDialog()
 	imguiEndScrollArea();
 }
 
-void RecastDemo::ResetCameraAndFogToMeshBounds()
+void RecastDemo::RenderUI(GLdouble* modelviewMatrix, GLdouble* projectionMatrix)
 {
-	if (geom || sample)
-	{
-		const float* bmin = nullptr;
-		const float* bmax = nullptr;
-		if (geom)
-		{
-			bmin = geom->getNavMeshBoundsMin();
-			bmax = geom->getNavMeshBoundsMax();
-		}
-		if (bmin && bmax)
-		{
-			camr = sqrtf(
-					rcSqr(bmax[0] - bmin[0]) +
-					rcSqr(bmax[1] - bmin[1]) +
-					rcSqr(bmax[2] - bmin[2])) / 2;
-			cameraPos[0] = (bmax[0] + bmin[0]) / 2 + camr;
-			cameraPos[1] = (bmax[1] + bmin[1]) / 2 + camr;
-			cameraPos[2] = (bmax[2] + bmin[2]) / 2 + camr;
-			camr *= 3;
-		}
-		cameraEulers[0] = 45;
-		cameraEulers[1] = -45;
-		glFogf(GL_FOG_START, camr * 0.2f);
-		glFogf(GL_FOG_END, camr * 1.25f);
-	}
-}
-
-bool RecastDemo::run()
-{
-	// Reset per-frame state.
-	mouseScroll = 0;
-	mouseButtonMask = 0;
-	processHitTest = false;
-	processHitTestShift = false;
-
-	// Handle input events and quit if escape was pressed.
-	if (ReadUserInput()) {
-		return true;
-	}
-
-	uint32_t time = SDL_GetTicks();
-	float dt = (time - prevFrameTime) / 1000.0f;
-	prevFrameTime = time;
-	t += dt;
-
-	if (processHitTest && geom && sample)
-	{
-		HitTestMesh();
-	}
-
-	// Update sample simulation.
-	constexpr float SIM_RATE = 20;
-	constexpr float DELTA_TIME = 1.0f / SIM_RATE;
-	timeAcc = rcClamp(timeAcc + dt, -1.0f, 1.0f);
-	for (int simIter = 0; timeAcc > DELTA_TIME; ++simIter)
-	{
-		timeAcc -= DELTA_TIME;
-		if (simIter < 5 && sample)
-		{
-			sample->handleUpdate(DELTA_TIME);
-		}
-	}
-
-	// Clamp the framerate so that we do not hog all the CPU.
-	constexpr float MIN_FRAME_TIME = 1.0f / 60.0f;
-	if (dt < MIN_FRAME_TIME)
-	{
-		int ms = static_cast<int>((MIN_FRAME_TIME - dt) * 1000.0f);
-		if (ms > 10) ms = 10;
-		if (ms >= 0) SDL_Delay(ms);
-	}
-
-	// Clear the screen
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_TEXTURE_2D);
-	glEnable(GL_DEPTH_TEST);
-
-	// Compute the projection matrix.
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(50.0f, static_cast<float>(width) / static_cast<float>(height), 1.0f, camr);
-	GLdouble projectionMatrix[16];
-	glGetDoublev(GL_PROJECTION_MATRIX, projectionMatrix);
-
-	// Compute the modelview matrix.
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glRotatef(cameraEulers[0], 1, 0, 0);
-	glRotatef(cameraEulers[1], 0, 1, 0);
-	glTranslatef(-cameraPos[0], -cameraPos[1], -cameraPos[2]);
-	GLdouble modelviewMatrix[16];
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewMatrix);
-
-	// Get mouse direction ray.
-	GLdouble x, y, z;
-	GLint projectionResult = gluUnProject(mousePos[0], mousePos[1], 0.0f, modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
-	dtAssert(projectionResult);
-	rayStart[0] = static_cast<float>(x);
-	rayStart[1] = static_cast<float>(y);
-	rayStart[2] = static_cast<float>(z);
-
-	projectionResult = gluUnProject(mousePos[0], mousePos[1], 1.0f, modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
-	dtAssert(projectionResult);
-	rayEnd[0] = static_cast<float>(x);
-	rayEnd[1] = static_cast<float>(y);
-	rayEnd[2] = static_cast<float>(z);
-
-	HandleKeyboardMovement(dt, modelviewMatrix);
-
-	glEnable(GL_FOG);
-
-	if (sample)
-		sample->handleRender();
-	if (test)
-		test->handleRender();
-
-	glDisable(GL_FOG);
-
-	// Render GUI
-	glDisable(GL_DEPTH_TEST);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0, width, 0, height);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	mouseOverMenu = false;
-
 	imguiBeginFrame(mousePos[0], mousePos[1], mouseButtonMask, mouseScroll);
 
 	if (sample)
@@ -826,10 +714,6 @@ bool RecastDemo::run()
 	if (showMenu)
 	{
 		imguiDrawText(280, height - 20, IMGUI_ALIGN_LEFT, "W/S/A/D: Move  RMB: Rotate", imguiRGBA(255, 255, 255, 128));
-	}
-
-	if (showMenu)
-	{
 		RenderPropertiesMenu();
 	}
 
@@ -876,6 +760,7 @@ bool RecastDemo::run()
 	}
 
 	// Marker
+	GLdouble x, y, z;
 	if (markerPositionSet && gluProject(markerPosition[0], markerPosition[1], markerPosition[2], modelviewMatrix, projectionMatrix, viewport, &x, &y, &z))
 	{
 		// Draw marker circle
@@ -896,6 +781,143 @@ bool RecastDemo::run()
 
 	imguiEndFrame();
 	imguiRenderGLDraw();
+}
+
+void RecastDemo::ResetCameraAndFogToMeshBounds()
+{
+	if (geom || sample)
+	{
+		const float* bmin = nullptr;
+		const float* bmax = nullptr;
+		if (geom)
+		{
+			bmin = geom->getNavMeshBoundsMin();
+			bmax = geom->getNavMeshBoundsMax();
+		}
+		if (bmin && bmax)
+		{
+			farClipDistance = sqrtf(
+					rcSqr(bmax[0] - bmin[0]) +
+					rcSqr(bmax[1] - bmin[1]) +
+					rcSqr(bmax[2] - bmin[2])) / 2;
+			cameraPos[0] = (bmax[0] + bmin[0]) / 2 + farClipDistance;
+			cameraPos[1] = (bmax[1] + bmin[1]) / 2 + farClipDistance;
+			cameraPos[2] = (bmax[2] + bmin[2]) / 2 + farClipDistance;
+			farClipDistance *= 3;
+		}
+		cameraEulers[0] = 45;
+		cameraEulers[1] = -45;
+		glFogf(GL_FOG_START, farClipDistance * 0.2f);
+		glFogf(GL_FOG_END, farClipDistance * 1.25f);
+	}
+}
+
+bool RecastDemo::run()
+{
+	// Reset per-frame state.
+	mouseScroll = 0;
+	mouseButtonMask = 0;
+	processHitTest = false;
+	processHitTestShift = false;
+
+	// Clear the screen
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+
+	// Compute the projection matrix.
+	GLdouble projectionMatrix[16];
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(50.0f, static_cast<float>(width) / static_cast<float>(height), 1.0f, farClipDistance);
+	glGetDoublev(GL_PROJECTION_MATRIX, projectionMatrix);
+
+	// Compute the modelview matrix.
+	GLdouble modelviewMatrix[16];
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glRotatef(cameraEulers[0], 1, 0, 0);
+	glRotatef(cameraEulers[1], 0, 1, 0);
+	glTranslatef(-cameraPos[0], -cameraPos[1], -cameraPos[2]);
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewMatrix);
+
+	// Compute the delta time
+	uint32_t time = SDL_GetTicks();
+	float dt = (time - prevFrameTime) / 1000.0f;
+	prevFrameTime = time;
+	t += dt;
+
+	// Clamp the framerate
+	constexpr float MIN_FRAME_TIME = 1.0f / 60.0f;
+	if (dt < MIN_FRAME_TIME)
+	{
+		int ms = static_cast<int>((MIN_FRAME_TIME - dt) * 1000.0f);
+		if (ms > 10) ms = 10;
+		if (ms >= 0) SDL_Delay(ms);
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Detect user input.
+
+	// Handle input events and quit if escape was pressed.
+	if (ReadUserInput()) {
+		return true;
+	}
+
+	if (processHitTest && geom && sample)
+	{
+		HitTestMesh(modelviewMatrix, projectionMatrix);
+	}
+	HandleKeyboardMovement(dt, modelviewMatrix);
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Advance the simulation
+	constexpr float SIM_RATE = 20;
+	constexpr float DELTA_TIME = 1.0f / SIM_RATE;
+	timeAcc = rcClamp(timeAcc + dt, -1.0f, 1.0f);
+	for (int simIter = 0; timeAcc > DELTA_TIME; ++simIter)
+	{
+		timeAcc -= DELTA_TIME;
+		if (simIter < 5 && sample)
+		{
+			sample->handleUpdate(DELTA_TIME);
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Draw the simulation
+
+	glEnable(GL_FOG);
+
+	if (sample)
+	{
+		sample->handleRender();
+	}
+	if (test)
+	{
+		test->handleRender();
+	}
+
+	glDisable(GL_FOG);
+
+	////////////////////////////////////////////////////////////////////////////////
+	// Draw the UI
+
+	mouseOverMenu = false;
+
+	// Render GUI
+	glDisable(GL_DEPTH_TEST);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, width, 0, height);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	RenderUI(modelviewMatrix, projectionMatrix);
 
 	glEnable(GL_DEPTH_TEST);
 	SDL_GL_SwapWindow(window);

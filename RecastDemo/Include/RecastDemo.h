@@ -56,11 +56,12 @@ public:
 
 private: // methods
 	bool ReadUserInput();
-	void HitTestMesh();
+	void HitTestMesh(GLdouble* modelviewMatrix, GLdouble* projectionMatrix);
 	void HandleKeyboardMovement(float dt, GLdouble* modelviewMatrix);
 	void ResetCameraAndFogToMeshBounds();
 
 	// UI
+	void RenderUI(GLdouble* modelviewMatrix, GLdouble* projectionMatrix);
 	std::string* RenderSelectFileUI();
 	void RenderPropertiesMenu();
 	void RenderSampleSelectionDialog();
@@ -84,7 +85,7 @@ private: // fields
 
 	float cameraEulers[2];
 	float cameraPos[3];
-	float camr;
+	float farClipDistance;
 	float origCameraEulers[2]; // Used to compute rotational changes across frames.
 
 	float moveW;
@@ -95,8 +96,6 @@ private: // fields
 	float scrollZoom;
 	bool rotate;
 	bool movedDuringRotate;
-	float rayStart[3];
-	float rayEnd[3];
 	bool mouseOverMenu;
 
 	bool showMenu;
