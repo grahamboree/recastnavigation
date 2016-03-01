@@ -7,14 +7,14 @@ local action = _ACTION or ""
 local todir = "Build/" .. action
 
 solution "recastnavigation"
-	configurations { 
+	configurations {
 		"Debug",
 		"Release"
 	}
 	location (todir)
 
 	-- extra warnings, no exceptions or rtti
-	flags { 
+	flags {
 		"ExtraWarnings",
 		"FloatFast",
 		"Symbols"
@@ -26,8 +26,8 @@ solution "recastnavigation"
 	configuration "Debug*"
 		defines { "DEBUG" }
 		targetdir ( todir .. "/lib/Debug" )
- 
- 	-- release configs
+
+	-- release configs
 	configuration "Release*"
 		defines { "NDEBUG" }
 		flags { "Optimize" }
@@ -41,26 +41,28 @@ solution "recastnavigation"
 project "DebugUtils"
 	language "C++"
 	kind "StaticLib"
-	includedirs { 
+	includedirs {
 		"../DebugUtils/Include",
 		"../Detour/Include",
 		"../DetourTileCache/Include",
 		"../Recast/Include"
 	}
-	files { 
+	files {
 		"../DebugUtils/Include/*.h",
 		"../DebugUtils/Source/*.cpp"
 	}
+	configuration { "windows" }
+		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
 
 project "Detour"
 	language "C++"
 	kind "StaticLib"
-	includedirs { 
-		"../Detour/Include" 
+	includedirs {
+		"../Detour/Include"
 	}
-	files { 
-		"../Detour/Include/*.h", 
-		"../Detour/Source/*.cpp" 
+	files {
+		"../Detour/Include/*.h",
+		"../Detour/Source/*.cpp"
 	}
 
 project "DetourCrowd"
@@ -92,18 +94,18 @@ project "DetourTileCache"
 project "Recast"
 	language "C++"
 	kind "StaticLib"
-	includedirs { 
-		"../Recast/Include" 
+	includedirs {
+		"../Recast/Include"
 	}
-	files { 
+	files {
 		"../Recast/Include/*.h",
-		"../Recast/Source/*.cpp" 
+		"../Recast/Source/*.cpp"
 	}
 
 project "RecastDemo"
 	language "C++"
 	kind "WindowedApp"
-	includedirs { 
+	includedirs {
 		"../RecastDemo/Include",
 		"../RecastDemo/Contrib",
 		"../RecastDemo/Contrib/fastlz",
@@ -113,7 +115,7 @@ project "RecastDemo"
 		"../DetourTileCache/Include",
 		"../Recast/Include"
 	}
-	files	{ 
+	files	{
 		"../RecastDemo/Include/*.h",
 		"../RecastDemo/Source/*.cpp",
 		"../RecastDemo/Contrib/fastlz/*.h",
@@ -121,7 +123,7 @@ project "RecastDemo"
 	}
 
 	-- project dependencies
-	links { 
+	links {
 		"DebugUtils",
 		"Detour",
 		"DetourCrowd",
@@ -134,15 +136,15 @@ project "RecastDemo"
 
 	-- linux library cflags and libs
 	configuration { "linux", "gmake" }
-		buildoptions { 
+		buildoptions {
 			"`pkg-config --cflags sdl2`",
 			"`pkg-config --cflags gl`",
-			"`pkg-config --cflags glu`" 
+			"`pkg-config --cflags glu`"
 		}
-		linkoptions { 
+		linkoptions {
 			"`pkg-config --libs sdl2`",
 			"`pkg-config --libs gl`",
-			"`pkg-config --libs glu`" 
+			"`pkg-config --libs glu`"
 		}
 
 	-- windows library cflags and libs
@@ -150,7 +152,7 @@ project "RecastDemo"
 		includedirs { "../RecastDemo/Contrib/SDL/include" }
 		libdirs { "../RecastDemo/Contrib/SDL/lib/x86" }
 		debugdir "../RecastDemo/Bin/"
-		links { 
+		links {
 			"glu32",
 			"opengl32",
 			"SDL2",
@@ -166,8 +168,8 @@ project "RecastDemo"
 		kind "ConsoleApp" -- xcode4 failes to run the project if using WindowedApp
 		includedirs { "/Library/Frameworks/SDL2.framework/Headers" }
 		buildoptions { "-std=c++14 -stdlib=libc++ -Weverything" }
-		links { 
-			"OpenGL.framework", 
+		links {
+			"OpenGL.framework",
 			"SDL2.framework",
 			"Cocoa.framework",
 		}
@@ -180,7 +182,7 @@ project "Tests"
 	exceptionhandling "On"
 	rtti "On"
 
-	includedirs { 
+	includedirs {
 		"../DebugUtils/Include",
 		"../Detour/Include",
 		"../DetourCrowd/Include",
@@ -190,7 +192,7 @@ project "Tests"
 		"../Tests/Recast",
 		"../Tests",
 	}
-	files	{ 
+	files	{
 		"../Tests/*.h",
 		"../Tests/*.hpp",
 		"../Tests/*.cpp",
@@ -199,7 +201,7 @@ project "Tests"
 	}
 
 	-- project dependencies
-	links { 
+	links {
 		"DebugUtils",
 		"Detour",
 		"DetourCrowd",
@@ -212,15 +214,15 @@ project "Tests"
 
 	-- linux library cflags and libs
 	configuration { "linux", "gmake" }
-		buildoptions { 
+		buildoptions {
 			"`pkg-config --cflags sdl2`",
 			"`pkg-config --cflags gl`",
-			"`pkg-config --cflags glu`" 
+			"`pkg-config --cflags glu`"
 		}
-		linkoptions { 
+		linkoptions {
 			"`pkg-config --libs sdl2`",
 			"`pkg-config --libs gl`",
-			"`pkg-config --libs glu`" 
+			"`pkg-config --libs glu`"
 		}
 
 	-- windows library cflags and libs
@@ -228,7 +230,7 @@ project "Tests"
 		includedirs { "../RecastDemo/Contrib/SDL/include" }
 		libdirs { "../RecastDemo/Contrib/SDL/lib/x86" }
 		debugdir "../RecastDemo/Bin/"
-		links { 
+		links {
 			"glu32",
 			"opengl32",
 			"SDL2",
@@ -240,8 +242,8 @@ project "Tests"
 		kind "ConsoleApp"
 		includedirs { "/Library/Frameworks/SDL2.framework/Headers" }
 		buildoptions { "-std=c++14 -stdlib=libc++ -Weverything" }
-		links { 
-			"OpenGL.framework", 
+		links {
+			"OpenGL.framework",
 			"SDL2.framework",
 			"Cocoa.framework",
 		}
