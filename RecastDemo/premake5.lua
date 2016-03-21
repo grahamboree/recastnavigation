@@ -6,6 +6,11 @@
 local action = _ACTION or ""
 local todir = "Build/" .. action
 
+newoption {
+   trigger     = "appveyor",
+   description = "Whether the project is being built on appveyor.",
+}
+
 solution "recastnavigation"
 	configurations {
 		"Debug",
@@ -51,8 +56,9 @@ project "DebugUtils"
 		"../DebugUtils/Include/*.h",
 		"../DebugUtils/Source/*.cpp"
 	}
-	configuration { "windows" }
+	configuration { "appveyor" }
 		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
+		flags { "StaticRuntime" }
 
 project "Detour"
 	language "C++"
@@ -64,6 +70,9 @@ project "Detour"
 		"../Detour/Include/*.h",
 		"../Detour/Source/*.cpp"
 	}
+	configuration { "appveyor" }
+		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
+		flags { "StaticRuntime" }
 
 project "DetourCrowd"
 	language "C++"
@@ -77,6 +86,9 @@ project "DetourCrowd"
 		"../DetourCrowd/Include/*.h",
 		"../DetourCrowd/Source/*.cpp"
 	}
+	configuration { "appveyor" }
+		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
+		flags { "StaticRuntime" }
 
 project "DetourTileCache"
 	language "C++"
@@ -90,6 +102,9 @@ project "DetourTileCache"
 		"../DetourTileCache/Include/*.h",
 		"../DetourTileCache/Source/*.cpp"
 	}
+	configuration { "appveyor" }
+		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
+		flags { "StaticRuntime" }
 
 project "Recast"
 	language "C++"
@@ -101,6 +116,9 @@ project "Recast"
 		"../Recast/Include/*.h",
 		"../Recast/Source/*.cpp"
 	}
+	configuration { "appveyor" }
+		toolset "v90" -- Compile with VS2008 toolchain to enforce C++03 compatibility.
+		flags { "StaticRuntime" }
 
 project "RecastDemo"
 	language "C++"
