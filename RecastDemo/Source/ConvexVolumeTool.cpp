@@ -122,6 +122,7 @@ void ConvexVolumeTool::reset()
 
 void ConvexVolumeTool::handleMenu()
 {
+#if false
 	imguiSlider("Shape Height", &m_boxHeight, 0.1f, 20.0f, 0.1f);
 	imguiSlider("Shape Descent", &m_boxDescent, 0.1f, 20.0f, 0.1f);
 	imguiSlider("Poly Offset", &m_polyOffset, 0.0f, 10.0f, 0.1f);
@@ -147,6 +148,7 @@ void ConvexVolumeTool::handleMenu()
 		m_npts = 0;
 		m_nhull = 0;
 	}
+#endif
 }
 
 void ConvexVolumeTool::handleClick(const float* /*s*/, const float* p, bool shift)
@@ -278,6 +280,7 @@ void ConvexVolumeTool::handleRender()
 
 void ConvexVolumeTool::handleRenderOverlay(double* /*proj*/, double* /*model*/, int* view)
 {
+#if false
 	// Tool help
 	const int h = view[3];
 	if (!m_npts)
@@ -289,5 +292,5 @@ void ConvexVolumeTool::handleRenderOverlay(double* /*proj*/, double* /*model*/, 
 		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "Click LMB to add new points. Click on the red point to finish the shape.", imguiRGBA(255,255,255,192));	
 		imguiDrawText(280, h-60, IMGUI_ALIGN_LEFT, "The shape will be convex hull of all added points.", imguiRGBA(255,255,255,192));	
 	}
-	
+#endif
 }

@@ -607,11 +607,13 @@ void drawDetailOverlay(const dtTileCache* tc, const int tx, const int ty, double
 					   model, proj, view, &x, &y, &z))
 		{
 			snprintf(text,128,"(%d,%d)/%d", tile->header->tx,tile->header->ty,tile->header->tlayer);
+#if 0
 			imguiDrawText((int)x, (int)y-25, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,220));
 			snprintf(text,128,"Compressed: %.1f kB", tile->dataSize/1024.0f);
 			imguiDrawText((int)x, (int)y-45, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,128));
 			snprintf(text,128,"Raw:%.1fkB", rawSize/1024.0f);
 			imguiDrawText((int)x, (int)y-65, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,128));
+#endif
 		}
 	}
 }
@@ -699,6 +701,7 @@ public:
 
 	virtual void handleMenu()
 	{
+#if false
 		imguiLabel("Highlight Tile Cache");
 		imguiValue("Click LMB to highlight a tile.");
 		imguiSeparator();
@@ -710,6 +713,7 @@ public:
 			m_drawType = DRAWDETAIL_CONTOURS;
 		if (imguiCheck("Draw Mesh", m_drawType == DRAWDETAIL_MESH))
 			m_drawType = DRAWDETAIL_MESH;
+#endif
 	}
 
 	virtual void handleClick(const float* /*s*/, const float* p, bool /*shift*/)
@@ -787,6 +791,7 @@ public:
 	
 	virtual void handleMenu()
 	{
+#if 0
 		imguiLabel("Create Temp Obstacles");
 		
 		if (imguiButton("Remove All"))
@@ -796,6 +801,7 @@ public:
 
 		imguiValue("Click LMB to create an obstacle.");
 		imguiValue("Shift+LMB to remove an obstacle.");
+#endif
 	}
 	
 	virtual void handleClick(const float* s, const float* p, bool shift)
@@ -852,7 +858,8 @@ Sample_TempObstacles::~Sample_TempObstacles()
 void Sample_TempObstacles::handleSettings()
 {
 	Sample::handleCommonSettings();
-
+	
+#if 0
 	if (imguiCheck("Keep Itermediate Results", m_keepInterResults))
 		m_keepInterResults = !m_keepInterResults;
 
@@ -933,12 +940,13 @@ void Sample_TempObstacles::handleSettings()
 	imguiUnindent();
 	
 	imguiSeparator();
+#endif
 }
 
 void Sample_TempObstacles::handleTools()
 {
 	int type = !m_tool ? TOOL_NONE : m_tool->type();
-
+#if 0
 	if (imguiCheck("Test Navmesh", type == TOOL_NAVMESH_TESTER))
 	{
 		setTool(new NavMeshTesterTool);
@@ -972,6 +980,7 @@ void Sample_TempObstacles::handleTools()
 		m_tool->handleMenu();
 
 	imguiUnindent();
+#endif
 }
 
 void Sample_TempObstacles::handleDebugMode()
@@ -999,7 +1008,7 @@ void Sample_TempObstacles::handleDebugMode()
 	
 	if (unavail == MAX_DRAWMODE)
 		return;
-	
+#if 0
 	imguiLabel("Draw");
 	if (imguiCheck("Input Mesh", m_drawMode == DRAWMODE_MESH, valid[DRAWMODE_MESH]))
 		m_drawMode = DRAWMODE_MESH;
@@ -1024,6 +1033,7 @@ void Sample_TempObstacles::handleDebugMode()
 		imguiValue("rebuild some tiles to see");
 		imguiValue("more debug mode options.");
 	}
+#endif
 }
 
 void Sample_TempObstacles::handleRender()

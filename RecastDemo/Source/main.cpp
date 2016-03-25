@@ -32,7 +32,7 @@
 #include <string>
 
 #include "imgui.h"
-#include "imguiRenderGL.h"
+#include "imgui_impl_sdl.h"
 
 #include "Recast.h"
 #include "RecastDebugDraw.h"
@@ -124,14 +124,10 @@ int main(int /*argc*/, char** /*argv*/)
 	}
 
 	SDL_SetWindowPosition(window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
-	SDL_GL_CreateContext(window);
-
-	if (!imguiRenderGLInit("DroidSans.ttf"))
-	{
-		printf("Could not init GUI renderer.\n");
-		SDL_Quit();
-		return -1;
-	}
+	SDL_GLContext glcontext = SDL_GL_CreateContext(window);
+	
+	// Setup ImGui binding
+	ImGui_ImplSdl_Init(window);
 	
 	float t = 0.0f;
 	float timeAcc = 0.0f;
@@ -204,6 +200,7 @@ int main(int /*argc*/, char** /*argv*/)
 		
 		while (SDL_PollEvent(&event))
 		{
+			ImGui_ImplSdl_ProcessEvent(&event);
 			switch (event.type)
 			{
 				case SDL_KEYDOWN:
@@ -342,12 +339,7 @@ int main(int /*argc*/, char** /*argv*/)
 					break;
 			}
 		}
-
-		unsigned char mouseButtonMask = 0;
-		if (SDL_GetMouseState(0, 0) & SDL_BUTTON_LMASK)
-			mouseButtonMask |= IMGUI_MBUT_LEFT;
-		if (SDL_GetMouseState(0, 0) & SDL_BUTTON_RMASK)
-			mouseButtonMask |= IMGUI_MBUT_RIGHT;
+		ImGui_ImplSdl_NewFrame(window);
 		
 		Uint32 time = SDL_GetTicks();
 		float dt = (time - prevFrameTime) / 1000.0f;
@@ -498,8 +490,6 @@ int main(int /*argc*/, char** /*argv*/)
 		
 		mouseOverMenu = false;
 		
-		imguiBeginFrame(mousePos[0], mousePos[1], mouseButtonMask, mouseScroll);
-		
 		if (sample)
 		{
 			sample->handleRenderOverlay((double*)projectionMatrix, (double*)modelviewMatrix, (int*)viewport);
@@ -513,10 +503,10 @@ int main(int /*argc*/, char** /*argv*/)
 		// Help text.
 		if (showMenu)
 		{
-			const char msg[] = "W/S/A/D: Move  RMB: Rotate";
-			imguiDrawText(280, height-20, IMGUI_ALIGN_LEFT, msg, imguiRGBA(255,255,255,128));
+			ImGui::Text("W/S/A/D: Move  RMB: Rotate");
+			//imguiDrawText(280, height-20, IMGUI_ALIGN_LEFT, msg, imguiRGBA(255,255,255,128));
 		}
-		
+#if 0
 		if (showMenu)
 		{
 			if (imguiBeginScrollArea("Properties", width-250-10, 10, 250, height-20, &propScroll))
@@ -904,16 +894,17 @@ int main(int /*argc*/, char** /*argv*/)
 			glEnd();
 			glLineWidth(1.0f);
 		}
+#endif
 		
-		imguiEndFrame();
-		imguiRenderGLDraw();		
+		ImGui::Render();
 		
 		glEnable(GL_DEPTH_TEST);
 		SDL_GL_SwapWindow(window);
 	}
 	
-	imguiRenderGLDestroy();
-	
+	ImGui_ImplSdl_Shutdown();
+	SDL_GL_DeleteContext(glcontext);
+	SDL_DestroyWindow(window);
 	SDL_Quit();
 	
 	delete sample;

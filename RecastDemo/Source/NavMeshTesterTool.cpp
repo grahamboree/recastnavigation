@@ -271,6 +271,7 @@ void NavMeshTesterTool::init(Sample* sample)
 
 void NavMeshTesterTool::handleMenu()
 {
+#if false
 	if (imguiCheck("Pathfind Follow", m_toolMode == TOOLMODE_PATHFIND_FOLLOW))
 	{
 		m_toolMode = TOOLMODE_PATHFIND_FOLLOW;
@@ -462,7 +463,8 @@ void NavMeshTesterTool::handleMenu()
 	}
 	imguiUnindent();
 
-	imguiSeparator();	
+	imguiSeparator();
+#endif
 }
 
 void NavMeshTesterTool::handleClick(const float* /*s*/, const float* p, bool shift)
@@ -1376,6 +1378,7 @@ void NavMeshTesterTool::handleRender()
 
 void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
+#if false
 	GLdouble x, y, z;
 	
 	// Draw start and end point labels
@@ -1392,7 +1395,8 @@ void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* vi
 	
 	// Tool help
 	const int h = view[3];
-	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB+SHIFT: Set start location  LMB: Set end location", imguiRGBA(255,255,255,192));	
+	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB+SHIFT: Set start location  LMB: Set end location", imguiRGBA(255,255,255,192));
+#endif
 }
 
 void NavMeshTesterTool::drawAgent(const float* pos, float r, float h, float c, const unsigned int col)

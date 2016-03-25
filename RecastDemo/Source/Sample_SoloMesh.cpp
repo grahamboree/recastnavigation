@@ -82,6 +82,7 @@ void Sample_SoloMesh::cleanup()
 			
 void Sample_SoloMesh::handleSettings()
 {
+#if false
 	Sample::handleCommonSettings();
 	
 	if (imguiCheck("Keep Itermediate Results", m_keepInterResults))
@@ -94,10 +95,12 @@ void Sample_SoloMesh::handleSettings()
 	imguiLabel(msg);
 	
 	imguiSeparator();
+#endif
 }
 
 void Sample_SoloMesh::handleTools()
 {
+#if false
 	int type = !m_tool ? TOOL_NONE : m_tool->type();
 	
 	if (imguiCheck("Test Navmesh", type == TOOL_NAVMESH_TESTER))
@@ -129,7 +132,7 @@ void Sample_SoloMesh::handleTools()
 		m_tool->handleMenu();
 
 	imguiUnindent();
-
+#endif
 }
 
 void Sample_SoloMesh::handleDebugMode()
@@ -167,6 +170,7 @@ void Sample_SoloMesh::handleDebugMode()
 	if (unavail == MAX_DRAWMODE)
 		return;
 
+#if false
 	imguiLabel("Draw");
 	if (imguiCheck("Input Mesh", m_drawMode == DRAWMODE_MESH, valid[DRAWMODE_MESH]))
 		m_drawMode = DRAWMODE_MESH;
@@ -208,6 +212,7 @@ void Sample_SoloMesh::handleDebugMode()
 		imguiValue("Tick 'Keep Itermediate Results'");
 		imguiValue("to see more debug mode options.");
 	}
+#endif
 }
 
 void Sample_SoloMesh::handleRender()

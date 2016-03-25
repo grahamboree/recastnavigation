@@ -102,6 +102,7 @@ public:
 
 	virtual void handleMenu()
 	{
+#if 0
 		imguiLabel("Create Tiles");
 		if (imguiButton("Create All"))
 		{
@@ -113,6 +114,7 @@ public:
 			if (m_sample)
 				m_sample->removeAllTiles();
 		}
+#endif
 	}
 
 	virtual void handleClick(const float* /*s*/, const float* p, bool shift)
@@ -155,6 +157,7 @@ public:
 	
 	virtual void handleRenderOverlay(double* proj, double* model, int* view)
 	{
+#if 0
 		GLdouble x, y, z;
 		if (m_hitPosSet && gluProject((GLdouble)m_hitPos[0], (GLdouble)m_hitPos[1], (GLdouble)m_hitPos[2],
 									  model, proj, view, &x, &y, &z))
@@ -168,7 +171,8 @@ public:
 		
 		// Tool help
 		const int h = view[3];
-		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", imguiRGBA(255,255,255,192));	
+		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", imguiRGBA(255,255,255,192));
+#endif
 	}
 };
 
@@ -353,7 +357,7 @@ dtNavMesh* Sample_TileMesh::loadAll(const char* path)
 void Sample_TileMesh::handleSettings()
 {
 	Sample::handleCommonSettings();
-
+#if 0
 	if (imguiCheck("Keep Itermediate Results", m_keepInterResults))
 		m_keepInterResults = !m_keepInterResults;
 
@@ -421,13 +425,14 @@ void Sample_TileMesh::handleSettings()
 	imguiSeparator();
 	
 	imguiSeparator();
-	
+#endif
 }
 
 void Sample_TileMesh::handleTools()
 {
 	int type = !m_tool ? TOOL_NONE : m_tool->type();
 
+#if 0
 	if (imguiCheck("Test Navmesh", type == TOOL_NAVMESH_TESTER))
 	{
 		setTool(new NavMeshTesterTool);
@@ -461,6 +466,7 @@ void Sample_TileMesh::handleTools()
 		m_tool->handleMenu();
 
 	imguiUnindent();
+#endif
 }
 
 void Sample_TileMesh::handleDebugMode()
@@ -498,7 +504,7 @@ void Sample_TileMesh::handleDebugMode()
 	
 	if (unavail == MAX_DRAWMODE)
 		return;
-	
+#if 0
 	imguiLabel("Draw");
 	if (imguiCheck("Input Mesh", m_drawMode == DRAWMODE_MESH, valid[DRAWMODE_MESH]))
 		m_drawMode = DRAWMODE_MESH;
@@ -543,6 +549,7 @@ void Sample_TileMesh::handleDebugMode()
 		imguiValue("rebuild some tiles to see");
 		imguiValue("more debug mode options.");
 	}
+#endif
 }
 
 void Sample_TileMesh::handleRender()
@@ -685,7 +692,9 @@ void Sample_TileMesh::handleRenderOverlay(double* proj, double* model, int* view
 	{
 		char text[32];
 		snprintf(text,32,"%.3fms / %dTris / %.1fkB", m_tileBuildTime, m_tileTriCount, m_tileMemUsage);
+#if 0
 		imguiDrawText((int)x, (int)y-25, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,220));
+#endif
 	}
 	
 	if (m_tool)

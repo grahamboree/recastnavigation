@@ -523,6 +523,7 @@ void CrowdToolState::handleRender()
 
 void CrowdToolState::handleRenderOverlay(double* proj, double* model, int* view)
 {
+#if 0
 	GLdouble x, y, z;
 	
 	// Draw start and end point labels
@@ -630,7 +631,7 @@ void CrowdToolState::handleRenderOverlay(double* proj, double* model, int* view)
 		gp.setValueRange(0.0f, 2000.0f, 1, "");
 		drawGraph(&gp, &m_crowdSampleCount, 0, "Sample Count", duRGBA(96,96,96,128));
 	}
-	
+#endif
 }
 
 void CrowdToolState::handleUpdate(const float dt)
@@ -896,6 +897,7 @@ void CrowdTool::handleMenu()
 		return;
 	CrowdToolParams* params = m_state->getToolParams();
 
+#if 0
 	if (imguiCheck("Create Agents", m_mode == TOOLMODE_CREATE))
 		m_mode = TOOLMODE_CREATE;
 	if (imguiCheck("Move Target", m_mode == TOOLMODE_MOVE_TARGET))
@@ -989,6 +991,7 @@ void CrowdTool::handleMenu()
 			params->m_showDetailAll = !params->m_showDetailAll;
 		imguiUnindent();
 	}
+#endif
 }
 
 void CrowdTool::handleClick(const float* s, const float* p, bool shift)
@@ -1079,7 +1082,7 @@ void CrowdTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
 	rcIgnoreUnused(model);
 	rcIgnoreUnused(proj);
-
+#if 0
 	// Tool help
 	const int h = view[3];
 	int ty = h-40;
@@ -1105,5 +1108,6 @@ void CrowdTool::handleRenderOverlay(double* proj, double* model, int* view)
 	if (m_state && m_state->isRunning())
 		imguiDrawText(280, ty, IMGUI_ALIGN_LEFT, "- RUNNING -", imguiRGBA(255,32,16,255));	
 	else 
-		imguiDrawText(280, ty, IMGUI_ALIGN_LEFT, "- PAUSED -", imguiRGBA(255,255,255,128));	
+		imguiDrawText(280, ty, IMGUI_ALIGN_LEFT, "- PAUSED -", imguiRGBA(255,255,255,128));
+#endif
 }

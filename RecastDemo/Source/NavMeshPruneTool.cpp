@@ -245,6 +245,7 @@ void NavMeshPruneTool::reset()
 
 void NavMeshPruneTool::handleMenu()
 {
+#if false
 	dtNavMesh* nav = m_sample->getNavMesh();
 	if (!nav) return;
 	if (!m_flags) return;
@@ -260,6 +261,7 @@ void NavMeshPruneTool::handleMenu()
 		delete m_flags;
 		m_flags = 0;
 	}
+#endif
 }
 
 void NavMeshPruneTool::handleClick(const float* s, const float* p, bool shift)
@@ -350,6 +352,7 @@ void NavMeshPruneTool::handleRenderOverlay(double* proj, double* model, int* vie
 
 	// Tool help
 	const int h = view[3];
-
+#if false
 	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Click fill area.", imguiRGBA(255,255,255,192));
+#endif
 }
