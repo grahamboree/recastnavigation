@@ -122,33 +122,39 @@ void ConvexVolumeTool::reset()
 
 void ConvexVolumeTool::handleMenu()
 {
-#if false
-	imguiSlider("Shape Height", &m_boxHeight, 0.1f, 20.0f, 0.1f);
-	imguiSlider("Shape Descent", &m_boxDescent, 0.1f, 20.0f, 0.1f);
-	imguiSlider("Poly Offset", &m_polyOffset, 0.0f, 10.0f, 0.1f);
+	ImGui::SliderFloat("Shape Height", &m_boxHeight, 0.1f, 20.0f);
+	ImGui::SliderFloat("Shape Descent", &m_boxDescent, 0.1f, 20.0f);
+	ImGui::SliderFloat("Poly Offset", &m_polyOffset, 0.0f, 10.0f);
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	imguiLabel("Area Type");
-	imguiIndent();
-	if (imguiCheck("Grass", m_areaType == SAMPLE_POLYAREA_GRASS))
+	ImGui::Text("Area Type");
+	ImGui::Indent();
+	if (ImGui::RadioButton("Grass", m_areaType == SAMPLE_POLYAREA_GRASS))
+	{
 		m_areaType = SAMPLE_POLYAREA_GRASS;
-	if (imguiCheck("Road", m_areaType == SAMPLE_POLYAREA_ROAD))
+	}
+	if (ImGui::RadioButton("Road", m_areaType == SAMPLE_POLYAREA_ROAD))
+	{
 		m_areaType = SAMPLE_POLYAREA_ROAD;
-	if (imguiCheck("Water", m_areaType == SAMPLE_POLYAREA_WATER))
+	}
+	if (ImGui::RadioButton("Water", m_areaType == SAMPLE_POLYAREA_WATER))
+	{
 		m_areaType = SAMPLE_POLYAREA_WATER;
-	if (imguiCheck("Door", m_areaType == SAMPLE_POLYAREA_DOOR))
+	}
+	if (ImGui::RadioButton("Door", m_areaType == SAMPLE_POLYAREA_DOOR))
+	{
 		m_areaType = SAMPLE_POLYAREA_DOOR;
-	imguiUnindent();
+	}
+	ImGui::Unindent();
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiButton("Clear Shape"))
+	if (ImGui::Button("Clear Shape"))
 	{
 		m_npts = 0;
 		m_nhull = 0;
 	}
-#endif
 }
 
 void ConvexVolumeTool::handleClick(const float* /*s*/, const float* p, bool shift)
@@ -280,7 +286,7 @@ void ConvexVolumeTool::handleRender()
 
 void ConvexVolumeTool::handleRenderOverlay(double* /*proj*/, double* /*model*/, int* view)
 {
-#if false
+#if 0 // TODO Screenspace text rendering.
 	// Tool help
 	const int h = view[3];
 	if (!m_npts)

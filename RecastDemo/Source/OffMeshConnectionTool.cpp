@@ -73,12 +73,14 @@ void OffMeshConnectionTool::reset()
 
 void OffMeshConnectionTool::handleMenu()
 {
-#if false
-	if (imguiCheck("One Way", !m_bidir))
+	if (ImGui::RadioButton("One Way", !m_bidir))
+	{
 		m_bidir = false;
-	if (imguiCheck("Bidirectional", m_bidir))
+	}
+	if (ImGui::RadioButton("Bidirectional", m_bidir))
+	{
 		m_bidir = true;
-#endif
+	}
 }
 
 void OffMeshConnectionTool::handleClick(const float* /*s*/, const float* p, bool shift)
@@ -157,7 +159,7 @@ void OffMeshConnectionTool::handleRender()
 
 void OffMeshConnectionTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
-#if false
+#if false // Screenspace text rendering
 	GLdouble x, y, z;
 	
 	// Draw start and end point labels

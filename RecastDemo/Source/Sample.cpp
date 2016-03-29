@@ -165,56 +165,59 @@ void Sample::resetCommonSettings()
 
 void Sample::handleCommonSettings()
 {
-#if false
-	imguiLabel("Rasterization");
-	imguiSlider("Cell Size", &m_cellSize, 0.1f, 1.0f, 0.01f);
-	imguiSlider("Cell Height", &m_cellHeight, 0.1f, 1.0f, 0.01f);
+	ImGui::Text("Rasterization");
+	ImGui::SliderFloat("Cell Size", &m_cellSize, 0.1f, 1.0f);
+	ImGui::SliderFloat("Cell Height", &m_cellHeight, 0.1f, 1.0f);
 	
 	if (m_geom)
 	{
 		const float* bmin = m_geom->getNavMeshBoundsMin();
 		const float* bmax = m_geom->getNavMeshBoundsMax();
-		int gw = 0, gh = 0;
+		int gw = 0;
+		int gh = 0;
 		rcCalcGridSize(bmin, bmax, m_cellSize, &gw, &gh);
-		char text[64];
-		snprintf(text, 64, "Voxels  %d x %d", gw, gh);
-		imguiValue(text);
+		ImGui::Text("Voxels  %d x %d", gw, gh);
 	}
 	
-	imguiSeparator();
-	imguiLabel("Agent");
-	imguiSlider("Height", &m_agentHeight, 0.1f, 5.0f, 0.1f);
-	imguiSlider("Radius", &m_agentRadius, 0.0f, 5.0f, 0.1f);
-	imguiSlider("Max Climb", &m_agentMaxClimb, 0.1f, 5.0f, 0.1f);
-	imguiSlider("Max Slope", &m_agentMaxSlope, 0.0f, 90.0f, 1.0f);
+	ImGui::Spacing();
+	ImGui::Text("Agent");
+	ImGui::SliderFloat("Height", &m_agentHeight, 0.1f, 5.0f);
+	ImGui::SliderFloat("Radius", &m_agentRadius, 0.0f, 5.0f);
+	ImGui::SliderFloat("Max Climb", &m_agentMaxClimb, 0.1f, 5.0f);
+	ImGui::SliderFloat("Max Slope", &m_agentMaxSlope, 0.0f, 90.0f);
 	
-	imguiSeparator();
-	imguiLabel("Region");
-	imguiSlider("Min Region Size", &m_regionMinSize, 0.0f, 150.0f, 1.0f);
-	imguiSlider("Merged Region Size", &m_regionMergeSize, 0.0f, 150.0f, 1.0f);
+	ImGui::Spacing();
+	ImGui::Text("Region");
+	ImGui::SliderFloat("Min Region Size", &m_regionMinSize, 0.0f, 150.0f);
+	ImGui::SliderFloat("Merged Region Size", &m_regionMergeSize, 0.0f, 150.0f);
 
-	imguiSeparator();
-	imguiLabel("Partitioning");
-	if (imguiCheck("Watershed", m_partitionType == SAMPLE_PARTITION_WATERSHED))
+	ImGui::Spacing();
+	ImGui::Text("Partitioning");
+	if (ImGui::RadioButton("Watershed", m_partitionType == SAMPLE_PARTITION_WATERSHED))
+	{
 		m_partitionType = SAMPLE_PARTITION_WATERSHED;
-	if (imguiCheck("Monotone", m_partitionType == SAMPLE_PARTITION_MONOTONE))
+	}
+	if (ImGui::RadioButton("Monotone", m_partitionType == SAMPLE_PARTITION_MONOTONE))
+	{
 		m_partitionType = SAMPLE_PARTITION_MONOTONE;
-	if (imguiCheck("Layers", m_partitionType == SAMPLE_PARTITION_LAYERS))
+	}
+	if (ImGui::RadioButton("Layers", m_partitionType == SAMPLE_PARTITION_LAYERS))
+	{
 		m_partitionType = SAMPLE_PARTITION_LAYERS;
+	}
 	
-	imguiSeparator();
-	imguiLabel("Polygonization");
-	imguiSlider("Max Edge Length", &m_edgeMaxLen, 0.0f, 50.0f, 1.0f);
-	imguiSlider("Max Edge Error", &m_edgeMaxError, 0.1f, 3.0f, 0.1f);
-	imguiSlider("Verts Per Poly", &m_vertsPerPoly, 3.0f, 12.0f, 1.0f);		
+	ImGui::Spacing();
+	ImGui::Text("Polygonization");
+	ImGui::SliderFloat("Max Edge Length", &m_edgeMaxLen, 0.0f, 50.0f);
+	ImGui::SliderFloat("Max Edge Error", &m_edgeMaxError, 0.1f, 3.0f);
+	ImGui::SliderFloat("Verts Per Poly", &m_vertsPerPoly, 3.0f, 12.0f);		
 
-	imguiSeparator();
-	imguiLabel("Detail Mesh");
-	imguiSlider("Sample Distance", &m_detailSampleDist, 0.0f, 16.0f, 1.0f);
-	imguiSlider("Max Sample Error", &m_detailSampleMaxError, 0.0f, 16.0f, 1.0f);
+	ImGui::Spacing();
+	ImGui::Text("Detail Mesh");
+	ImGui::SliderFloat("Sample Distance", &m_detailSampleDist, 0.0f, 16.0f);
+	ImGui::SliderFloat("Max Sample Error", &m_detailSampleMaxError, 0.0f, 16.0f);
 	
-	imguiSeparator();
-#endif
+	ImGui::Spacing();
 }
 
 void Sample::handleClick(const float* s, const float* p, bool shift)

@@ -387,7 +387,6 @@ void TestCase::handleRender()
 
 bool TestCase::handleRenderOverlay(double* proj, double* model, int* view)
 {
-#if false
 	GLdouble x, y, z;
 	char text[64], subtext[64];
 	int n = 0;
@@ -419,49 +418,46 @@ bool TestCase::handleRenderOverlay(double* proj, double* model, int* view)
 		if (gluProject((GLdouble)pt[0], (GLdouble)pt[1], (GLdouble)pt[2],
 					   model, proj, view, &x, &y, &z))
 		{
-			snprintf(text, 64, "Path %d\n", n);
-			unsigned int col = imguiRGBA(0,0,0,128);
+			ImColor col(0, 0, 0, 128);
 			if (iter->expand)
-				col = imguiRGBA(255,192,0,220);
-			imguiDrawText((int)x, (int)(y-25), IMGUI_ALIGN_CENTER, text, col);
+				col = ImColor(255,192,0,220);
+			
+#if 0		// TODO direct, screenspace text rendering.
+			ImGui::SetNextWindowPos(ImVec2((int)x, (int)(y - 25)));
+			ImGui::Begin("", 0, ImVec2(), 0,
+						 ImGuiWindowFlags_NoMove |
+						 ImGuiWindowFlags_NoResize |
+						 ImGuiWindowFlags_NoSavedSettings);
+			ImGui::TextColored(col, "Path %d\n", n);
+			ImGui::End();
+#endif
 		}
 		n++;
 	}
 	
-	static int resScroll = 0;
-	bool mouseOverMenu = imguiBeginScrollArea("Test Results", 10, view[3] - 10 - 350, 200, 350, &resScroll);
-//		mouseOverMenu = true;
-		
+	ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiSetCond_Once);
+	ImGui::SetNextWindowSize(ImVec2(200, 350), ImGuiSetCond_Once);
+	ImGui::Begin("Test Results");
+	
 	n = 0;
 	for (Test* iter = m_tests; iter; iter = iter->next)
 	{
 		const int total = iter->findNearestPolyTime + iter->findPathTime + iter->findStraightPathTime;
 		snprintf(subtext, 64, "%.4f ms", (float)total/1000.0f);
 		snprintf(text, 64, "Path %d", n);
-		
-		if (imguiCollapse(text, subtext, iter->expand))
-			iter->expand = !iter->expand;
-		if (iter->expand)
+	
+		// TODO (graham): subtext
+		if (ImGui::CollapsingHeader(text))
 		{
-			snprintf(text, 64, "Poly: %.4f ms", (float)iter->findNearestPolyTime/1000.0f);
-			imguiValue(text);
-
-			snprintf(text, 64, "Path: %.4f ms", (float)iter->findPathTime/1000.0f);
-			imguiValue(text);
-
-			snprintf(text, 64, "Straight: %.4f ms", (float)iter->findStraightPathTime/1000.0f);
-			imguiValue(text);
-			
-			imguiSeparator();
+			ImGui::Text("Poly: %.4f ms", (float)iter->findNearestPolyTime / 1000.0f);
+			ImGui::Text("Path: %.4f ms", (float)iter->findPathTime / 1000.0f);
+			ImGui::Text("Straight: %.4f ms", (float)iter->findStraightPathTime / 1000.0f);
 		}
 		
 		n++;
 	}
 
-	imguiEndScrollArea();
+	ImGui::End();
 	
-	return mouseOverMenu;
-#else
-	return false;
-#endif
+	return ImGui::IsMouseHoveringAnyWindow();
 }

@@ -271,85 +271,85 @@ void NavMeshTesterTool::init(Sample* sample)
 
 void NavMeshTesterTool::handleMenu()
 {
-#if false
-	if (imguiCheck("Pathfind Follow", m_toolMode == TOOLMODE_PATHFIND_FOLLOW))
+	if (ImGui::RadioButton("Pathfind Follow", m_toolMode == TOOLMODE_PATHFIND_FOLLOW))
 	{
 		m_toolMode = TOOLMODE_PATHFIND_FOLLOW;
 		recalc();
 	}
-	if (imguiCheck("Pathfind Straight", m_toolMode == TOOLMODE_PATHFIND_STRAIGHT))
+	if (ImGui::RadioButton("Pathfind Straight", m_toolMode == TOOLMODE_PATHFIND_STRAIGHT))
 	{
 		m_toolMode = TOOLMODE_PATHFIND_STRAIGHT;
 		recalc();
 	}
+
 	if (m_toolMode == TOOLMODE_PATHFIND_STRAIGHT)
 	{
-		imguiIndent();
-		imguiLabel("Vertices at crossings");
-		if (imguiCheck("None", m_straightPathOptions == 0))
+		ImGui::Indent();
+		ImGui::Text("Vertices at crossings");
+		if (ImGui::RadioButton("None", m_straightPathOptions == 0))
 		{
 			m_straightPathOptions = 0;
 			recalc();
 		}
-		if (imguiCheck("Area", m_straightPathOptions == DT_STRAIGHTPATH_AREA_CROSSINGS))
+		if (ImGui::RadioButton("Area", m_straightPathOptions == DT_STRAIGHTPATH_AREA_CROSSINGS))
 		{
 			m_straightPathOptions = DT_STRAIGHTPATH_AREA_CROSSINGS;
 			recalc();
 		}
-		if (imguiCheck("All", m_straightPathOptions == DT_STRAIGHTPATH_ALL_CROSSINGS))
+		if (ImGui::RadioButton("All", m_straightPathOptions == DT_STRAIGHTPATH_ALL_CROSSINGS))
 		{
 			m_straightPathOptions = DT_STRAIGHTPATH_ALL_CROSSINGS;
 			recalc();
 		}
 
-		imguiUnindent();
+		ImGui::Unindent();
 	}
-	if (imguiCheck("Pathfind Sliced", m_toolMode == TOOLMODE_PATHFIND_SLICED))
+	if (ImGui::RadioButton("Pathfind Sliced", m_toolMode == TOOLMODE_PATHFIND_SLICED))
 	{
 		m_toolMode = TOOLMODE_PATHFIND_SLICED;
 		recalc();
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiCheck("Distance to Wall", m_toolMode == TOOLMODE_DISTANCE_TO_WALL))
+	if (ImGui::RadioButton("Distance to Wall", m_toolMode == TOOLMODE_DISTANCE_TO_WALL))
 	{
 		m_toolMode = TOOLMODE_DISTANCE_TO_WALL;
 		recalc();
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiCheck("Raycast", m_toolMode == TOOLMODE_RAYCAST))
+	if (ImGui::RadioButton("Raycast", m_toolMode == TOOLMODE_RAYCAST))
 	{
 		m_toolMode = TOOLMODE_RAYCAST;
 		recalc();
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiCheck("Find Polys in Circle", m_toolMode == TOOLMODE_FIND_POLYS_IN_CIRCLE))
+	if (ImGui::RadioButton("Find Polys in Circle", m_toolMode == TOOLMODE_FIND_POLYS_IN_CIRCLE))
 	{
 		m_toolMode = TOOLMODE_FIND_POLYS_IN_CIRCLE;
 		recalc();
 	}
-	if (imguiCheck("Find Polys in Shape", m_toolMode == TOOLMODE_FIND_POLYS_IN_SHAPE))
+	if (ImGui::RadioButton("Find Polys in Shape", m_toolMode == TOOLMODE_FIND_POLYS_IN_SHAPE))
 	{
 		m_toolMode = TOOLMODE_FIND_POLYS_IN_SHAPE;
 		recalc();
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiCheck("Find Local Neighbourhood", m_toolMode == TOOLMODE_FIND_LOCAL_NEIGHBOURHOOD))
+	if (ImGui::RadioButton("Find Local Neighbourhood", m_toolMode == TOOLMODE_FIND_LOCAL_NEIGHBOURHOOD))
 	{
 		m_toolMode = TOOLMODE_FIND_LOCAL_NEIGHBOURHOOD;
 		recalc();
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 	
-	if (imguiButton("Set Random Start"))
+	if (ImGui::Button("Set Random Start"))
 	{
 		dtStatus status = m_navQuery->findRandomPoint(&m_filter, frand, &m_startRef, m_spos);
 		if (dtStatusSucceed(status))
@@ -358,7 +358,7 @@ void NavMeshTesterTool::handleMenu()
 			recalc();
 		}
 	}
-	if (imguiButton("Set Random End", m_sposSet))
+	if (m_sposSet && ImGui::Button("Set Random End"))
 	{
 		if (m_sposSet)
 		{
@@ -371,9 +371,9 @@ void NavMeshTesterTool::handleMenu()
 		}
 	}
 
-	imguiSeparator();
+	ImGui::Spacing();
 
-	if (imguiButton("Make Random Points"))
+	if (ImGui::Button("Make Random Points"))
 	{
 		m_randPointsInCircle = false;
 		m_nrandPoints = 0;
@@ -389,7 +389,8 @@ void NavMeshTesterTool::handleMenu()
 			}
 		}
 	}
-	if (imguiButton("Make Random Points Around", m_sposSet))
+
+	if (m_sposSet && ImGui::Button("Make Random Points Around"))
 	{
 		if (m_sposSet)
 		{
@@ -409,62 +410,42 @@ void NavMeshTesterTool::handleMenu()
 		}
 	}
 
+	ImGui::Spacing();
+
+	ImGui::Text("Include Flags");
+
+	ImGui::Indent();
+	// TODO (graham): Make sure this still works....
+	unsigned int includeFlags = m_filter.getIncludeFlags();
+	ImGui::CheckboxFlags("Walk", &includeFlags, SAMPLE_POLYFLAGS_WALK);
+	ImGui::CheckboxFlags("Swim", &includeFlags, SAMPLE_POLYFLAGS_SWIM);
+	ImGui::CheckboxFlags("Door", &includeFlags, SAMPLE_POLYFLAGS_DOOR);
+	ImGui::CheckboxFlags("Jump", &includeFlags, SAMPLE_POLYFLAGS_JUMP);
+	if (includeFlags != m_filter.getIncludeFlags()) {
+		m_filter.setIncludeFlags(includeFlags);
+		recalc();
+	}
+
+	ImGui::Unindent();
+
+	ImGui::Spacing();
+	ImGui::Text("Exclude Flags");
 	
-	imguiSeparator();
+	ImGui::Indent();
+	// TODO (graham): Make sure this still works....
+	unsigned int excludeFlags = m_filter.getExcludeFlags();
+	ImGui::CheckboxFlags("Walk", &excludeFlags, SAMPLE_POLYFLAGS_WALK);
+	ImGui::CheckboxFlags("Swim", &excludeFlags, SAMPLE_POLYFLAGS_SWIM);
+	ImGui::CheckboxFlags("Door", &excludeFlags, SAMPLE_POLYFLAGS_DOOR);
+	ImGui::CheckboxFlags("Jump", &excludeFlags, SAMPLE_POLYFLAGS_JUMP);
+	if (excludeFlags != m_filter.getExcludeFlags())
+	{
+		m_filter.setExcludeFlags(excludeFlags);
+		recalc();
+	}
+	ImGui::Unindent();
 
-	imguiLabel("Include Flags");
-
-	imguiIndent();
-	if (imguiCheck("Walk", (m_filter.getIncludeFlags() & SAMPLE_POLYFLAGS_WALK) != 0))
-	{
-		m_filter.setIncludeFlags(m_filter.getIncludeFlags() ^ SAMPLE_POLYFLAGS_WALK);
-		recalc();
-	}
-	if (imguiCheck("Swim", (m_filter.getIncludeFlags() & SAMPLE_POLYFLAGS_SWIM) != 0))
-	{
-		m_filter.setIncludeFlags(m_filter.getIncludeFlags() ^ SAMPLE_POLYFLAGS_SWIM);
-		recalc();
-	}
-	if (imguiCheck("Door", (m_filter.getIncludeFlags() & SAMPLE_POLYFLAGS_DOOR) != 0))
-	{
-		m_filter.setIncludeFlags(m_filter.getIncludeFlags() ^ SAMPLE_POLYFLAGS_DOOR);
-		recalc();
-	}
-	if (imguiCheck("Jump", (m_filter.getIncludeFlags() & SAMPLE_POLYFLAGS_JUMP) != 0))
-	{
-		m_filter.setIncludeFlags(m_filter.getIncludeFlags() ^ SAMPLE_POLYFLAGS_JUMP);
-		recalc();
-	}
-	imguiUnindent();
-
-	imguiSeparator();
-	imguiLabel("Exclude Flags");
-	
-	imguiIndent();
-	if (imguiCheck("Walk", (m_filter.getExcludeFlags() & SAMPLE_POLYFLAGS_WALK) != 0))
-	{
-		m_filter.setExcludeFlags(m_filter.getExcludeFlags() ^ SAMPLE_POLYFLAGS_WALK);
-		recalc();
-	}
-	if (imguiCheck("Swim", (m_filter.getExcludeFlags() & SAMPLE_POLYFLAGS_SWIM) != 0))
-	{
-		m_filter.setExcludeFlags(m_filter.getExcludeFlags() ^ SAMPLE_POLYFLAGS_SWIM);
-		recalc();
-	}
-	if (imguiCheck("Door", (m_filter.getExcludeFlags() & SAMPLE_POLYFLAGS_DOOR) != 0))
-	{
-		m_filter.setExcludeFlags(m_filter.getExcludeFlags() ^ SAMPLE_POLYFLAGS_DOOR);
-		recalc();
-	}
-	if (imguiCheck("Jump", (m_filter.getExcludeFlags() & SAMPLE_POLYFLAGS_JUMP) != 0))
-	{
-		m_filter.setExcludeFlags(m_filter.getExcludeFlags() ^ SAMPLE_POLYFLAGS_JUMP);
-		recalc();
-	}
-	imguiUnindent();
-
-	imguiSeparator();
-#endif
+	ImGui::Spacing();
 }
 
 void NavMeshTesterTool::handleClick(const float* /*s*/, const float* p, bool shift)
@@ -1378,7 +1359,7 @@ void NavMeshTesterTool::handleRender()
 
 void NavMeshTesterTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
-#if false
+#if 0 // Screenspace text rendering.
 	GLdouble x, y, z;
 	
 	// Draw start and end point labels

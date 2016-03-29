@@ -29,7 +29,7 @@
 
 struct CrowdToolParams
 {
-	bool m_expandSelectedDebugDraw;
+	// Selected debug draw.
 	bool m_showCorners;
 	bool m_showCollisionSegments;
 	bool m_showPath;
@@ -37,14 +37,14 @@ struct CrowdToolParams
 	bool m_showOpt;
 	bool m_showNeis;
 	
-	bool m_expandDebugDraw;
+	// Debug draw.
 	bool m_showLabels;
 	bool m_showGrid;
 	bool m_showNodes;
 	bool m_showPerfGraph;
 	bool m_showDetailAll;
 	
-	bool m_expandOptions;
+	// Options.
 	bool m_anticipateTurns;
 	bool m_optimizeVis;
 	bool m_optimizeTopo;

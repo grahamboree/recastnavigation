@@ -245,23 +245,27 @@ void NavMeshPruneTool::reset()
 
 void NavMeshPruneTool::handleMenu()
 {
-#if false
 	dtNavMesh* nav = m_sample->getNavMesh();
-	if (!nav) return;
-	if (!m_flags) return;
+	if (!nav)
+	{
+		return;
+	}
+	if (!m_flags)
+	{
+		return;
+	}
 
-	if (imguiButton("Clear Selection"))
+	if (ImGui::Button("Clear Selection"))
 	{
 		m_flags->clearAllFlags();
 	}
 	
-	if (imguiButton("Prune Unselected"))
+	if (ImGui::Button("Prune Unselected"))
 	{
 		disableUnvisitedPolys(nav, m_flags);
 		delete m_flags;
 		m_flags = 0;
 	}
-#endif
 }
 
 void NavMeshPruneTool::handleClick(const float* s, const float* p, bool shift)
@@ -352,7 +356,7 @@ void NavMeshPruneTool::handleRenderOverlay(double* proj, double* model, int* vie
 
 	// Tool help
 	const int h = view[3];
-#if false
+#if 0 // Screenspace text rendering.
 	imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Click fill area.", imguiRGBA(255,255,255,192));
 #endif
 }

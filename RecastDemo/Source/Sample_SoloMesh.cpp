@@ -82,57 +82,51 @@ void Sample_SoloMesh::cleanup()
 			
 void Sample_SoloMesh::handleSettings()
 {
-#if false
 	Sample::handleCommonSettings();
 	
-	if (imguiCheck("Keep Itermediate Results", m_keepInterResults))
+	if (ImGui::Checkbox("Keep Itermediate Results", &m_keepInterResults))
 		m_keepInterResults = !m_keepInterResults;
 
-	imguiSeparator();
+	ImGui::Spacing();
 	
-	char msg[64];
-	snprintf(msg, 64, "Build Time: %.1fms", m_totalBuildTimeMs);
-	imguiLabel(msg);
+	ImGui::Text("Build Time: %.1fms", m_totalBuildTimeMs);
 	
-	imguiSeparator();
-#endif
+	ImGui::Spacing();
 }
 
 void Sample_SoloMesh::handleTools()
 {
-#if false
 	int type = !m_tool ? TOOL_NONE : m_tool->type();
 	
-	if (imguiCheck("Test Navmesh", type == TOOL_NAVMESH_TESTER))
+	if (ImGui::RadioButton("Test Navmesh", type == TOOL_NAVMESH_TESTER))
 	{
 		setTool(new NavMeshTesterTool);
 	}
-	if (imguiCheck("Prune Navmesh", type == TOOL_NAVMESH_PRUNE))
+	if (ImGui::RadioButton("Prune Navmesh", type == TOOL_NAVMESH_PRUNE))
 	{
 		setTool(new NavMeshPruneTool);
 	}
-	if (imguiCheck("Create Off-Mesh Connections", type == TOOL_OFFMESH_CONNECTION))
+	if (ImGui::RadioButton("Create Off-Mesh Connections", type == TOOL_OFFMESH_CONNECTION))
 	{
 		setTool(new OffMeshConnectionTool);
 	}
-	if (imguiCheck("Create Convex Volumes", type == TOOL_CONVEX_VOLUME))
+	if (ImGui::RadioButton("Create Convex Volumes", type == TOOL_CONVEX_VOLUME))
 	{
 		setTool(new ConvexVolumeTool);
 	}
-	if (imguiCheck("Create Crowds", type == TOOL_CROWD))
+	if (ImGui::RadioButton("Create Crowds", type == TOOL_CROWD))
 	{
 		setTool(new CrowdTool);
 	}
 	
-	imguiSeparatorLine();
+	ImGui::Separator();
 
-	imguiIndent();
-
+	ImGui::Indent();
+	
 	if (m_tool)
 		m_tool->handleMenu();
 
-	imguiUnindent();
-#endif
+	ImGui::Unindent();
 }
 
 void Sample_SoloMesh::handleDebugMode()
@@ -140,7 +134,9 @@ void Sample_SoloMesh::handleDebugMode()
 	// Check which modes are valid.
 	bool valid[MAX_DRAWMODE];
 	for (int i = 0; i < MAX_DRAWMODE; ++i)
+	{
 		valid[i] = false;
+	}
 
 	if (m_geom)
 	{
@@ -165,54 +161,93 @@ void Sample_SoloMesh::handleDebugMode()
 	
 	int unavail = 0;
 	for (int i = 0; i < MAX_DRAWMODE; ++i)
-		if (!valid[i]) unavail++;
+	{
+		if (!valid[i])
+		{
+			unavail++;
+		}
+	}
 
 	if (unavail == MAX_DRAWMODE)
+	{
 		return;
+	}
 
-#if false
-	imguiLabel("Draw");
-	if (imguiCheck("Input Mesh", m_drawMode == DRAWMODE_MESH, valid[DRAWMODE_MESH]))
+	ImGui::Text("Draw");
+	
+	if (valid[DRAWMODE_MESH] && ImGui::RadioButton("Input Mesh", m_drawMode == DRAWMODE_MESH))
+	{
 		m_drawMode = DRAWMODE_MESH;
-	if (imguiCheck("Navmesh", m_drawMode == DRAWMODE_NAVMESH, valid[DRAWMODE_NAVMESH]))
+	}
+	if (valid[DRAWMODE_NAVMESH] && ImGui::RadioButton("Navmesh", m_drawMode == DRAWMODE_NAVMESH))
+	{
 		m_drawMode = DRAWMODE_NAVMESH;
-	if (imguiCheck("Navmesh Invis", m_drawMode == DRAWMODE_NAVMESH_INVIS, valid[DRAWMODE_NAVMESH_INVIS]))
+	}
+	if (valid[DRAWMODE_NAVMESH_INVIS] && ImGui::RadioButton("Navmesh Invis", m_drawMode == DRAWMODE_NAVMESH_INVIS))
+	{
 		m_drawMode = DRAWMODE_NAVMESH_INVIS;
-	if (imguiCheck("Navmesh Trans", m_drawMode == DRAWMODE_NAVMESH_TRANS, valid[DRAWMODE_NAVMESH_TRANS]))
+	}
+	if (valid[DRAWMODE_NAVMESH_TRANS] && ImGui::RadioButton("Navmesh Trans", m_drawMode == DRAWMODE_NAVMESH_TRANS))
+	{
 		m_drawMode = DRAWMODE_NAVMESH_TRANS;
-	if (imguiCheck("Navmesh BVTree", m_drawMode == DRAWMODE_NAVMESH_BVTREE, valid[DRAWMODE_NAVMESH_BVTREE]))
+	}
+	if (valid[DRAWMODE_NAVMESH_BVTREE] && ImGui::RadioButton("Navmesh BVTree", m_drawMode == DRAWMODE_NAVMESH_BVTREE))
+	{
 		m_drawMode = DRAWMODE_NAVMESH_BVTREE;
-	if (imguiCheck("Navmesh Nodes", m_drawMode == DRAWMODE_NAVMESH_NODES, valid[DRAWMODE_NAVMESH_NODES]))
+	}
+	if (valid[DRAWMODE_NAVMESH_NODES] && ImGui::RadioButton("Navmesh Nodes", m_drawMode == DRAWMODE_NAVMESH_NODES))
+	{
 		m_drawMode = DRAWMODE_NAVMESH_NODES;
-	if (imguiCheck("Voxels", m_drawMode == DRAWMODE_VOXELS, valid[DRAWMODE_VOXELS]))
+	}
+	if (valid[DRAWMODE_VOXELS] && ImGui::RadioButton("Voxels", m_drawMode == DRAWMODE_VOXELS))
+	{
 		m_drawMode = DRAWMODE_VOXELS;
-	if (imguiCheck("Walkable Voxels", m_drawMode == DRAWMODE_VOXELS_WALKABLE, valid[DRAWMODE_VOXELS_WALKABLE]))
+	}
+	if (valid[DRAWMODE_VOXELS_WALKABLE] && ImGui::RadioButton("Walkable Voxels", m_drawMode == DRAWMODE_VOXELS_WALKABLE))
+	{
 		m_drawMode = DRAWMODE_VOXELS_WALKABLE;
-	if (imguiCheck("Compact", m_drawMode == DRAWMODE_COMPACT, valid[DRAWMODE_COMPACT]))
+	}
+	if (valid[DRAWMODE_COMPACT] && ImGui::RadioButton("Compact", m_drawMode == DRAWMODE_COMPACT))
+	{
 		m_drawMode = DRAWMODE_COMPACT;
-	if (imguiCheck("Compact Distance", m_drawMode == DRAWMODE_COMPACT_DISTANCE, valid[DRAWMODE_COMPACT_DISTANCE]))
+	}
+	if (valid[DRAWMODE_COMPACT_DISTANCE] && ImGui::RadioButton("Compact Distance", m_drawMode == DRAWMODE_COMPACT_DISTANCE))
+	{
 		m_drawMode = DRAWMODE_COMPACT_DISTANCE;
-	if (imguiCheck("Compact Regions", m_drawMode == DRAWMODE_COMPACT_REGIONS, valid[DRAWMODE_COMPACT_REGIONS]))
+	}
+	if (valid[DRAWMODE_COMPACT_REGIONS] && ImGui::RadioButton("Compact Regions", m_drawMode == DRAWMODE_COMPACT_REGIONS))
+	{
 		m_drawMode = DRAWMODE_COMPACT_REGIONS;
-	if (imguiCheck("Region Connections", m_drawMode == DRAWMODE_REGION_CONNECTIONS, valid[DRAWMODE_REGION_CONNECTIONS]))
+	}
+	if (valid[DRAWMODE_REGION_CONNECTIONS] && ImGui::RadioButton("Region Connections", m_drawMode == DRAWMODE_REGION_CONNECTIONS))
+	{
 		m_drawMode = DRAWMODE_REGION_CONNECTIONS;
-	if (imguiCheck("Raw Contours", m_drawMode == DRAWMODE_RAW_CONTOURS, valid[DRAWMODE_RAW_CONTOURS]))
+	}
+	if (valid[DRAWMODE_RAW_CONTOURS] && ImGui::RadioButton("Raw Contours", m_drawMode == DRAWMODE_RAW_CONTOURS))
+	{
 		m_drawMode = DRAWMODE_RAW_CONTOURS;
-	if (imguiCheck("Both Contours", m_drawMode == DRAWMODE_BOTH_CONTOURS, valid[DRAWMODE_BOTH_CONTOURS]))
+	}
+	if (valid[DRAWMODE_BOTH_CONTOURS] && ImGui::RadioButton("Both Contours", m_drawMode == DRAWMODE_BOTH_CONTOURS))
+	{
 		m_drawMode = DRAWMODE_BOTH_CONTOURS;
-	if (imguiCheck("Contours", m_drawMode == DRAWMODE_CONTOURS, valid[DRAWMODE_CONTOURS]))
+	}
+	if (valid[DRAWMODE_CONTOURS] && ImGui::RadioButton("Contours", m_drawMode == DRAWMODE_CONTOURS))
+	{
 		m_drawMode = DRAWMODE_CONTOURS;
-	if (imguiCheck("Poly Mesh", m_drawMode == DRAWMODE_POLYMESH, valid[DRAWMODE_POLYMESH]))
+	}
+	if (valid[DRAWMODE_POLYMESH] && ImGui::RadioButton("Poly Mesh", m_drawMode == DRAWMODE_POLYMESH))
+	{
 		m_drawMode = DRAWMODE_POLYMESH;
-	if (imguiCheck("Poly Mesh Detail", m_drawMode == DRAWMODE_POLYMESH_DETAIL, valid[DRAWMODE_POLYMESH_DETAIL]))
+	}
+	if (valid[DRAWMODE_POLYMESH_DETAIL] && ImGui::RadioButton("Poly Mesh Detail", m_drawMode == DRAWMODE_POLYMESH_DETAIL))
+	{
 		m_drawMode = DRAWMODE_POLYMESH_DETAIL;
+	}
 		
 	if (unavail)
 	{
-		imguiValue("Tick 'Keep Itermediate Results'");
-		imguiValue("to see more debug mode options.");
+		ImGui::TextWrapped("Tick 'Keep Itermediate Results' to see more debug mode options.");
 	}
-#endif
 }
 
 void Sample_SoloMesh::handleRender()
