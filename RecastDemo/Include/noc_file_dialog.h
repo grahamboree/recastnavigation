@@ -37,6 +37,15 @@
  *  NOC_FILE_DIALOG_OSX
  */
 
+#ifdef WIN32
+#	define NOC_FILE_DIALOG_WIN32
+#elif defined(__APPLE__)
+#	define NOC_FILE_DIALOG_OSX
+#else
+#	define NOC_FILE_DIALOG_GTK
+#endif
+#define NOC_FILE_DIALOG_IMPLEMENTATION
+
 enum {
 	NOC_FILE_DIALOG_OPEN    = 1 << 0,   // Create an open file dialog.
 	NOC_FILE_DIALOG_SAVE    = 1 << 1,   // Create a save file dialog.
@@ -170,7 +179,7 @@ const char *noc_file_dialog_open(int flags,
 #endif
 
 #ifdef NOC_FILE_DIALOG_OSX
-
+/*
 #include <AppKit/AppKit.h>
 
 const char *noc_file_dialog_open(int flags,
@@ -228,7 +237,7 @@ const char *noc_file_dialog_open(int flags,
 	
 	[pool release];
 	return g_noc_file_dialog_ret;
-}
+}*/
 #endif
 
 

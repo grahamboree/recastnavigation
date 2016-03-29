@@ -27,6 +27,7 @@
 #else
 #	include <GL/glu.h>
 #endif
+#include "noc_file_dialog.h"
 #include "imgui.h"
 #include "InputGeom.h"
 #include "Sample.h"
@@ -42,15 +43,6 @@
 #include "ConvexVolumeTool.h"
 #include "CrowdTool.h"
 
-#ifdef WIN32
-#	define NOC_FILE_DIALOG_WIN32
-#elif defined(__APPLE__)
-#	define NOC_FILE_DIALOG_OSX
-#else
-#	define NOC_FILE_DIALOG_GTK
-#endif
-#define NOC_FILE_DIALOG_IMPLEMENTATION
-#include "noc_file_dialog.hh"
 
 
 #ifdef WIN32
@@ -416,7 +408,10 @@ void Sample_TileMesh::handleSettings()
 	if (ImGui::Button("Save"))
 	{
 		const char* filename = noc_file_dialog_open(NOC_FILE_DIALOG_SAVE, 0, 0, 0);
-		saveAll(filename, m_navMesh);
+		if (filename)
+		{
+			saveAll(filename, m_navMesh);
+		}
 	}
 
 	if (ImGui::Button("Load"))
