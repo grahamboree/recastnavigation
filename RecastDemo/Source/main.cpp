@@ -43,6 +43,8 @@
 #include "Sample_TileMesh.h"
 #include "Sample_TempObstacles.h"
 #include "Sample_Debug.h"
+#include "noc_file_dialog.h"
+#include "imgui_Extensions.h"
 
 #ifdef WIN32
 #	define snprintf _snprintf
@@ -164,26 +166,28 @@ int main(int /*argc*/, char** /*argv*/)
 	float t = 0.0f;
 	float timeAcc = 0.0f;
 	Uint32 prevFrameTime = SDL_GetTicks();
-	int mousePos[2] = {0, 0};
-	int origMousePos[2] = {0, 0}; // Used to compute mouse movement totals across frames.
+	int mousePos[] = {0, 0};
+	int origMousePos[] = {0, 0}; // Used to compute mouse movement totals across frames.
 	
 	float cameraEulers[] = {45, -45};
 	float cameraPos[] = {0, 0, 0};
 	float camr = 1000;
 	float origCameraEulers[] = {0, 0}; // Used to compute rotational changes across frames.
 	
-	float moveW = 0, moveS = 0, moveA = 0, moveD = 0;
+	float moveW = 0;
+	float moveA = 0;
+	float moveS = 0;
+	float moveD = 0;
 	
 	float scrollZoom = 0;
 	bool rotate = false;
 	bool movedDuringRotate = false;
-	float rayStart[3];
-	float rayEnd[3];
+	float rayStart[] = {0, 0, 0};
+	float rayEnd[] = {0, 0, 0};
 	
 	bool showMenu = !presentationMode;
 	bool showLog = false;
 	bool showTools = true;
-	bool showLevels = false;
 	bool showSample = false;
 	bool showTestCases = false;
 
@@ -199,13 +203,12 @@ int main(int /*argc*/, char** /*argv*/)
 	InputGeom* geom = 0;
 	Sample* sample = 0;
 
-	const string testCasesFolder = "TestCases";
 	TestCase* test = 0;
 
 	BuildContext ctx;
 	
 	// Fog.
-	float fogColor[4] = { 0.32f, 0.31f, 0.30f, 1.0f };
+	float fogColor[] = { 0.32f, 0.31f, 0.30f, 1.0f };
 	glEnable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_LINEAR);
 	glFogf(GL_FOG_START, camr * 0.1f);
@@ -216,7 +219,7 @@ int main(int /*argc*/, char** /*argv*/)
 	glDepthFunc(GL_LEQUAL);
 	
 	bool done = false;
-	while(!done)
+	while (!done)
 	{
 		// Handle input events.
 		bool processHitTest = false;
@@ -236,10 +239,8 @@ int main(int /*argc*/, char** /*argv*/)
 					}
 					else if (event.key.keysym.sym == SDLK_t)
 					{
-						showLevels = false;
 						showSample = false;
 						showTestCases = true;
-						scanDirectory(testCasesFolder, ".txt", files);
 					}
 					else if (event.key.keysym.sym == SDLK_TAB)
 					{
@@ -297,7 +298,6 @@ int main(int /*argc*/, char** /*argv*/)
 					break;
 					
 				case SDL_MOUSEBUTTONUP:
-					// Handle mouse clicks here.
 					if (event.button.button == SDL_BUTTON_RIGHT)
 					{
 						rotate = false;
@@ -343,6 +343,7 @@ int main(int /*argc*/, char** /*argv*/)
 					break;
 			}
 		}
+		
 		ImGui_ImplSdl_NewFrame(window);
 		
 		Uint32 time = SDL_GetTicks();
@@ -426,7 +427,7 @@ int main(int /*argc*/, char** /*argv*/)
 		// Compute the projection matrix.
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(50.0f, (float)width/(float)height, 1.0f, camr);
+		gluPerspective(50.0f, (float)width / (float)height, 1.0f, camr);
 		GLdouble projectionMatrix[16];
 		glGetDoublev(GL_PROJECTION_MATRIX, projectionMatrix);
 		
@@ -505,26 +506,15 @@ int main(int /*argc*/, char** /*argv*/)
 			test->handleRenderOverlay((double*)projectionMatrix, (double*)modelviewMatrix, (int*)viewport);
 		}
 
-		static const int winflags = ImGuiWindowFlags_NoSavedSettings;
-		
 		if (showMenu)
 		{
 			// Help text.
-			ImGui::SetNextWindowPos(ImVec2(280, 0));
-			if (ImGui::Begin("Text overlay", 0, ImVec2(0, 0), 0,
-							 ImGuiWindowFlags_NoTitleBar |
-							 ImGuiWindowFlags_NoResize |
-							 ImGuiWindowFlags_NoMove |
-							 ImGuiWindowFlags_NoSavedSettings))
-			{
-				ImGui::TextColored(ImVec4(255, 255, 255, 128), "W/S/A/D: Move  RMB: Rotate");
-			}
-			ImGui::End();
+			ImGui::ScreenspaceText("W/S/A/D: Move  RMB: Rotate", ImVec4(255, 255, 255, 128), ImVec2(280, 0));
 			
 			ImGui::ShowTestWindow();
 		
 			ImGui::SetNextWindowPos(ImVec2(width - 250 - 10, 10), ImGuiSetCond_Once);
-			ImGui::Begin("Properties", 0, ImVec2(250, height - 20), -1, winflags);
+			ImGui::Begin("Properties", 0, ImVec2(250, height - 20), -1, ImGuiWindowFlags_NoSavedSettings);
 			ImGui::PushItemWidth(-130);
 			
 			ImGui::Checkbox("Show Log", &showLog);
@@ -534,33 +524,52 @@ int main(int /*argc*/, char** /*argv*/)
 			ImGui::Text("Sample");
 			if (ImGui::Button(sampleName.c_str()))
 			{
+				showSample = !showSample;
 				if (showSample)
 				{
-					showSample = false;
-				}
-				else
-				{
-					showSample = true;
-					showLevels = false;
 					showTestCases = false;
 				}
 			}
 			
 			ImGui::Spacing();
+			
+			// Level selection dialog.
 			ImGui::Text("Input Mesh");
 			if (ImGui::Button(meshName.c_str()))
 			{
-				if (showLevels)
+				showSample = false;
+				showTestCases = false;
+				
+				const char* filename = noc_file_dialog_open(NOC_FILE_DIALOG_OPEN, "obj\0*.obj", meshesFolder.c_str(), "");
+				if (filename)
 				{
-					showLevels = false;
-				}
-				else
-				{
-					showSample = false;
-					showTestCases = false;
-					showLevels = true;
-					scanDirectory(meshesFolder, ".obj", files);
-					scanDirectoryAppend(meshesFolder, ".gset", files);
+					string path = filename;
+					meshName = path.substr(path.find_last_of("\\/") + 1);
+					
+					delete geom;
+					geom = new InputGeom;
+					if (!geom->load(&ctx, path))
+					{
+						delete geom;
+						geom = 0;
+						
+						// Destroy the sample if it already had geometry loaded, as we've just deleted it!
+						if (sample && sample->getInputGeom())
+						{
+							delete sample;
+							sample = 0;
+						}
+						
+						showLog = true;
+						//logScroll = 0;
+						ctx.dumpLog("Geom load log %s:", meshName.c_str());
+					}
+					if (sample && geom)
+					{
+						sample->handleMeshChanged(geom);
+					}
+					
+					resetCameraToMeshBounds(geom, sample, camr, cameraPos, cameraEulers);
 				}
 			}
 			
@@ -611,7 +620,11 @@ int main(int /*argc*/, char** /*argv*/)
 		{
 			ImGui::SetNextWindowPos(ImVec2(width-10-250-10-200, 10));
 			ImGui::SetNextWindowSize(ImVec2(200, 250));
-			ImGui::Begin("Choose Sample", 0, winflags);
+			ImGui::Begin("Choose Sample", 0,
+						 ImGuiWindowFlags_NoTitleBar |
+						 ImGuiWindowFlags_NoResize |
+						 ImGuiWindowFlags_NoMove |
+						 ImGuiWindowFlags_NoSavedSettings);
 			
 			Sample* newSample = 0;
 			for (int i = 0; i < g_nsamples; ++i)
@@ -665,182 +678,83 @@ int main(int /*argc*/, char** /*argv*/)
 			
 			ImGui::End();
 		}
-
-		// Level selection dialog.
-		if (showLevels)
+		
+		// Test cases
+		if (showTestCases)
 		{
-			ImGui::SetNextWindowPos(ImVec2(width - 10 - 250 - 10 - 200, 10));
-			ImGui::SetNextWindowSize(ImVec2(200, 450));
-			ImGui::Begin("Choose Level", 0, winflags);
+			const char* filename = noc_file_dialog_open(NOC_FILE_DIALOG_OPEN, "txt\0*.txt", "TestCases", 0);
 			
-			vector<string>::const_iterator fileIter = files.begin();
-			vector<string>::const_iterator filesEnd = files.end();
-			vector<string>::const_iterator levelToLoad = filesEnd;
-			for (; fileIter != filesEnd; ++fileIter)
-			{
-				if (ImGui::Selectable(fileIter->c_str()))
+			showTestCases = false;
+			if (filename) {
+				test = new TestCase;
+				// Load the test.
+				if (!test->load(filename))
 				{
-					levelToLoad = fileIter;
+					delete test;
+					test = 0;
 				}
-			}
-			
-			if (levelToLoad != filesEnd)
-			{
-				meshName = *levelToLoad;
-				showLevels = false;
-				
-				delete geom;
-				geom = 0;
+
+				// Create sample
+				delete sample;
+				sample = 0;
+				for (int i = 0; i < g_nsamples; ++i)
+				{
+					if (g_samples[i].name == test->getSampleName())
+					{
+						sampleName = g_samples[i].name;
+						sample = g_samples[i].create();
+					}
+				}
+
+				if (sample)
+				{
+					sample->setContext(&ctx);
+					showSample = false;
+				}
+
+				// Load geom.
+				meshName = test->getGeomFileName();
 				
 				string path = meshesFolder + "/" + meshName;
 				
+				delete geom;
 				geom = new InputGeom;
 				if (!geom->load(&ctx, path))
 				{
 					delete geom;
 					geom = 0;
-
-					// Destroy the sample if it already had geometry loaded, as we've just deleted it!
-					if (sample && sample->getInputGeom())
-					{
-						delete sample;
-						sample = 0;
-					}
-					
+					delete sample;
+					sample = 0;
 					showLog = true;
 					//logScroll = 0;
 					ctx.dumpLog("Geom load log %s:", meshName.c_str());
 				}
-				if (sample && geom)
-				{
-					sample->handleMeshChanged(geom);
-				}
 
-				if (geom || sample)
+				if (sample)
 				{
-					const float* bmin = 0;
-					const float* bmax = 0;
 					if (geom)
-					{
-						bmin = geom->getNavMeshBoundsMin();
-						bmax = geom->getNavMeshBoundsMax();
-					}
-					// Reset camera and fog to match the mesh bounds.
-					if (bmin && bmax)
-					{
-						camr = sqrtf(rcSqr(bmax[0]-bmin[0]) +
-									 rcSqr(bmax[1]-bmin[1]) +
-									 rcSqr(bmax[2]-bmin[2])) / 2;
-						cameraPos[0] = (bmax[0] + bmin[0]) / 2 + camr;
-						cameraPos[1] = (bmax[1] + bmin[1]) / 2 + camr;
-						cameraPos[2] = (bmax[2] + bmin[2]) / 2 + camr;
-						camr *= 3;
-					}
-					cameraEulers[0] = 45;
-					cameraEulers[1] = -45;
-					glFogf(GL_FOG_START, camr * 0.1f);
-					glFogf(GL_FOG_END, camr * 1.25f);
-				}
-			}
-			
-			ImGui::End();
-			
-		}
-
-		// Test cases
-		if (showTestCases)
-		{
-			ImGui::SetNextWindowPos(ImVec2(width - 10 - 250 - 10 - 200, 10));
-			ImGui::SetNextWindowSize(ImVec2(200, 450));
-			ImGui::Begin("Choose Test To Run", 0, winflags);
-
-			vector<string>::const_iterator fileIter = files.begin();
-			vector<string>::const_iterator filesEnd = files.end();
-			vector<string>::const_iterator testToLoad = filesEnd;
-			for (; fileIter != filesEnd; ++fileIter)
-			{
-				if (ImGui::Selectable(fileIter->c_str()))
-				{
-					testToLoad = fileIter;
-				}
-			}
-			
-			if (testToLoad != filesEnd)
-			{
-				string path = testCasesFolder + "/" + *testToLoad;
-				test = new TestCase;
-				if (test)
-				{
-					// Load the test.
-					if (!test->load(path))
-					{
-						delete test;
-						test = 0;
-					}
-
-					// Create sample
-					Sample* newSample = 0;
-					for (int i = 0; i < g_nsamples; ++i)
-					{
-						if (g_samples[i].name == test->getSampleName())
-						{
-							newSample = g_samples[i].create();
-							if (newSample)
-								sampleName = g_samples[i].name;
-						}
-					}
-
-					delete sample;
-					sample = newSample;
-
-					if (sample)
-					{
-						sample->setContext(&ctx);
-						showSample = false;
-					}
-
-					// Load geom.
-					meshName = test->getGeomFileName();
-					
-					
-					path = meshesFolder + "/" + meshName;
-					
-					delete geom;
-					geom = new InputGeom;
-					if (!geom || !geom->load(&ctx, path))
-					{
-						delete geom;
-						geom = 0;
-						delete sample;
-						sample = 0;
-						showLog = true;
-						//logScroll = 0;
-						ctx.dumpLog("Geom load log %s:", meshName.c_str());
-					}
-					if (sample && geom)
 					{
 						sample->handleMeshChanged(geom);
 					}
 
 					// This will ensure that tile & poly bits are updated in tiled sample.
-					if (sample)
-						sample->handleSettings();
+					sample->handleSettings();
+				}
 
-					ctx.resetLog();
-					if (sample && !sample->handleBuild())
-					{
-						ctx.dumpLog("Build log %s:", meshName.c_str());
-					}
-					
-					resetCameraToMeshBounds(geom, sample, camr, cameraPos, cameraEulers);
-					
-					// Do the tests.
-					if (sample)
-						test->doTests(sample->getNavMesh(), sample->getNavMeshQuery());
+				ctx.resetLog();
+				if (sample && !sample->handleBuild())
+				{
+					ctx.dumpLog("Build log %s:", meshName.c_str());
+				}
+				
+				resetCameraToMeshBounds(geom, sample, camr, cameraPos, cameraEulers);
+				
+				// Do the tests.
+				if (sample)
+				{
+					test->doTests(sample->getNavMesh(), sample->getNavMeshQuery());
 				}
 			}
-			
-			ImGui::End();
 		}
 		
 		// Log
@@ -848,7 +762,7 @@ int main(int /*argc*/, char** /*argv*/)
 		{
 			ImGui::SetNextWindowSize(ImVec2(width - 250 - 250 - 20 - 20, 200));
 			ImGui::SetNextWindowPos(ImVec2(250 + 20, height - 200 - 10));
-			ImGui::Begin("Log", 0, winflags);
+			ImGui::Begin("Log", 0, ImGuiWindowFlags_NoSavedSettings);
 			for (int i = 0; i < ctx.getLogCount(); ++i)
 			{
 				//imguiLabel(ctx.getLogText(i));
@@ -861,14 +775,17 @@ int main(int /*argc*/, char** /*argv*/)
 		// Left column tools menu
 		if (!showTestCases && showTools && showMenu)
 		{
-			ImGui::SetNextWindowSize(ImVec2(250, height - 20));
-			ImGui::SetNextWindowPos(ImVec2(10, 10));
-			ImGui::Begin("Tools", 0, winflags);
+			ImGui::SetNextWindowSize(ImVec2(250, height - 20), ImGuiSetCond_Once);
+			ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiSetCond_Once);
+			ImGui::Begin("Tools", 0, ImGuiWindowFlags_NoSavedSettings);
 			ImGui::PushItemWidth(-130);
 
 			if (sample)
+			{
 				sample->handleTools();
-			
+			}
+
+			ImGui::PopItemWidth();
 			ImGui::End();
 		}
 	

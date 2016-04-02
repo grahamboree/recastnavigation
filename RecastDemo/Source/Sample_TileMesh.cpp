@@ -19,7 +19,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdio.h>
-#include <string.h>
+#include <sstream>
 #include "SDL.h"
 #include "SDL_opengl.h"
 #ifdef __APPLE__
@@ -29,6 +29,7 @@
 #endif
 #include "noc_file_dialog.h"
 #include "imgui.h"
+#include "imgui_Extensions.h"
 #include "InputGeom.h"
 #include "Sample.h"
 #include "Sample_TileMesh.h"
@@ -42,13 +43,6 @@
 #include "OffMeshConnectionTool.h"
 #include "ConvexVolumeTool.h"
 #include "CrowdTool.h"
-
-
-
-#ifdef WIN32
-#	define snprintf _snprintf
-#endif
-
 
 inline unsigned int nextPow2(unsigned int v)
 {
@@ -89,9 +83,7 @@ public:
 		m_hitPos[0] = m_hitPos[1] = m_hitPos[2] = 0;
 	}
 
-	virtual ~NavMeshTileTool()
-	{
-	}
+	virtual ~NavMeshTileTool() {}
 
 	virtual int type() { return TOOL_TILE_EDIT; }
 
@@ -141,15 +133,15 @@ public:
 		if (m_hitPosSet)
 		{
 			const float s = m_sample->getAgentRadius();
-			glColor4ub(0,0,0,128);
+			glColor4ub(0, 0, 0, 128);
 			glLineWidth(2.0f);
 			glBegin(GL_LINES);
-			glVertex3f(m_hitPos[0]-s,m_hitPos[1]+0.1f,m_hitPos[2]);
-			glVertex3f(m_hitPos[0]+s,m_hitPos[1]+0.1f,m_hitPos[2]);
-			glVertex3f(m_hitPos[0],m_hitPos[1]-s+0.1f,m_hitPos[2]);
-			glVertex3f(m_hitPos[0],m_hitPos[1]+s+0.1f,m_hitPos[2]);
-			glVertex3f(m_hitPos[0],m_hitPos[1]+0.1f,m_hitPos[2]-s);
-			glVertex3f(m_hitPos[0],m_hitPos[1]+0.1f,m_hitPos[2]+s);
+			glVertex3f(m_hitPos[0] - s, m_hitPos[1] + 0.1f, m_hitPos[2]);
+			glVertex3f(m_hitPos[0] + s, m_hitPos[1] + 0.1f, m_hitPos[2]);
+			glVertex3f(m_hitPos[0], m_hitPos[1] - s + 0.1f, m_hitPos[2]);
+			glVertex3f(m_hitPos[0], m_hitPos[1] + s + 0.1f, m_hitPos[2]);
+			glVertex3f(m_hitPos[0], m_hitPos[1] + 0.1f, m_hitPos[2] - s);
+			glVertex3f(m_hitPos[0], m_hitPos[1] + 0.1f, m_hitPos[2] + s);
 			glEnd();
 			glLineWidth(1.0f);
 		}
@@ -157,26 +149,23 @@ public:
 	
 	virtual void handleRenderOverlay(double* proj, double* model, int* view)
 	{
-#if 0 // Screenspace text rendering.
 		GLdouble x, y, z;
 		if (m_hitPosSet && gluProject((GLdouble)m_hitPos[0], (GLdouble)m_hitPos[1], (GLdouble)m_hitPos[2],
 									  model, proj, view, &x, &y, &z))
 		{
-			int tx=0, ty=0;
-			m_sample->getTilePos(m_hitPos, tx, ty);
+			int tileX = 0;
+			int tileY = 0;
+			m_sample->getTilePos(m_hitPos, tileX, tileY);
 			char text[32];
-			snprintf(text,32,"(%d,%d)", tx,ty);
-			imguiDrawText((int)x, (int)y-25, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,220));
+			snprintf(text, 32, "(%d,%d)", tileX, tileY);
+			ImGui::ScreenspaceText(text, ImVec4(0, 0, 0, 220), ImVec2((int)x, view[3] - (int)y - 25));
 		}
 		
 		// Tool help
 		const int h = view[3];
-		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", imguiRGBA(255,255,255,192));
-#endif
+		ImGui::ScreenspaceText("LMB: Rebuild hit tile.  Shift+LMB: Clear hit tile.", ImVec4(255, 255, 255, 192), ImVec2(280, 40));
 	}
 };
-
-
 
 
 Sample_TileMesh::Sample_TileMesh() :
@@ -250,11 +239,16 @@ struct NavMeshTileHeader
 
 void Sample_TileMesh::saveAll(const char* path, const dtNavMesh* mesh)
 {
-	if (!mesh) return;
+	if (!mesh)
+	{
+		return;
+	}
 	
 	FILE* fp = fopen(path, "wb");
 	if (!fp)
+	{
 		return;
+	}
 	
 	// Store header.
 	NavMeshSetHeader header;
@@ -264,7 +258,10 @@ void Sample_TileMesh::saveAll(const char* path, const dtNavMesh* mesh)
 	for (int i = 0; i < mesh->getMaxTiles(); ++i)
 	{
 		const dtMeshTile* tile = mesh->getTile(i);
-		if (!tile || !tile->header || !tile->dataSize) continue;
+		if (!tile || !tile->header || !tile->dataSize)
+		{
+			continue;
+		}
 		header.numTiles++;
 	}
 	memcpy(&header.params, mesh->getParams(), sizeof(dtNavMeshParams));
@@ -274,7 +271,10 @@ void Sample_TileMesh::saveAll(const char* path, const dtNavMesh* mesh)
 	for (int i = 0; i < mesh->getMaxTiles(); ++i)
 	{
 		const dtMeshTile* tile = mesh->getTile(i);
-		if (!tile || !tile->header || !tile->dataSize) continue;
+		if (!tile || !tile->header || !tile->dataSize)
+		{
+			continue;
+		}
 
 		NavMeshTileHeader tileHeader;
 		tileHeader.tileRef = mesh->getTileRef(tile);
@@ -379,6 +379,7 @@ void Sample_TileMesh::handleSettings()
 		const int tileSize = (int)m_tileSize;
 		const int tileWidth = (gridWidth + tileSize-1) / tileSize;
 		const int tileHeight = (gridHeight + tileSize-1) / tileSize;
+		
 		ImGui::Text("Tiles  %d x %d", tileWidth, tileHeight);
 
 		// Max tiles and max polys affect how the tile IDs are caculated.
@@ -391,6 +392,7 @@ void Sample_TileMesh::handleSettings()
 		int polyBits = 22 - tileBits;
 		m_maxTiles = 1 << tileBits;
 		m_maxPolysPerTile = 1 << polyBits;
+		
 		ImGui::Text("Max Tiles  %d", m_maxTiles);
 		ImGui::Text("Max Polys  %d", m_maxPolysPerTile);
 	}
@@ -403,7 +405,6 @@ void Sample_TileMesh::handleSettings()
 	ImGui::Spacing();
 	
 	ImGui::Indent();
-	ImGui::Indent();
 	
 	if (ImGui::Button("Save"))
 	{
@@ -414,20 +415,23 @@ void Sample_TileMesh::handleSettings()
 		}
 	}
 
+	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
-		dtFreeNavMesh(m_navMesh);
-		m_navMesh = loadAll("all_tiles_navmesh.bin");
-		m_navQuery->init(m_navMesh, 2048);
+		const char* filename = noc_file_dialog_open(NOC_FILE_DIALOG_OPEN, 0, 0, 0);
+		if (filename)
+		{
+			dtFreeNavMesh(m_navMesh);
+			m_navMesh = loadAll(filename);
+			m_navQuery->init(m_navMesh, 2048);
+		}
 	}
 
-	ImGui::Unindent();
 	ImGui::Unindent();
 	
 	ImGui::Text("Build Time: %.1fms", m_totalBuildTimeMs);
 	
 	ImGui::Spacing();
-
 	ImGui::Spacing();
 }
 
@@ -709,7 +713,9 @@ void Sample_TileMesh::handleRender()
 	m_geom->drawConvexVolumes(&dd);
 	
 	if (m_tool)
+	{
 		m_tool->handleRender();
+	}
 	renderToolStates();
 
 	glDepthMask(GL_TRUE);
@@ -725,13 +731,13 @@ void Sample_TileMesh::handleRenderOverlay(double* proj, double* model, int* view
 	{
 		char text[32];
 		snprintf(text,32,"%.3fms / %dTris / %.1fkB", m_tileBuildTime, m_tileTriCount, m_tileMemUsage);
-#if 0 // Screenspace text rendering.
-		imguiDrawText((int)x, (int)y-25, IMGUI_ALIGN_CENTER, text, imguiRGBA(0,0,0,220));
-#endif
+		ImGui::ScreenspaceText(text, ImVec4(0,0,0,220), ImVec2((int)x, view[3] - (int)y - 25));
 	}
 	
 	if (m_tool)
+	{
 		m_tool->handleRenderOverlay(proj, model, view);
+	}
 	renderOverlayToolStates(proj, model, view);
 }
 
@@ -741,7 +747,9 @@ void Sample_TileMesh::handleMeshChanged(InputGeom* geom)
 
 	const BuildSettings* buildSettings = geom->getBuildSettings();
 	if (buildSettings && buildSettings->tileSize > 0)
+	{
 		m_tileSize = buildSettings->tileSize;
+	}
 
 	cleanup();
 
@@ -798,10 +806,14 @@ bool Sample_TileMesh::handleBuild()
 	}
 	
 	if (m_buildAll)
+	{
 		buildAllTiles();
+	}
 	
 	if (m_tool)
+	{
 		m_tool->init(this);
+	}
 	initToolStates(this);
 
 	return true;
@@ -850,7 +862,9 @@ void Sample_TileMesh::buildTile(const float* pos)
 		// Let the navmesh own the data.
 		dtStatus status = m_navMesh->addTile(data,dataSize,DT_TILE_FREE_DATA,0,0);
 		if (dtStatusFailed(status))
+		{
 			dtFree(data);
+		}
 	}
 	
 	m_ctx->dumpLog("Build Tile (%d,%d):", tx,ty);
@@ -906,7 +920,6 @@ void Sample_TileMesh::buildAllTiles()
 	const int th = (gh + ts-1) / ts;
 	const float tcs = m_tileSize*m_cellSize;
 
-	
 	// Start the build process.
 	m_ctx->startTimer(RC_TIMER_TEMP);
 

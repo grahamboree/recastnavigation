@@ -29,16 +29,13 @@
 #	include <GL/glu.h>
 #endif
 #include "imgui.h"
+#include "imgui_Extensions.h"
 #include "OffMeshConnectionTool.h"
 #include "InputGeom.h"
 #include "Sample.h"
 #include "Recast.h"
 #include "RecastDebugDraw.h"
 #include "DetourDebugDraw.h"
-
-#ifdef WIN32
-#	define snprintf _snprintf
-#endif
 
 OffMeshConnectionTool::OffMeshConnectionTool() :
 	m_sample(0),
@@ -140,8 +137,9 @@ void OffMeshConnectionTool::handleStep()
 {
 }
 
-void OffMeshConnectionTool::handleUpdate(const float /*dt*/)
+void OffMeshConnectionTool::handleUpdate(const float dt)
 {
+	rcIgnoreUnused(dt);
 }
 
 void OffMeshConnectionTool::handleRender()
@@ -150,34 +148,39 @@ void OffMeshConnectionTool::handleRender()
 	const float s = m_sample->getAgentRadius();
 	
 	if (m_hitPosSet)
-		duDebugDrawCross(&dd, m_hitPos[0],m_hitPos[1]+0.1f,m_hitPos[2], s, duRGBA(0,0,0,128), 2.0f);
+	{
+		duDebugDrawCross(&dd, m_hitPos[0], m_hitPos[1] + 0.1f, m_hitPos[2], s, duRGBA(0,0,0,128), 2.0f);
+	}
 
 	InputGeom* geom = m_sample->getInputGeom();
 	if (geom)
+	{
 		geom->drawOffMeshConnections(&dd, true);
+	}
 }
 
 void OffMeshConnectionTool::handleRenderOverlay(double* proj, double* model, int* view)
 {
-#if false // Screenspace text rendering
 	GLdouble x, y, z;
+	
+	const int h = view[3];
 	
 	// Draw start and end point labels
 	if (m_hitPosSet && gluProject((GLdouble)m_hitPos[0], (GLdouble)m_hitPos[1], (GLdouble)m_hitPos[2],
 								model, proj, view, &x, &y, &z))
 	{
-		imguiDrawText((int)x, (int)(y-25), IMGUI_ALIGN_CENTER, "Start", imguiRGBA(0,0,0,220));
+		ImGui::ScreenspaceText("Start", ImVec4(0, 0, 0, 220), ImVec2(x, h-y));
 	}
 	
 	// Tool help
-	const int h = view[3];
 	if (!m_hitPosSet)
 	{
-		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Create new connection.  SHIFT+LMB: Delete existing connection, click close to start or end point.", imguiRGBA(255,255,255,192));	
+		const char* label = "LMB: Create new connection.  SHIFT+LMB: Delete existing connection, click close to start or end point.";
+		ImGui::ScreenspaceText(label, ImVec4(255, 255, 255, 192), ImVec2(280, h-40));
 	}
 	else
 	{
-		imguiDrawText(280, h-40, IMGUI_ALIGN_LEFT, "LMB: Set connection end point and finish.", imguiRGBA(255,255,255,192));	
+		const char* label = "LMB: Set connection end point and finish.";
+		ImGui::ScreenspaceText(label, ImVec4(255, 255, 255, 192), ImVec2(280, h-40));
 	}
-#endif
 }
