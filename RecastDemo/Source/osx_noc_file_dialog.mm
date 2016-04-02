@@ -45,6 +45,7 @@ const char *noc_file_dialog_open(int flags,
 								 const char *default_path,
 								 const char *default_name)
 {
+	(void)default_name;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
 	NSURL *url;
