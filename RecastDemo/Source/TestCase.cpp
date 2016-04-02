@@ -96,12 +96,14 @@ static void copyName(std::string& dst, const char* src)
 	dst = src;
 }
 
-bool TestCase::load(const std::string& filePath)
+bool TestCase::load(const char* filePath)
 {
 	char* buf = 0;
-	FILE* fp = fopen(filePath.c_str(), "rb");
+	FILE* fp = fopen(filePath, "rb");
 	if (!fp)
+	{
 		return false;
+	}
 	if (fseek(fp, 0, SEEK_END) != 0)
 	{
 		fclose(fp);

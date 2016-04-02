@@ -91,7 +91,7 @@ public:
 	TestCase();
 	~TestCase();
 
-	bool load(const std::string& filePath);
+	bool load(const char* filePath);
 	
 	const std::string& getSampleName() const { return m_sampleName; }
 	const std::string& getGeomFileName() const { return m_geomFileName; }
