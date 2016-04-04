@@ -74,8 +74,7 @@ class InputGeom
 	rcChunkyTriMesh* m_chunkyMesh;
 	rcMeshLoaderObj* m_mesh;
 	float m_meshBMin[3], m_meshBMax[3];
-	BuildSettings m_buildSettings;
-	bool m_hasBuildSettings;
+	BuildSettings *m_buildSettings;
 	
 	/// @name Off-Mesh connections.
 	///@{
@@ -110,10 +109,10 @@ public:
 	const rcMeshLoaderObj* getMesh() const { return m_mesh; }
 	const float* getMeshBoundsMin() const { return m_meshBMin; }
 	const float* getMeshBoundsMax() const { return m_meshBMax; }
-	const float* getNavMeshBoundsMin() const { return m_hasBuildSettings ? m_buildSettings.navMeshBMin : m_meshBMin; }
-	const float* getNavMeshBoundsMax() const { return m_hasBuildSettings ? m_buildSettings.navMeshBMax : m_meshBMax; }
+	const float* getNavMeshBoundsMin() const { return m_buildSettings ? m_buildSettings->navMeshBMin : m_meshBMin; }
+	const float* getNavMeshBoundsMax() const { return m_buildSettings ? m_buildSettings->navMeshBMax : m_meshBMax; }
 	const rcChunkyTriMesh* getChunkyMesh() const { return m_chunkyMesh; }
-	const BuildSettings* getBuildSettings() const { return m_hasBuildSettings ? &m_buildSettings : 0; }
+	const BuildSettings* getBuildSettings() const { return m_buildSettings; }
 	bool raycastMesh(float* src, float* dst, float& tmin);
 
 	/// @name Off-Mesh connections.

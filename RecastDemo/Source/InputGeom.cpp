@@ -108,8 +108,17 @@ static char* parseRow(char* buf, char* bufEnd, char* row, int len)
 InputGeom::InputGeom() :
 	m_chunkyMesh(0),
 	m_mesh(0),
-	m_hasBuildSettings(false),
+	m_meshBMin(),
+	m_meshBMax(),
+	m_buildSettings(0),
+	m_offMeshConVerts(),
+	m_offMeshConRads(),
+	m_offMeshConDirs(),
+	m_offMeshConAreas(),
+	m_offMeshConFlags(),
+	m_offMeshConId(),
 	m_offMeshConCount(0),
+	m_volumes(),
 	m_volumeCount(0)
 {
 }
@@ -133,11 +142,6 @@ bool InputGeom::loadMesh(rcContext* ctx, const std::string& filepath)
 	m_volumeCount = 0;
 	
 	m_mesh = new rcMeshLoaderObj;
-	if (!m_mesh)
-	{
-		ctx->log(RC_LOG_ERROR, "loadMesh: Out of memory 'm_mesh'.");
-		return false;
-	}
 	if (!m_mesh->load(filepath))
 	{
 		ctx->log(RC_LOG_ERROR, "buildTiledNavigation: Could not load '%s'", filepath.c_str());
@@ -147,11 +151,6 @@ bool InputGeom::loadMesh(rcContext* ctx, const std::string& filepath)
 	rcCalcBounds(m_mesh->getVerts(), m_mesh->getVertCount(), m_meshBMin, m_meshBMax);
 
 	m_chunkyMesh = new rcChunkyTriMesh;
-	if (!m_chunkyMesh)
-	{
-		ctx->log(RC_LOG_ERROR, "buildTiledNavigation: Out of memory 'm_chunkyMesh'.");
-		return false;
-	}
 	if (!rcCreateChunkyTriMesh(m_mesh->getVerts(), m_mesh->getTris(), m_mesh->getTriCount(), 256, m_chunkyMesh))
 	{
 		ctx->log(RC_LOG_ERROR, "buildTiledNavigation: Failed to build chunky mesh.");
@@ -186,7 +185,7 @@ bool InputGeom::loadGeomSet(rcContext* ctx, const std::string& filepath)
 		fclose(fp);
 		return false;
 	}
-	buf = new char[bufSize];
+	buf = new char[0x7fffffff];
 	if (!buf)
 	{
 		fclose(fp);
@@ -264,29 +263,30 @@ bool InputGeom::loadGeomSet(rcContext* ctx, const std::string& filepath)
 		else if (row[0] == 's')
 		{
 			// Settings
-			m_hasBuildSettings = true;
+			delete m_buildSettings;
+			m_buildSettings = new BuildSettings;
 			sscanf(row + 1, "%f %f %f %f %f %f %f %f %f %f %f %f %f %d %f %f %f %f %f %f %f",
-							&m_buildSettings.cellSize,
-							&m_buildSettings.cellHeight,
-							&m_buildSettings.agentHeight,
-							&m_buildSettings.agentRadius,
-							&m_buildSettings.agentMaxClimb,
-							&m_buildSettings.agentMaxSlope,
-							&m_buildSettings.regionMinSize,
-							&m_buildSettings.regionMergeSize,
-							&m_buildSettings.edgeMaxLen,
-							&m_buildSettings.edgeMaxError,
-							&m_buildSettings.vertsPerPoly,
-							&m_buildSettings.detailSampleDist,
-							&m_buildSettings.detailSampleMaxError,
-							&m_buildSettings.partitionType,
-							&m_buildSettings.navMeshBMin[0],
-							&m_buildSettings.navMeshBMin[1],
-							&m_buildSettings.navMeshBMin[2],
-							&m_buildSettings.navMeshBMax[0],
-							&m_buildSettings.navMeshBMax[1],
-							&m_buildSettings.navMeshBMax[2],
-							&m_buildSettings.tileSize);
+				&m_buildSettings->cellSize,
+				&m_buildSettings->cellHeight,
+				&m_buildSettings->agentHeight,
+				&m_buildSettings->agentRadius,
+				&m_buildSettings->agentMaxClimb,
+				&m_buildSettings->agentMaxSlope,
+				&m_buildSettings->regionMinSize,
+				&m_buildSettings->regionMergeSize,
+				&m_buildSettings->edgeMaxLen,
+				&m_buildSettings->edgeMaxError,
+				&m_buildSettings->vertsPerPoly,
+				&m_buildSettings->detailSampleDist,
+				&m_buildSettings->detailSampleMaxError,
+				&m_buildSettings->partitionType,
+				&m_buildSettings->navMeshBMin[0],
+				&m_buildSettings->navMeshBMin[1],
+				&m_buildSettings->navMeshBMin[2],
+				&m_buildSettings->navMeshBMax[0],
+				&m_buildSettings->navMeshBMax[1],
+				&m_buildSettings->navMeshBMax[2],
+				&m_buildSettings->tileSize);
 		}
 	}
 	
