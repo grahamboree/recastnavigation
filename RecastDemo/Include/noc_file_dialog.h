@@ -37,7 +37,6 @@
  *  NOC_FILE_DIALOG_OSX
  */
 
-
 #ifdef WIN32
 #	define NOC_FILE_DIALOG_WIN32
 #elif defined(__APPLE__)
@@ -45,8 +44,6 @@
 #else
 #	define NOC_FILE_DIALOG_GTK
 #endif
-
-#define NOC_FILE_DIALOG_IMPLEMENTATION
 
 enum {
 	NOC_FILE_DIALOG_OPEN = 1 << 0,   // Create an open file dialog.
@@ -76,7 +73,8 @@ const char *noc_file_dialog_open(int flags,
 								 const char *default_path,
 								 const char *default_name);
 
-#ifdef NOC_FILE_DIALOG_IMPLEMENTATION
+#ifndef NOC_FILE_DIALOG_IMPLEMENTATION
+#define NOC_FILE_DIALOG_IMPLEMENTATION
 
 #include <assert.h>
 #include <stdlib.h>
@@ -146,19 +144,17 @@ const char *noc_file_dialog_open(int flags,
 #ifdef NOC_FILE_DIALOG_WIN32
 
 #include "Commdlg.h"
+#ifdef UNICODE
+#	include <stdlib.h>
+#endif
 
 inline const char *noc_file_dialog_open(int flags, const char *filters, const char *default_path, const char *default_name)
 {
-	// buffer for file name
-	g_noc_file_dialog_ret[0] = '\0';
-	if (default_name)
-	{
-		strcpy(g_noc_file_dialog_ret, default_name);
-	}
-
 	// Windows SDK open file dialog struct.
 	OPENFILENAME openFileDilogSettings;
 	ZeroMemory(&openFileDilogSettings, sizeof(openFileDilogSettings));
+	openFileDilogSettings.lStructSize = sizeof(openFileDilogSettings);
+
 	openFileDilogSettings.Flags = 0;
 	if (flags & NOC_FILE_DIALOG_OPEN || flags & NOC_FILE_DIALOG_DIR)
 	{
@@ -169,20 +165,59 @@ inline const char *noc_file_dialog_open(int flags, const char *filters, const ch
 		openFileDilogSettings.Flags |= OFN_CREATEPROMPT;
 	}
 
+	openFileDilogSettings.nFilterIndex = 1;
+
+#if UNICODE //Properly handle windows sdk in unicode mode.
+	size_t charsConverted = 0;
+
+	size_t newSize;
+	wchar_t *fileName = new wchar_t[512];
+	fileName[0] = '\0';
+	if (default_name) {
+		newSize = strlen(default_name) + 1;
+		wchar_t *wideDefaultName = new wchar_t[newSize];
+		// TODO convert default_name to w_default_name
+		mbstowcs_s(&charsConverted, wideDefaultName, newSize, default_name, _TRUNCATE);
+		wcsncpy_s(fileName, 512, wideDefaultName, _TRUNCATE);
+		wcscpy(fileName, wideDefaultName);
+		delete[] wideDefaultName;
+	}
+	openFileDilogSettings.lpstrFile = fileName;
+	openFileDilogSettings.nMaxFile = 512;
+
+	newSize = strlen(default_path) + 1;
+	wchar_t* wideDefaultPath = new wchar_t[newSize];
+	mbstowcs_s(&charsConverted, wideDefaultPath, newSize, default_path, _TRUNCATE);
+	openFileDilogSettings.lpstrInitialDir = wideDefaultPath;
+
+	// Copying filters is more difficult because it contains meaningful null characters.
+	wchar_t* wideFileFilters = new wchar_t[256];
+	for (int i = 0; i < 256; ++i) {
+		wideFileFilters[i] = (wchar_t)filters[i];
+
+		// End iteration on two consecutive null pointers.
+		if (i >= 1 && filters[i] == '\0' && filters[i - 1] == '\0') {
+			break;
+		}
+	}
+	openFileDilogSettings.lpstrFilter = wideFileFilters;
+#else
+	// buffer for file name
+	char* fileName = g_noc_file_dialog_ret;
+	fileName[0] = '\0';
+	if (default_name)
+	{
+		strcpy(fileName, default_name);
+	}
+	openFileDilogSettings.lpstrFile = fileName;
+	openFileDilogSettings.nMaxFile = sizeof(fileName);
+
 	openFileDilogSettings.lpstrInitialDir = default_path;
 
-	openFileDilogSettings.lStructSize = sizeof(openFileDilogSettings);
-	openFileDilogSettings.lpstrFileTitle = NULL;
-
-	openFileDilogSettings.lpstrFile = g_noc_file_dialog_ret;
-	openFileDilogSettings.nMaxFile = sizeof(g_noc_file_dialog_ret);
-
 	openFileDilogSettings.lpstrFilter = filters;
-	
-	openFileDilogSettings.nFilterIndex = 1;
-	openFileDilogSettings.nMaxFileTitle = 0;
+#endif
 
-	bool ret;
+	BOOL ret;
 	if (flags & NOC_FILE_DIALOG_OPEN)
 	{
 		ret = GetOpenFileName(&openFileDilogSettings);
@@ -191,7 +226,17 @@ inline const char *noc_file_dialog_open(int flags, const char *filters, const ch
 	{
 		ret = GetSaveFileName(&openFileDilogSettings);
 	}
-	
+
+#if UNICODE
+	delete[] wideDefaultPath;
+	delete[] wideFileFilters;
+	if (ret)
+	{
+		wcstombs_s(&charsConverted, g_noc_file_dialog_ret, sizeof(g_noc_file_dialog_ret), fileName, _TRUNCATE);
+	}
+	delete[] fileName;
+#endif
+
 	return ret ? g_noc_file_dialog_ret : NULL;
 }
 
