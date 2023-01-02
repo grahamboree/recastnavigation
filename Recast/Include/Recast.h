@@ -18,6 +18,7 @@
  
 #ifndef RECAST_H
 #define RECAST_H
+#include "RecastAssert.h"
 
 /// The value of PI used by Recast.
 static const float RC_PI = 3.14159265f;
@@ -737,6 +738,34 @@ struct rcVec3f
 	rcVec3f operator*(float scalar) const
 	{
 		return rcVec3f(x * scalar, y * scalar, z * scalar);
+	}
+
+	float& operator[](int index)
+	{
+		rcAssert(index >= 0 && index < 3);
+		switch (index)
+		{
+		case 0:
+			return x;
+		case 1:
+			return y;
+		default:
+			return z;
+		}
+	}
+
+	float operator[](int index) const
+	{
+		rcAssert(index >= 0 && index < 3);
+		switch (index)
+		{
+		case 0:
+			return x;
+		case 1:
+			return y;
+		default:
+			return z;
+		}
 	}
 
 	/// Returns the distance between this point and another point.
