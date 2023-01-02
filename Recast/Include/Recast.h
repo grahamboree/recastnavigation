@@ -690,7 +690,105 @@ float rcSqrt(float x);
 /// @name Vector helper functions.
 /// @{
 
-/// Derives the cross product of two vectors. (@p v1 x @p v2)
+struct rcVec3f
+{
+	float x;
+	float y;
+	float z;
+
+	rcVec3f() : x(), y(), z() {}
+	rcVec3f(const float x, const float y, const float z) : x(x), y(y), z(z) {}
+
+	/// Computes the cross product of this vector with another vector.
+	/// @param[in]		v2		A vector
+	/// @return The cross product.
+	rcVec3f cross(const rcVec3f& v2) const
+	{
+		return rcVec3f(
+			y * v2.z - z * v2.y,
+			z * v2.x - x * v2.z,
+			x * v2.y - y * v2.x);
+	}
+
+	/// Computes the dot product of this vector with another vector.
+	/// @param[in]		v2		A vector
+	/// @return The dot product.
+	float dot(const rcVec3f& v2) const
+	{
+		return x * v2.x + y * v2.y + z * v2.z;
+	}
+
+	/// Performs vector addition.
+	/// @param[in]		v2		The vector to add to this
+	rcVec3f operator+(const rcVec3f& v2) const
+	{
+		return rcVec3f(x + v2.x, y + v2.y, z + v2.z);
+	}
+	
+	/// Performs vector subtraction.
+	/// @param[in]		v2		The vector to subtract from this
+	rcVec3f operator-(const rcVec3f& v2) const
+	{
+		return rcVec3f(x - v2.x, y - v2.y, z - v2.z);
+	}
+
+	/// Performs vector scalar multiplication..
+	/// @param[in]		scalar		The value to scale this vector by
+	rcVec3f operator*(float scalar) const
+	{
+		return rcVec3f(x * scalar, y * scalar, z * scalar);
+	}
+
+	/// Returns the distance between this point and another point.
+	/// @param[in]		v2	The other point.
+	/// @return The distance between the two points.
+	float distance(const rcVec3f& v2) const
+	{
+		return rcSqrt(sqDistance(v2));
+	}
+
+	/// Returns the squared distance between this point and another point.
+	/// @param[in]		v2	The other point.
+	/// @return The squared distance between the two points.
+	float sqDistance(const rcVec3f& v2) const
+	{
+		rcVec3f delta = v2 - *this;
+		return delta.dot(delta);
+	}
+
+	/// Normalizes this vector.
+	void normalize()
+	{
+		float invLength = 1.0f / rcSqrt(rcSqr(x) + rcSqr(y) + rcSqr(z));
+		x *= invLength;
+		y *= invLength;
+		z *= invLength;
+	}
+
+	/// Selects the maximum value of each element from this and another vector.
+	/// @param[in]		v2	A vector
+	/// @returns A vector who's components are the maximum of the components of this vector and another 
+	rcVec3f max(const rcVec3f& v2) const
+	{
+		return rcVec3f(
+			rcMax(x, v2.x),
+			rcMax(y, v2.y),
+			rcMax(z, v2.z));
+	}
+
+	/// Selects the minimum value of each element from this and another vector.
+	/// @param[in]		v2	A vector
+	/// @returns A vector who's components are the minimum of the components of this vector and another
+	rcVec3f min(const rcVec3f& v2) const
+	{
+		return rcVec3f(
+			rcMin(x, v2.x),
+			rcMin(y, v2.y),
+			rcMin(z, v2.z));
+	}
+};
+
+/// Computes the cross product of two vectors. (@p v1 x @p v2)
 /// @param[out]		dest	The cross product. [(x, y, z)]
 /// @param[in]		v1		A Vector [(x, y, z)]
 /// @param[in]		v2		A vector [(x, y, z)]
@@ -701,7 +799,7 @@ inline void rcVcross(float* dest, const float* v1, const float* v2)
 	dest[2] = v1[0]*v2[1] - v1[1]*v2[0];
 }
 
-/// Derives the dot product of two vectors. (@p v1 . @p v2)
+/// Computes the dot product of two vectors. (@p v1 . @p v2)
 /// @param[in]		v1	A Vector [(x, y, z)]
 /// @param[in]		v2	A vector [(x, y, z)]
 /// @return The dot product.
