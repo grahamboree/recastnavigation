@@ -91,7 +91,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Changelog", "md_CHANGELOG.html", [
-      [ "<a href=\"https://github.com/recastnavigation/recastnavigation/compare/1.6.0...HEAD\"", "md_CHANGELOG.html#autotoc_md55", null ],
+      [ "<a href=\"https://github.com/recastnavigation/recastnavigation/compare/1.6.0...HEAD\">Unreleased</a>", "md_CHANGELOG.html#autotoc_md55", null ],
       [ "<a href=\"https://github.com/recastnavigation/recastnavigation/compare/1.5.1...1.6.0\">1.6.0</a> - 2023-05-21", "md_CHANGELOG.html#autotoc_md56", [
         [ "Added", "md_CHANGELOG.html#autotoc_md57", null ],
         [ "Fixed", "md_CHANGELOG.html#autotoc_md58", null ],
