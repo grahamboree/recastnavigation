@@ -4,6 +4,19 @@ project(RecastNavigation
     DESCRIPTION "Industry-standard navigation-mesh toolset for games"
     LANGUAGES C CXX)
 
+# Export compile commands for LSP support (clangd, ccls, etc.)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Create symlink in source directory for LSP tools to find compile_commands.json
+if(NOT WIN32 AND CMAKE_EXPORT_COMPILE_COMMANDS)
+    file(CREATE_LINK
+        ${CMAKE_BINARY_DIR}/compile_commands.json
+        ${CMAKE_SOURCE_DIR}/compile_commands.json
+        COPY_ON_ERROR
+        SYMBOLIC
+    )
+endif()
+
 # lib versions
 set(SOVERSION 1)
 set(LIB_VERSION 1.6.0)
