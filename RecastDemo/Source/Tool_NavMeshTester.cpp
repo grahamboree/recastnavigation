@@ -1277,11 +1277,46 @@ void NavMeshTesterTool::render()
 	{
 		duDebugDrawNavMeshPoly(&dd, *sample->navMesh, startRef, startCol);
 		dd.depthMask(false);
-		duDebugDrawCircle(&dd, spos[0], spos[1] + agentHeight / 2, spos[2], distanceToWall, duRGBA(64, 16, 0, 220), 2.0f);
-		dd.begin(DU_DRAW_LINES, 3.0f);
-		dd.vertex(hitPos[0], hitPos[1] + 0.02f, hitPos[2], duRGBA(0, 0, 0, 192));
-		dd.vertex(hitPos[0], hitPos[1] + agentHeight, hitPos[2], duRGBA(0, 0, 0, 192));
-		dd.end();
+
+		if (distanceToWall > 0)
+		{
+			// Draw circle showing distance to wall
+			duDebugDrawCircle(&dd, spos[0], spos[1] + agentHeight / 2, spos[2], distanceToWall, duRGBA(64, 16, 0, 220), 2.0f);
+
+			// Draw an arrow to the wall hit point
+			const float arrowEnd[3] {hitPos[0], hitPos[1] + agentHeight / 2, hitPos[2]};
+			duDebugDrawArrow(
+				&dd,
+				spos[0], spos[1] + agentHeight / 2, spos[2],
+				arrowEnd[0], arrowEnd[1], arrowEnd[2],
+				0,
+				0.3f,
+				duRGBA(0, 0, 0, 192),
+				2.0f);
+
+			// Draw wall normal at hit point
+			// This always points towards the query point, so it's not necessary to show by default.
+			// duDebugDrawArrow(
+			// 	&dd,
+			// 	arrowEnd[0],
+			// 	arrowEnd[1],
+			// 	arrowEnd[2],
+			// 	arrowEnd[0] + hitNormal[0] * agentRadius,
+			// 	arrowEnd[1] + hitNormal[1] * agentRadius,
+			// 	arrowEnd[2] + hitNormal[2] * agentRadius,
+			// 	0,
+			// 	0.2f,
+			// 	duRGBA(0, 128, 255, 220),
+			// 	2.0f);
+
+			// Draw a pole at the wall hit point
+			const unsigned int hitMarkerColor = duRGBA(220, 32, 16, 220);
+			dd.begin(DU_DRAW_LINES, 3.0f);
+			dd.vertex(hitPos[0], hitPos[1], hitPos[2], hitMarkerColor);
+			dd.vertex(hitPos[0], hitPos[1] + agentHeight, hitPos[2], hitMarkerColor);
+			dd.end();
+		}
+
 		dd.depthMask(true);
 	}
 	break;
@@ -1474,6 +1509,20 @@ void NavMeshTesterTool::drawOverlayUI()
 	if (eposSet)
 	{
 		DrawWorldspaceText(epos[0], epos[1], epos[2], IM_COL32(0, 0, 0, 220), "End", true);
+	}
+
+	// Show distance to wall info when in that mode
+	if (toolMode == ToolMode::DISTANCE_TO_WALL && sposSet && distanceToWall > 0)
+	{
+		char text[64];
+		snprintf(text, sizeof(text), "Distance: %.2f", distanceToWall);
+		DrawWorldspaceText(
+			hitPos[0],
+			hitPos[1] + sample->agentHeight + 0.2f,
+			hitPos[2],
+			IM_COL32(220, 32, 16, 255),
+			text,
+			true);
 	}
 
 	// Tool help
