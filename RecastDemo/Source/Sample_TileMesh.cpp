@@ -323,24 +323,32 @@ void Sample_TileMesh::drawDebugUI()
 	ImGui::Text("Draw");
 	if (ImGui::BeginCombo("##drawMode", drawModeNames[static_cast<int>(this->currentDrawMode)], 0))
 	{
+		ImGui::SeparatorText("Input");
 		UI_DrawModeOption(DrawMode::MESH, true);
+
+		ImGui::SeparatorText("Navmesh");
 		UI_DrawModeOption(DrawMode::NAVMESH, navMesh != nullptr);
 		UI_DrawModeOption(DrawMode::NAVMESH_INVIS, navMesh != nullptr);
 		UI_DrawModeOption(DrawMode::NAVMESH_TRANS, navMesh != nullptr);
 		UI_DrawModeOption(DrawMode::NAVMESH_BVTREE, navMesh != nullptr);
 		UI_DrawModeOption(DrawMode::NAVMESH_NODES, navQuery != nullptr);
 		UI_DrawModeOption(DrawMode::NAVMESH_PORTALS, navMesh != nullptr);
+
+		ImGui::SeparatorText("Voxelization");
 		UI_DrawModeOption(DrawMode::VOXELS, heightfield != nullptr);
 		UI_DrawModeOption(DrawMode::VOXELS_WALKABLE, heightfield != nullptr);
 		UI_DrawModeOption(DrawMode::COMPACT, compactHeightfield != nullptr);
 		UI_DrawModeOption(DrawMode::COMPACT_DISTANCE, compactHeightfield != nullptr);
 		UI_DrawModeOption(DrawMode::COMPACT_REGIONS, compactHeightfield != nullptr);
+
+		ImGui::SeparatorText("Polygonization");
 		UI_DrawModeOption(DrawMode::REGION_CONNECTIONS, contourSet != nullptr);
 		UI_DrawModeOption(DrawMode::RAW_CONTOURS, contourSet != nullptr);
 		UI_DrawModeOption(DrawMode::BOTH_CONTOURS, contourSet != nullptr);
 		UI_DrawModeOption(DrawMode::CONTOURS, contourSet != nullptr);
 		UI_DrawModeOption(DrawMode::POLYMESH, polyMesh != nullptr);
 		UI_DrawModeOption(DrawMode::POLYMESH_DETAIL, detailPolyMesh != nullptr);
+
 		ImGui::EndCombo();
 	}
 }
