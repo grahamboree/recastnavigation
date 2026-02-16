@@ -19,24 +19,49 @@
 #ifndef RECAST_DEBUGDRAW_H
 #define RECAST_DEBUGDRAW_H
 
-void duDebugDrawTriMesh(struct duDebugDraw* dd, const float* verts, int nverts, const int* tris, const float* normals, int ntris, const unsigned char* flags, const float texScale);
-void duDebugDrawTriMeshSlope(struct duDebugDraw* dd, const float* verts, int nverts, const int* tris, const float* normals, int ntris, const float walkableSlopeAngle, const float texScale);
+struct duDebugDraw;
+struct rcCompactHeightfield;
+struct rcContourSet;
+struct rcHeightfield;
+struct rcHeightfieldLayer;
+struct rcHeightfieldLayerSet;
+struct rcPolyMesh;
+struct rcPolyMeshDetail;
 
-void duDebugDrawHeightfieldSolid(struct duDebugDraw* dd, const struct rcHeightfield& hf);
-void duDebugDrawHeightfieldWalkable(struct duDebugDraw* dd, const struct rcHeightfield& hf);
+void duDebugDrawTriMesh(
+	duDebugDraw* dd,
+	const float* verts,
+	int nverts,
+	const int* tris,
+	const float* normals,
+	int ntris,
+	const unsigned char* flags,
+	float texScale);
+void duDebugDrawTriMeshSlope(
+	duDebugDraw* dd,
+	const float* verts,
+	int nverts,
+	const int* tris,
+	const float* normals,
+	int ntris,
+	float walkableSlopeAngle,
+	float texScale);
 
-void duDebugDrawCompactHeightfieldSolid(struct duDebugDraw* dd, const struct rcCompactHeightfield& chf);
-void duDebugDrawCompactHeightfieldRegions(struct duDebugDraw* dd, const struct rcCompactHeightfield& chf);
-void duDebugDrawCompactHeightfieldDistance(struct duDebugDraw* dd, const struct rcCompactHeightfield& chf);
+void duDebugDrawHeightfieldSolid(duDebugDraw* dd, const rcHeightfield& hf);
+void duDebugDrawHeightfieldWalkable(duDebugDraw* dd, const rcHeightfield& hf);
 
-void duDebugDrawHeightfieldLayer(duDebugDraw* dd, const struct rcHeightfieldLayer& layer, const int idx);
-void duDebugDrawHeightfieldLayers(duDebugDraw* dd, const struct rcHeightfieldLayerSet& lset);
-void duDebugDrawHeightfieldLayersRegions(duDebugDraw* dd, const struct rcHeightfieldLayerSet& lset);
+void duDebugDrawCompactHeightfieldSolid(duDebugDraw* dd, const rcCompactHeightfield& chf);
+void duDebugDrawCompactHeightfieldRegions(duDebugDraw* dd, const rcCompactHeightfield& chf);
+void duDebugDrawCompactHeightfieldDistance(duDebugDraw* dd, const rcCompactHeightfield& chf);
 
-void duDebugDrawRegionConnections(struct duDebugDraw* dd, const struct rcContourSet& cset, const float alpha = 1.0f);
-void duDebugDrawRawContours(struct duDebugDraw* dd, const struct rcContourSet& cset, const float alpha = 1.0f);
-void duDebugDrawContours(struct duDebugDraw* dd, const struct rcContourSet& cset, const float alpha = 1.0f);
-void duDebugDrawPolyMesh(struct duDebugDraw* dd, const struct rcPolyMesh& mesh);
-void duDebugDrawPolyMeshDetail(struct duDebugDraw* dd, const struct rcPolyMeshDetail& dmesh);
+void duDebugDrawHeightfieldLayer(duDebugDraw* dd, const rcHeightfieldLayer& layer, int idx);
+void duDebugDrawHeightfieldLayers(duDebugDraw* dd, const rcHeightfieldLayerSet& lset);
+void duDebugDrawHeightfieldLayersRegions(duDebugDraw* dd, const rcHeightfieldLayerSet& lset);
 
-#endif // RECAST_DEBUGDRAW_H
+void duDebugDrawRegionConnections(duDebugDraw* dd, const rcContourSet& cset, float alpha = 1.0f);
+void duDebugDrawRawContours(duDebugDraw* dd, const rcContourSet& cset, float alpha = 1.0f);
+void duDebugDrawContours(duDebugDraw* dd, const rcContourSet& cset, float alpha = 1.0f);
+void duDebugDrawPolyMesh(duDebugDraw* dd, const rcPolyMesh& mesh);
+void duDebugDrawPolyMeshDetail(duDebugDraw* dd, const rcPolyMeshDetail& dmesh);
+
+#endif  // RECAST_DEBUGDRAW_H

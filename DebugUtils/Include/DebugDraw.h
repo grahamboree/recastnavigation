@@ -34,7 +34,7 @@ enum duDebugDrawPrimitives
 struct duDebugDraw
 {
 	virtual ~duDebugDraw() = 0;
-	
+
 	virtual void depthMask(bool state) = 0;
 
 	virtual void texture(bool state) = 0;
@@ -52,20 +52,20 @@ struct duDebugDraw
 	/// Submit a vertex
 	///  @param x,y,z [in] position of the verts.
 	///  @param color [in] color of the verts.
-	virtual void vertex(const float x, const float y, const float z, unsigned int color) = 0;
+	virtual void vertex(float x, float y, float z, unsigned int color) = 0;
 
 	/// Submit a vertex
 	///  @param pos [in] position of the verts.
 	///  @param color [in] color of the verts.
 	///  @param uv [in] the uv coordinates of the verts.
 	virtual void vertex(const float* pos, unsigned int color, const float* uv) = 0;
-	
+
 	/// Submit a vertex
 	///  @param x,y,z [in] position of the verts.
 	///  @param color [in] color of the verts.
 	///  @param u,v [in] the uv coordinates of the verts.
-	virtual void vertex(const float x, const float y, const float z, unsigned int color, const float u, const float v) = 0;
-	
+	virtual void vertex(float x, float y, float z, unsigned int color, float u, float v) = 0;
+
 	/// End drawing primitives.
 	virtual void end() = 0;
 
@@ -80,11 +80,11 @@ inline unsigned int duRGBA(int r, int g, int b, int a)
 
 inline unsigned int duRGBAf(float fr, float fg, float fb, float fa)
 {
-	unsigned char r = (unsigned char)(fr*255.0f);
-	unsigned char g = (unsigned char)(fg*255.0f);
-	unsigned char b = (unsigned char)(fb*255.0f);
-	unsigned char a = (unsigned char)(fa*255.0f);
-	return duRGBA(r,g,b,a);
+	unsigned char r = (unsigned char)(fr * 255.0f);
+	unsigned char g = (unsigned char)(fg * 255.0f);
+	unsigned char b = (unsigned char)(fb * 255.0f);
+	unsigned char a = (unsigned char)(fa * 255.0f);
+	return duRGBA(r, g, b, a);
 }
 
 unsigned int duIntToCol(int i, int a);
@@ -96,7 +96,7 @@ inline unsigned int duMultCol(const unsigned int col, const unsigned int d)
 	const unsigned int g = (col >> 8) & 0xff;
 	const unsigned int b = (col >> 16) & 0xff;
 	const unsigned int a = (col >> 24) & 0xff;
-	return duRGBA((r*d) >> 8, (g*d) >> 8, (b*d) >> 8, a);
+	return duRGBA((r * d) >> 8, (g * d) >> 8, (b * d) >> 8, a);
 }
 
 inline unsigned int duDarkenCol(unsigned int col)
@@ -114,83 +114,198 @@ inline unsigned int duLerpCol(unsigned int ca, unsigned int cb, unsigned int u)
 	const unsigned int gb = (cb >> 8) & 0xff;
 	const unsigned int bb = (cb >> 16) & 0xff;
 	const unsigned int ab = (cb >> 24) & 0xff;
-	
-	unsigned int r = (ra*(255-u) + rb*u)/255;
-	unsigned int g = (ga*(255-u) + gb*u)/255;
-	unsigned int b = (ba*(255-u) + bb*u)/255;
-	unsigned int a = (aa*(255-u) + ab*u)/255;
-	return duRGBA(r,g,b,a);
+
+	unsigned int r = (ra * (255 - u) + rb * u) / 255;
+	unsigned int g = (ga * (255 - u) + gb * u) / 255;
+	unsigned int b = (ba * (255 - u) + bb * u) / 255;
+	unsigned int a = (aa * (255 - u) + ab * u) / 255;
+	return duRGBA(r, g, b, a);
 }
 
 inline unsigned int duTransCol(unsigned int c, unsigned int a)
 {
-	return (a<<24) | (c & 0x00ffffff);
+	return (a << 24) | (c & 0x00ffffff);
 }
-
 
 void duCalcBoxColors(unsigned int* colors, unsigned int colTop, unsigned int colSide);
 
-void duDebugDrawCylinderWire(struct duDebugDraw* dd, float minx, float miny, float minz,
-							 float maxx, float maxy, float maxz, unsigned int col, const float lineWidth);
+void duDebugDrawCylinderWire(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawBoxWire(struct duDebugDraw* dd, float minx, float miny, float minz,
-						float maxx, float maxy, float maxz, unsigned int col, const float lineWidth);
+void duDebugDrawBoxWire(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawArc(struct duDebugDraw* dd, const float x0, const float y0, const float z0,
-					const float x1, const float y1, const float z1, const float h,
-					const float as0, const float as1, unsigned int col, const float lineWidth);
+void duDebugDrawArc(
+	duDebugDraw* dd,
+	float x0,
+	float y0,
+	float z0,
+	float x1,
+	float y1,
+	float z1,
+	float h,
+	float as0,
+	float as1,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawArrow(struct duDebugDraw* dd, const float x0, const float y0, const float z0,
-					  const float x1, const float y1, const float z1,
-					  const float as0, const float as1, unsigned int col, const float lineWidth);
+void duDebugDrawArrow(
+	duDebugDraw* dd,
+	float x0,
+	float y0,
+	float z0,
+	float x1,
+	float y1,
+	float z1,
+	float as0,
+	float as1,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawCircle(struct duDebugDraw* dd, const float x, const float y, const float z,
-					   const float r, unsigned int col, const float lineWidth);
+void duDebugDrawCircle(
+	duDebugDraw* dd,
+	float x,
+	float y,
+	float z,
+	float r,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawCross(struct duDebugDraw* dd, const float x, const float y, const float z,
-					  const float size, unsigned int col, const float lineWidth);
+void duDebugDrawCross(
+	duDebugDraw* dd,
+	float x,
+	float y,
+	float z,
+	float size,
+	unsigned int col,
+	float lineWidth);
 
-void duDebugDrawBox(struct duDebugDraw* dd, float minx, float miny, float minz,
-					float maxx, float maxy, float maxz, const unsigned int* fcol);
+void duDebugDrawBox(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	const unsigned int* fcol);
 
-void duDebugDrawCylinder(struct duDebugDraw* dd, float minx, float miny, float minz,
-						 float maxx, float maxy, float maxz, unsigned int col);
+void duDebugDrawCylinder(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int col);
 
-void duDebugDrawGridXZ(struct duDebugDraw* dd, const float ox, const float oy, const float oz,
-					   const int w, const int h, const float size,
-					   const unsigned int col, const float lineWidth);
-
+void duDebugDrawGridXZ(
+	duDebugDraw* dd,
+	float ox,
+	float oy,
+	float oz,
+	int w,
+	int h,
+	float size,
+	unsigned int color,
+	float lineWidth);
 
 // Versions without begin/end, can be used to draw multiple primitives.
-void duAppendCylinderWire(struct duDebugDraw* dd, float minx, float miny, float minz,
-						  float maxx, float maxy, float maxz, unsigned int col);
+void duAppendCylinderWire(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int color);
 
-void duAppendBoxWire(struct duDebugDraw* dd, float minx, float miny, float minz,
-					 float maxx, float maxy, float maxz, unsigned int col);
+void duAppendBoxWire(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int color);
 
-void duAppendBoxPoints(struct duDebugDraw* dd, float minx, float miny, float minz,
-					   float maxx, float maxy, float maxz, unsigned int col);
+void duAppendBoxPoints(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int color);
 
-void duAppendArc(struct duDebugDraw* dd, const float x0, const float y0, const float z0,
-				 const float x1, const float y1, const float z1, const float h,
-				 const float as0, const float as1, unsigned int col);
+void duAppendArc(
+	duDebugDraw* dd,
+	float x0,
+	float y0,
+	float z0,
+	float x1,
+	float y1,
+	float z1,
+	float h,
+	float as0,
+	float as1,
+	unsigned int color);
 
-void duAppendArrow(struct duDebugDraw* dd, const float x0, const float y0, const float z0,
-				   const float x1, const float y1, const float z1,
-				   const float as0, const float as1, unsigned int col);
+void duAppendArrow(
+	duDebugDraw* dd,
+	float x0,
+	float y0,
+	float z0,
+	float x1,
+	float y1,
+	float z1,
+	float as0,
+	float as1,
+	unsigned int color);
 
-void duAppendCircle(struct duDebugDraw* dd, const float x, const float y, const float z,
-					const float r, unsigned int col);
+void duAppendCircle(duDebugDraw* dd, float x, float y, float z, float r, unsigned int col);
 
-void duAppendCross(struct duDebugDraw* dd, const float x, const float y, const float z,
-				   const float size, unsigned int col);
+void duAppendCross(duDebugDraw* dd, float x, float y, float z, float size, unsigned int col);
 
-void duAppendBox(struct duDebugDraw* dd, float minx, float miny, float minz,
-				 float maxx, float maxy, float maxz, const unsigned int* fcol);
+void duAppendBox(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	const unsigned int* fcol);
 
-void duAppendCylinder(struct duDebugDraw* dd, float minx, float miny, float minz,
-					  float maxx, float maxy, float maxz, unsigned int col);
-
+void duAppendCylinder(
+	duDebugDraw* dd,
+	float minx,
+	float miny,
+	float minz,
+	float maxx,
+	float maxy,
+	float maxz,
+	unsigned int color);
 
 class duDisplayList : public duDebugDraw
 {
@@ -202,24 +317,24 @@ class duDisplayList : public duDebugDraw
 	duDebugDrawPrimitives m_prim;
 	float m_primSize;
 	bool m_depthMask;
-	
+
 	void resize(int cap);
-	
+
 public:
 	duDisplayList(int cap = 512);
 	virtual ~duDisplayList();
 	virtual void depthMask(bool state);
 	virtual void begin(duDebugDrawPrimitives prim, float size = 1.0f);
-	virtual void vertex(const float x, const float y, const float z, unsigned int color);
+	virtual void vertex(float x, float y, float z, unsigned int color);
 	virtual void vertex(const float* pos, unsigned int color);
 	virtual void end();
 	void clear();
-	void draw(struct duDebugDraw* dd);
+	void draw(duDebugDraw* dd);
+
 private:
 	// Explicitly disabled copy constructor and copy assignment operator.
 	duDisplayList(const duDisplayList&);
 	duDisplayList& operator=(const duDisplayList&);
 };
 
-
-#endif // DEBUGDRAW_H
+#endif  // DEBUGDRAW_H
