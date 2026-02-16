@@ -18,7 +18,6 @@
 
 #pragma once
 
-#include "DetourAssert.h"
 #include "DetourNavMesh.h"
 #include "Sample.h"
 

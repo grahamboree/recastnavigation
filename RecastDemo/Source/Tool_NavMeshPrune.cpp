@@ -18,9 +18,11 @@
 
 #include "Tool_NavMeshPrune.h"
 
+#include "DetourAssert.h"
 #include "DetourCommon.h"
 #include "DetourDebugDraw.h"
 #include "DetourNavMesh.h"
+#include "DetourNavMeshQuery.h"
 #include "imguiHelpers.h"
 
 #include <imgui.h>
