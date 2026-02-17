@@ -34,7 +34,7 @@ class TestCase
 
 	struct Test
 	{
-		TestCase::TestType type{};
+		TestType type{};
 		float spos[3]{};
 		float epos[3]{};
 		float nspos[3]{};
@@ -62,8 +62,8 @@ public:
 	std::string sampleName;
 	std::string geomFileName;
 
-	void doTests(class dtNavMesh* navmesh, class dtNavMeshQuery* navquery);
+	void doTests(dtNavMesh* navmesh, dtNavMeshQuery* query);
 
-	void render();
-	bool renderOverlay();
+	void render() const;
+	bool renderOverlay() const;
 };

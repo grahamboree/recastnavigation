@@ -172,9 +172,9 @@ void TestCase::resetTimes()
 	}
 }
 
-void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
+void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* query)
 {
-	if (!navmesh || !navquery)
+	if (!navmesh || !query)
 	{
 		return;
 	}
@@ -199,8 +199,8 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 		TimeVal findNearestPolyStart = getPerfTime();
 
 		dtPolyRef startRef, endRef;
-		navquery->findNearestPoly(test.spos, polyPickExt, &filter, &startRef, test.nspos);
-		navquery->findNearestPoly(test.epos, polyPickExt, &filter, &endRef, test.nepos);
+		query->findNearestPoly(test.spos, polyPickExt, &filter, &startRef, test.nspos);
+		query->findNearestPoly(test.epos, polyPickExt, &filter, &endRef, test.nepos);
 
 		TimeVal findNearestPolyEnd = getPerfTime();
 		test.findNearestPolyTime += getPerfTimeUsec(findNearestPolyEnd - findNearestPolyStart);
@@ -210,13 +210,13 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 			continue;
 		}
 
-		if (test.type == TestCase::TestType::PATHFIND)
+		if (test.type == TestType::PATHFIND)
 		{
 			// Find path
 			TimeVal findPathStart = getPerfTime();
 
 			int numPolys = 0;
-			navquery->findPath(startRef, endRef, test.spos, test.epos, &filter, polys, &numPolys, MAX_POLYS);
+			query->findPath(startRef, endRef, test.spos, test.epos, &filter, polys, &numPolys, MAX_POLYS);
 
 			TimeVal findPathEnd = getPerfTime();
 			test.findPathTime += getPerfTimeUsec(findPathEnd - findPathStart);
@@ -227,7 +227,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 			{
 				TimeVal findStraightPathStart = getPerfTime();
 
-				navquery->findStraightPath(
+				query->findStraightPath(
 					test.spos,
 					test.epos,
 					polys,
@@ -253,7 +253,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 				memcpy(test.straight.data(), straight, sizeof(float) * 3 * numStraight);
 			}
 		}
-		else if (test.type == TestCase::TestType::RAYCAST)
+		else if (test.type == TestType::RAYCAST)
 		{
 			float t = 0;
 			float hitNormal[3];
@@ -267,7 +267,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 			TimeVal findPathStart = getPerfTime();
 
 			int numPolys = 0;
-			navquery->raycast(startRef, test.spos, test.epos, &filter, &t, hitNormal, polys, &numPolys, MAX_POLYS);
+			query->raycast(startRef, test.spos, test.epos, &filter, &t, hitNormal, polys, &numPolys, MAX_POLYS);
 
 			TimeVal findPathEnd = getPerfTime();
 			test.findPathTime += getPerfTimeUsec(findPathEnd - findPathStart);
@@ -286,7 +286,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 			if (numPolys > 0)
 			{
 				float h = 0;
-				navquery->getPolyHeight(polys[numPolys - 1], hitPos, &h);
+				query->getPolyHeight(polys[numPolys - 1], hitPos, &h);
 				hitPos[1] = h;
 			}
 			dtVcopy(&test.straight[3], hitPos);
@@ -312,7 +312,7 @@ void TestCase::doTests(dtNavMesh* navmesh, dtNavMeshQuery* navquery)
 	}
 }
 
-void TestCase::render()
+void TestCase::render() const
 {
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
@@ -379,7 +379,7 @@ void TestCase::render()
 	glLineWidth(1.0f);
 }
 
-bool TestCase::renderOverlay()
+bool TestCase::renderOverlay() const
 {
 	char text[64];
 	int n = 0;
@@ -421,7 +421,7 @@ bool TestCase::renderOverlay()
 	ImGui::Begin("Test Results");
 
 	n = 0;
-	for (auto& test : tests)
+	for (const auto& test : tests)
 	{
 		const int total = test.findNearestPolyTime + test.findPathTime + test.findStraightPathTime;
 		snprintf(text, 64, "Path %d", n);
