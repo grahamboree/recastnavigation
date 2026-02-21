@@ -32,6 +32,7 @@
 #include "Tool_Crowd.h"
 #include "Tool_NavMeshTester.h"
 #include "Tool_OffMeshConnection.h"
+#include "Tool_TempObstacleCreate.h"
 #include "Tool_TempObstacleHighlight.h"
 #include "imguiHelpers.h"
 
@@ -714,56 +715,6 @@ int Sample_TempObstacles::rasterizeTileLayers(
 
 	return n;
 }
-
-class TempObstacleCreateTool : public SampleTool
-{
-	Sample_TempObstacles* sample = nullptr;
-
-public:
-	~TempObstacleCreateTool() override = default;
-
-	SampleToolType type() override { return SampleToolType::TEMP_OBSTACLE; }
-
-	void init(Sample* sample) override { sample = static_cast<Sample_TempObstacles*>(sample); }
-
-	void reset() override {}
-
-	void drawMenuUI() override
-	{
-		ImGui::Text("Create Temp Obstacles");
-
-		if (ImGui::Button("Remove All"))
-		{
-			sample->clearAllTempObstacles();
-		}
-
-		ImGui::Separator();
-
-		ImGui::Text("Click LMB to create an obstacle.");
-		ImGui::Text("Shift+LMB to remove an obstacle.");
-	}
-
-	void onClick(const float* s, const float* p, bool shift) override
-	{
-		if (sample)
-		{
-			if (shift)
-			{
-				sample->removeTempObstacle(s, p);
-			}
-			else
-			{
-				sample->addTempObstacle(p);
-			}
-		}
-	}
-
-	void onToggle() override {}
-	void singleStep() override {}
-	void update(const float /*dt*/) override {}
-	void render() override {}
-	void drawOverlayUI() override {}
-};
 
 Sample_TempObstacles::Sample_TempObstacles()
 {
