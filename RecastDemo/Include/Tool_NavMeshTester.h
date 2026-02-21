@@ -98,13 +98,13 @@ public:
 	void init(Sample* newSample) override;
 	void reset() override;
 	void drawMenuUI() override;
-	void onClick(const float* s, const float* p, bool shift) override;
+	void onClick(const float* rayStartPos, const float* rayHitPos, bool shift) override;
 	void onToggle() override;
 	void singleStep() override;
-	void update(const float dt) override;
+	void update(float dt) override;
 	void render() override;
 	void drawOverlayUI() override;
 
 	void recalc();
-	void drawAgent(const float* pos, float r, float h, float c, const unsigned int col) const;
+	void drawAgent(const float* pos, float radius, float height, float walkableClimbHeight, unsigned int color) const;
 };

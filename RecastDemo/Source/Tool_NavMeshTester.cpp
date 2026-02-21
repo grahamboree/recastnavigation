@@ -26,7 +26,7 @@
 #include <imgui.h>
 
 // Uncomment this to dump all the requests in stdout.
-//#define DUMP_REQS
+// #define DUMP_REQS
 
 namespace
 {
@@ -57,38 +57,44 @@ bool inRange(const float* v1, const float* v2, const float r, const float h)
 //  +---+---+
 int fixupShortcuts(dtPolyRef* path, int npath, dtNavMeshQuery* navQuery)
 {
-	if (npath < 3) { return npath; }
+	if (npath < 3)
+	{
+		return npath;
+	}
 
 	// Get connected polygons
-	static const int maxNeis = 16;
-	dtPolyRef neis[maxNeis];
-	int nneis = 0;
+	static const int maxNeighborCount = 16;
+	dtPolyRef neighbors[maxNeighborCount];
+	int neighborCount = 0;
 
 	const dtMeshTile* tile = 0;
 	const dtPoly* poly = 0;
-	if (dtStatusFailed(navQuery->getAttachedNavMesh()->getTileAndPolyByRef(path[0], &tile, &poly))) { return npath; }
+	if (dtStatusFailed(navQuery->getAttachedNavMesh()->getTileAndPolyByRef(path[0], &tile, &poly)))
+	{
+		return npath;
+	}
 
 	for (unsigned int k = poly->firstLink; k != DT_NULL_LINK; k = tile->links[k].next)
 	{
 		const dtLink* link = &tile->links[k];
 		if (link->ref != 0)
 		{
-			if (nneis < maxNeis)
+			if (neighborCount < maxNeighborCount)
 			{
-				neis[nneis++] = link->ref;
+				neighbors[neighborCount++] = link->ref;
 			}
 		}
 	}
 
 	// If any of the neighbor polygons is within the next few polygons
-	// in the path, short cut to that polygon directly.
-	static const int maxLookAhead = 6;
+	// in the path, shortcut to that polygon directly.
+	static constexpr int maxLookAhead = 6;
 	int cut = 0;
 	for (int i = dtMin(maxLookAhead, npath) - 1; i > 1 && cut == 0; i--)
 	{
-		for (int j = 0; j < nneis; j++)
+		for (int j = 0; j < neighborCount; j++)
 		{
-			if (path[i] == neis[j])
+			if (path[i] == neighbors[j])
 			{
 				cut = i;
 				break;
@@ -97,7 +103,7 @@ int fixupShortcuts(dtPolyRef* path, int npath, dtNavMeshQuery* navQuery)
 	}
 	if (cut > 1)
 	{
-		int offset = cut - 1;
+		const int offset = cut - 1;
 		npath -= offset;
 		for (int i = 1; i < npath; i++)
 		{
@@ -108,7 +114,8 @@ int fixupShortcuts(dtPolyRef* path, int npath, dtNavMeshQuery* navQuery)
 	return npath;
 }
 
-bool getSteerTarget(dtNavMeshQuery* navQuery,
+bool getSteerTarget(
+	dtNavMeshQuery* navQuery,
 	const float* startPos,
 	const float* endPos,
 	const float minTargetDist,
@@ -125,7 +132,7 @@ bool getSteerTarget(dtNavMeshQuery* navQuery,
 	float steerPath[MAX_STEER_POINTS * 3];
 	unsigned char steerPathFlags[MAX_STEER_POINTS];
 	dtPolyRef steerPathPolys[MAX_STEER_POINTS];
-	int nsteerPath = 0;
+	int steerPathLength = 0;
 	navQuery->findStraightPath(
 		startPos,
 		endPos,
@@ -134,15 +141,18 @@ bool getSteerTarget(dtNavMeshQuery* navQuery,
 		steerPath,
 		steerPathFlags,
 		steerPathPolys,
-		&nsteerPath,
+		&steerPathLength,
 		MAX_STEER_POINTS);
 
-	if (!nsteerPath) { return false; }
+	if (!steerPathLength)
+	{
+		return false;
+	}
 
 	if (outPoints && outPointCount)
 	{
-		*outPointCount = nsteerPath;
-		for (int i = 0; i < nsteerPath; ++i)
+		*outPointCount = steerPathLength;
+		for (int i = 0; i < steerPathLength; ++i)
 		{
 			dtVcopy(&outPoints[i * 3], &steerPath[i * 3]);
 		}
@@ -150,15 +160,24 @@ bool getSteerTarget(dtNavMeshQuery* navQuery,
 
 	// Find vertex far enough to steer to.
 	int ns = 0;
-	while (ns < nsteerPath)
+	while (ns < steerPathLength)
 	{
 		// Stop at Off-Mesh link or when point is further than slop away.
-		if ((steerPathFlags[ns] & DT_STRAIGHTPATH_OFFMESH_CONNECTION)) { break; }
-		if (!inRange(&steerPath[ns * 3], startPos, minTargetDist, 1000.0f)) { break; }
+		if ((steerPathFlags[ns] & DT_STRAIGHTPATH_OFFMESH_CONNECTION))
+		{
+			break;
+		}
+		if (!inRange(&steerPath[ns * 3], startPos, minTargetDist, 1000.0f))
+		{
+			break;
+		}
 		ns++;
 	}
 	// Failed to find good point to steer to.
-	if (ns >= nsteerPath) { return false; }
+	if (ns >= steerPathLength)
+	{
+		return false;
+	}
 
 	dtVcopy(steerPos, &steerPath[ns * 3]);
 	steerPos[1] = startPos[1];
@@ -177,7 +196,10 @@ void getPolyCenter(dtNavMesh* navMesh, dtPolyRef ref, float* center)
 	const dtMeshTile* tile = 0;
 	const dtPoly* poly = 0;
 	dtStatus status = navMesh->getTileAndPolyByRef(ref, &tile, &poly);
-	if (dtStatusFailed(status)) { return; }
+	if (dtStatusFailed(status))
+	{
+		return;
+	}
 
 	for (int i = 0; i < static_cast<int>(poly->vertCount); ++i)
 	{
@@ -342,6 +364,7 @@ void NavMeshTesterTool::drawMenuUI()
 				frand,
 				&polyRef,
 				point);
+
 			if (dtStatusSucceed(status))
 			{
 				dtVcopy(&randPoints[nrandPoints * 3], point);
@@ -419,17 +442,18 @@ void NavMeshTesterTool::drawMenuUI()
 	ImGui::Separator();
 }
 
-void NavMeshTesterTool::onClick(const float* /*s*/, const float* p, bool shift)
+void NavMeshTesterTool::onClick(const float* rayStartPos, const float* rayHitPos, bool shift)
 {
+	(void)rayStartPos;
 	if (shift)
 	{
 		sposSet = true;
-		dtVcopy(spos, p);
+		dtVcopy(spos, rayHitPos);
 	}
 	else
 	{
 		eposSet = true;
-		dtVcopy(epos, p);
+		dtVcopy(epos, rayHitPos);
 	}
 	recalc();
 }
@@ -439,9 +463,15 @@ void NavMeshTesterTool::singleStep() {}
 void NavMeshTesterTool::onToggle()
 {
 	// TODO: merge separate to a path iterator. Use same code in recalc() too.
-	if (toolMode != ToolMode::PATHFIND_FOLLOW) { return; }
+	if (toolMode != ToolMode::PATHFIND_FOLLOW)
+	{
+		return;
+	}
 
-	if (!sposSet || !eposSet || !startRef || !endRef) { return; }
+	if (!sposSet || !eposSet || !startRef || !endRef)
+	{
+		return;
+	}
 
 	static const float STEP_SIZE = 0.5f;
 	static const float SLOP = 0.01f;
@@ -474,9 +504,15 @@ void NavMeshTesterTool::onToggle()
 
 	pathIterNum++;
 
-	if (!pathIterPolyCount) { return; }
+	if (!pathIterPolyCount)
+	{
+		return;
+	}
 
-	if (nsmoothPath >= MAX_SMOOTH) { return; }
+	if (nsmoothPath >= MAX_SMOOTH)
+	{
+		return;
+	}
 
 	// Move towards target a small advancement at a time until target reached or
 	// when ran out of memory to store the path.
@@ -487,17 +523,17 @@ void NavMeshTesterTool::onToggle()
 	dtPolyRef steerPosRef;
 
 	if (!getSteerTarget(
-		sample->navQuery,
-		iterPos,
-		targetPos,
-		SLOP,
-		pathIterPolys,
-		pathIterPolyCount,
-		steerPos,
-		steerPosFlag,
-		steerPosRef,
-		steerPoints,
-		&steerPointCount))
+			sample->navQuery,
+			iterPos,
+			targetPos,
+			SLOP,
+			pathIterPolys,
+			pathIterPolyCount,
+			steerPos,
+			steerPosFlag,
+			steerPosRef,
+			steerPoints,
+			&steerPointCount))
 	{
 		return;
 	}
@@ -653,7 +689,10 @@ void NavMeshTesterTool::reset()
 
 void NavMeshTesterTool::recalc()
 {
-	if (!sample->navMesh) { return; }
+	if (!sample->navMesh)
+	{
+		return;
+	}
 
 	if (sposSet)
 	{
@@ -725,15 +764,15 @@ void NavMeshTesterTool::recalc()
 					dtPolyRef steerPosRef;
 
 					if (!getSteerTarget(
-						sample->navQuery,
-						iterPos,
-						targetPos,
-						SLOP,
-						polys,
-						npolys,
-						steerPos,
-						steerPosFlag,
-						steerPosRef))
+							sample->navQuery,
+							iterPos,
+							targetPos,
+							SLOP,
+							polys,
+							npolys,
+							steerPos,
+							steerPosFlag,
+							steerPosRef))
 					{
 						break;
 					}
@@ -797,7 +836,10 @@ void NavMeshTesterTool::recalc()
 							polyRef = polys[npos];
 							npos++;
 						}
-						for (int i = npos; i < npolys; ++i) { polys[i - npos] = polys[i]; }
+						for (int i = npos; i < npolys; ++i)
+						{
+							polys[i - npos] = polys[i];
+						}
 						npolys -= npos;
 
 						// Handle the connection.
@@ -902,13 +944,7 @@ void NavMeshTesterTool::recalc()
 			npolys = 0;
 			nstraightPath = 0;
 
-			pathFindStatus = sample->navQuery->initSlicedFindPath(
-				startRef,
-				endRef,
-				spos,
-				epos,
-				&filter,
-				DT_FINDPATH_ANY_ANGLE);
+			pathFindStatus = sample->navQuery->initSlicedFindPath(startRef, endRef, spos, epos, &filter, DT_FINDPATH_ANY_ANGLE);
 		}
 		else
 		{
@@ -1055,8 +1091,7 @@ void NavMeshTesterTool::recalc()
 				filter.getIncludeFlags(),
 				filter.getExcludeFlags());
 #endif
-			sample->navQuery->findLocalNeighbourhood(
-				startRef, spos, neighborhoodRadius, &filter, polys, parent, &npolys, MAX_POLYS);
+			sample->navQuery->findLocalNeighbourhood(startRef, spos, neighborhoodRadius, &filter, polys, parent, &npolys, MAX_POLYS);
 		}
 	}
 }
@@ -1284,11 +1319,15 @@ void NavMeshTesterTool::render()
 			duDebugDrawCircle(&dd, spos[0], spos[1] + agentHeight / 2, spos[2], distanceToWall, duRGBA(64, 16, 0, 220), 2.0f);
 
 			// Draw an arrow to the wall hit point
-			const float arrowEnd[3] {hitPos[0], hitPos[1] + agentHeight / 2, hitPos[2]};
+			const float arrowEnd[3]{hitPos[0], hitPos[1] + agentHeight / 2, hitPos[2]};
 			duDebugDrawArrow(
 				&dd,
-				spos[0], spos[1] + agentHeight / 2, spos[2],
-				arrowEnd[0], arrowEnd[1], arrowEnd[2],
+				spos[0],
+				spos[1] + agentHeight / 2,
+				spos[2],
+				arrowEnd[0],
+				arrowEnd[1],
+				arrowEnd[2],
 				0,
 				0.3f,
 				duRGBA(0, 0, 0, 192),
@@ -1487,14 +1526,7 @@ void NavMeshTesterTool::render()
 
 		if (randPointsInCircle && sposSet)
 		{
-			duDebugDrawCircle(
-				&dd,
-				spos[0],
-				spos[1] + agentHeight / 2,
-				spos[2],
-				randomRadius,
-				duRGBA(64, 16, 0, 220),
-				2.0f);
+			duDebugDrawCircle(&dd, spos[0], spos[1] + agentHeight / 2, spos[2], randomRadius, duRGBA(64, 16, 0, 220), 2.0f);
 		}
 	}
 }
@@ -1529,25 +1561,41 @@ void NavMeshTesterTool::drawOverlayUI()
 	DrawScreenspaceText(280, 40, IM_COL32(255, 255, 255, 192), "LMB+SHIFT: Set start location  LMB: Set end location");
 }
 
-void NavMeshTesterTool::drawAgent(const float* pos, float r, float h, float c, const unsigned int col) const
+void NavMeshTesterTool::drawAgent(
+	const float* pos,
+	const float radius,
+	const float height,
+	const float walkableClimbHeight,
+	const unsigned int color) const
 {
 	duDebugDraw& draw = sample->debugDraw;
 
 	draw.depthMask(false);
 
-	// Agent dimensions.
-	duDebugDrawCylinderWire(&draw, pos[0] - r, pos[1] + 0.02f, pos[2] - r, pos[0] + r, pos[1] + h, pos[2] + r, col, 2.0f);
+	// Agent dimensions
+	duDebugDrawCylinderWire(
+		&draw,
+		pos[0] - radius,
+		pos[1] + 0.02f,
+		pos[2] - radius,
+		pos[0] + radius,
+		pos[1] + height,
+		pos[2] + radius,
+		color,
+		2.0f);
 
-	duDebugDrawCircle(&draw, pos[0], pos[1] + c, pos[2], r, duRGBA(0, 0, 0, 64), 1.0f);
+	// Circle at walkable climb height
+	duDebugDrawCircle(&draw, pos[0], pos[1] + walkableClimbHeight, pos[2], radius, duRGBA(0, 0, 0, 64), 1.0f);
 
-	const unsigned int color = duRGBA(0, 0, 0, 196);
+	// Draw agent position and step height whiskers
+	const unsigned int whiskerColor = duRGBA(0, 0, 0,  196);
 	draw.begin(DU_DRAW_LINES);
-	draw.vertex(pos[0], pos[1] - c, pos[2], color);
-	draw.vertex(pos[0], pos[1] + c, pos[2], color);
-	draw.vertex(pos[0] - r / 2, pos[1] + 0.02f, pos[2], color);
-	draw.vertex(pos[0] + r / 2, pos[1] + 0.02f, pos[2], color);
-	draw.vertex(pos[0], pos[1] + 0.02f, pos[2] - r / 2, color);
-	draw.vertex(pos[0], pos[1] + 0.02f, pos[2] + r / 2, color);
+	draw.vertex(pos[0], pos[1] - walkableClimbHeight, pos[2], whiskerColor);
+	draw.vertex(pos[0], pos[1] + walkableClimbHeight, pos[2], whiskerColor);
+	draw.vertex(pos[0] - radius / 2, pos[1] + 0.02f, pos[2], whiskerColor);
+	draw.vertex(pos[0] + radius / 2, pos[1] + 0.02f, pos[2], whiskerColor);
+	draw.vertex(pos[0], pos[1] + 0.02f, pos[2] - radius / 2, whiskerColor);
+	draw.vertex(pos[0], pos[1] + 0.02f, pos[2] + radius / 2, whiskerColor);
 	draw.end();
 
 	draw.depthMask(true);
