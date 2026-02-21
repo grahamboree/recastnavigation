@@ -529,6 +529,8 @@ void Sample_TileMesh::render()
 
 void Sample_TileMesh::renderOverlay()
 {
+	Sample::renderOverlay();
+
 	// Draw start and end point labels
 	if (tileBuildTime > 0.0f)
 	{
@@ -541,12 +543,6 @@ void Sample_TileMesh::renderOverlay()
 			IM_COL32(0, 0, 0, 220),
 			text);
 	}
-
-	if (tool)
-	{
-		tool->drawOverlayUI();
-	}
-	renderOverlayToolStates();
 }
 
 void Sample_TileMesh::onMeshChanged(InputGeom* geom)

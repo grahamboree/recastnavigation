@@ -243,6 +243,9 @@ void NavMeshTesterTool::init(Sample* newSample)
 
 void NavMeshTesterTool::drawMenuUI()
 {
+	ImGui::Text("LMB: Set start location");
+	ImGui::Text("SHIFT+LMB: Set end location");
+
 	if (ImGui::RadioButton("Pathfind Follow", toolMode == ToolMode::PATHFIND_FOLLOW))
 	{
 		toolMode = ToolMode::PATHFIND_FOLLOW;
@@ -1556,9 +1559,6 @@ void NavMeshTesterTool::drawOverlayUI()
 			text,
 			true);
 	}
-
-	// Tool help
-	DrawScreenspaceText(280, 40, IM_COL32(255, 255, 255, 192), "LMB: Set start location  LMB+SHIFT: Set end location");
 }
 
 void NavMeshTesterTool::drawAgent(

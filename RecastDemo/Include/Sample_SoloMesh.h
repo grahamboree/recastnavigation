@@ -75,7 +75,6 @@ public:
 	void drawDebugUI() override;
 
 	void render() override;
-	void renderOverlay() override;
 	void onMeshChanged(InputGeom* geom) override;
 	bool build() override;
 

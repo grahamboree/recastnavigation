@@ -153,7 +153,14 @@ void Sample::render()
 		1.0f);
 }
 
-void Sample::renderOverlay() {}
+void Sample::renderOverlay()
+{
+	if (tool)
+	{
+		tool->drawOverlayUI();
+	}
+	renderOverlayToolStates();
+}
 
 void Sample::onMeshChanged(InputGeom* geom)
 {

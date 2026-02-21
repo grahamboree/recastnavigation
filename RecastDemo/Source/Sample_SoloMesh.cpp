@@ -325,15 +325,6 @@ void Sample_SoloMesh::render()
 	glDepthMask(GL_TRUE);
 }
 
-void Sample_SoloMesh::renderOverlay()
-{
-	if (tool)
-	{
-		tool->drawOverlayUI();
-	}
-	renderOverlayToolStates();
-}
-
 void Sample_SoloMesh::onMeshChanged(InputGeom* geom)
 {
 	Sample::onMeshChanged(geom);
