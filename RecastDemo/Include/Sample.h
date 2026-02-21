@@ -75,6 +75,14 @@ enum class SamplePartitionType : uint8_t
 	LAYERS
 };
 
+enum DrawDetailType
+{
+	DRAWDETAIL_AREAS,
+	DRAWDETAIL_REGIONS,
+	DRAWDETAIL_CONTOURS,
+	DRAWDETAIL_MESH
+};
+
 class SampleDebugDraw : public DebugDrawGL
 {
 public:

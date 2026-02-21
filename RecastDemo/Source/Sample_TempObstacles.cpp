@@ -32,6 +32,7 @@
 #include "Tool_Crowd.h"
 #include "Tool_NavMeshTester.h"
 #include "Tool_OffMeshConnection.h"
+#include "Tool_TempObstacleHighlight.h"
 #include "imguiHelpers.h"
 
 #include <fastlz.h>
@@ -52,14 +53,6 @@ constexpr int MAX_LAYERS = 32;
 
 constexpr int TILECACHESET_MAGIC = 'T' << 24 | 'S' << 16 | 'E' << 8 | 'T';  //'TSET';
 constexpr int TILECACHESET_VERSION = 1;
-
-enum DrawDetailType
-{
-	DRAWDETAIL_AREAS,
-	DRAWDETAIL_REGIONS,
-	DRAWDETAIL_CONTOURS,
-	DRAWDETAIL_MESH
-};
 
 bool intersectSegmentAABB(const float* sp, const float* sq, const float* amin, const float* amax, float& tmin, float& tmax)
 {
@@ -721,94 +714,6 @@ int Sample_TempObstacles::rasterizeTileLayers(
 
 	return n;
 }
-
-class TempObstacleHighlightTool : public SampleTool
-{
-	Sample_TempObstacles* sample = nullptr;
-	float hitPos[3] = {0, 0, 0};
-	bool hitPosSet = false;
-	DrawDetailType drawType = DRAWDETAIL_AREAS;
-
-public:
-	~TempObstacleHighlightTool() override = default;
-
-	SampleToolType type() override { return SampleToolType::TILE_HIGHLIGHT; }
-
-	void init(Sample* sample) override { sample = static_cast<Sample_TempObstacles*>(sample); }
-
-	void reset() override {}
-
-	void drawMenuUI() override
-	{
-		ImGui::Text("Highlight Tile Cache");
-		ImGui::Text("Click LMB to highlight a tile.");
-		ImGui::Separator();
-		if (ImGui::RadioButton("Draw Areas", drawType == DRAWDETAIL_AREAS))
-		{
-			drawType = DRAWDETAIL_AREAS;
-		}
-		if (ImGui::RadioButton("Draw Regions", drawType == DRAWDETAIL_REGIONS))
-		{
-			drawType = DRAWDETAIL_REGIONS;
-		}
-		if (ImGui::RadioButton("Draw Contours", drawType == DRAWDETAIL_CONTOURS))
-		{
-			drawType = DRAWDETAIL_CONTOURS;
-		}
-		if (ImGui::RadioButton("Draw Mesh", drawType == DRAWDETAIL_MESH))
-		{
-			drawType = DRAWDETAIL_MESH;
-		}
-	}
-
-	void onClick(const float* /*s*/, const float* p, bool /*shift*/) override
-	{
-		hitPosSet = true;
-		rcVcopy(hitPos, p);
-	}
-
-	void onToggle() override {}
-
-	void singleStep() override {}
-
-	void update(const float /*dt*/) override {}
-
-	void render() override
-	{
-		if (hitPosSet && sample)
-		{
-			const float s = sample->agentRadius;
-			glColor4ub(0, 0, 0, 128);
-			glLineWidth(2.0f);
-			glBegin(GL_LINES);
-			glVertex3f(hitPos[0] - s, hitPos[1] + 0.1f, hitPos[2]);
-			glVertex3f(hitPos[0] + s, hitPos[1] + 0.1f, hitPos[2]);
-			glVertex3f(hitPos[0], hitPos[1] - s + 0.1f, hitPos[2]);
-			glVertex3f(hitPos[0], hitPos[1] + s + 0.1f, hitPos[2]);
-			glVertex3f(hitPos[0], hitPos[1] + 0.1f, hitPos[2] - s);
-			glVertex3f(hitPos[0], hitPos[1] + 0.1f, hitPos[2] + s);
-			glEnd();
-			glLineWidth(1.0f);
-
-			int tileX = 0, tileY = 0;
-			sample->getTilePos(hitPos, tileX, tileY);
-			sample->renderCachedTile(tileX, tileY, drawType);
-		}
-	}
-
-	void drawOverlayUI() override
-	{
-		if (hitPosSet)
-		{
-			if (sample)
-			{
-				int tileX = 0, tileY = 0;
-				sample->getTilePos(hitPos, tileX, tileY);
-				sample->renderCachedTileOverlay(tileX, tileY);
-			}
-		}
-	}
-};
 
 class TempObstacleCreateTool : public SampleTool
 {
