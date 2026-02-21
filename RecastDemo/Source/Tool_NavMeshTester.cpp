@@ -447,13 +447,13 @@ void NavMeshTesterTool::onClick(const float* rayStartPos, const float* rayHitPos
 	(void)rayStartPos;
 	if (shift)
 	{
-		sposSet = true;
-		dtVcopy(spos, rayHitPos);
+		eposSet = true;
+		dtVcopy(epos, rayHitPos);
 	}
 	else
 	{
-		eposSet = true;
-		dtVcopy(epos, rayHitPos);
+		sposSet = true;
+		dtVcopy(spos, rayHitPos);
 	}
 	recalc();
 }
@@ -1558,7 +1558,7 @@ void NavMeshTesterTool::drawOverlayUI()
 	}
 
 	// Tool help
-	DrawScreenspaceText(280, 40, IM_COL32(255, 255, 255, 192), "LMB+SHIFT: Set start location  LMB: Set end location");
+	DrawScreenspaceText(280, 40, IM_COL32(255, 255, 255, 192), "LMB: Set start location  LMB+SHIFT: Set end location");
 }
 
 void NavMeshTesterTool::drawAgent(
