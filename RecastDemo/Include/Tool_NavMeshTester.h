@@ -50,45 +50,45 @@ class NavMeshTesterTool : public SampleTool
 
 	dtPolyRef startRef = 0;
 	dtPolyRef endRef = 0;
-	dtPolyRef polys[MAX_POLYS];
-	dtPolyRef parent[MAX_POLYS];
+	dtPolyRef polys[MAX_POLYS] = {};
+	dtPolyRef parent[MAX_POLYS] = {};
 	int npolys = 0;
-	float straightPath[MAX_POLYS * 3];
-	unsigned char straightPathFlags[MAX_POLYS];
-	dtPolyRef straightPathPolys[MAX_POLYS];
+	float straightPath[MAX_POLYS * 3] = {};
+	unsigned char straightPathFlags[MAX_POLYS] = {};
+	dtPolyRef straightPathPolys[MAX_POLYS] = {};
 	int nstraightPath = 0;
 	float polyPickExt[3] = {2, 4, 2};
 
-	float smoothPath[MAX_SMOOTH * 3];
+	float smoothPath[MAX_SMOOTH * 3] = {};
 	int nsmoothPath = 0;
-	float queryPoly[4 * 3];
+	float queryPoly[4 * 3] = {};
 
-	float randPoints[MAX_RAND_POINTS * 3];
+	float randPoints[MAX_RAND_POINTS * 3] = {};
 	int nrandPoints = 0;
 	bool randPointsInCircle = false;
 
 	bool sposSet = false;
-	float spos[3];
+	float spos[3] = {};
 	bool eposSet = false;
-	float epos[3];
+	float epos[3] = {};
 
-	float hitPos[3];
-	float hitNormal[3];
+	float hitPos[3] = {};
+	float hitNormal[3] = {};
 	bool hitResult = false;
 	float distanceToWall = 0;
 	float neighborhoodRadius = 2.5f;
 	float randomRadius = 5.0f;
 
 	int pathIterNum = 0;
-	dtPolyRef pathIterPolys[MAX_POLYS];
+	dtPolyRef pathIterPolys[MAX_POLYS] = {};
 	int pathIterPolyCount = 0;
-	float prevIterPos[3];
-	float iterPos[3];
-	float steerPos[3];
-	float targetPos[3];
+	float prevIterPos[3] = {};
+	float iterPos[3] = {};
+	float steerPos[3] = {};
+	float targetPos[3] = {};
 
 	static constexpr int MAX_STEER_POINTS = 10;
-	float steerPoints[MAX_STEER_POINTS * 3];
+	float steerPoints[MAX_STEER_POINTS * 3] = {};
 	int steerPointCount = 0;
 
 public:
