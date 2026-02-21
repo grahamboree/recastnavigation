@@ -68,8 +68,8 @@ public:
 	Sample_TempObstacles(const Sample_TempObstacles&&) = delete;
 	Sample_TempObstacles& operator=(const Sample_TempObstacles&&) = delete;
 
+	bool supportsTool(SampleToolType toolType) const override;
 	void drawSettingsUI() override;
-	void drawToolsUI() override;
 	void drawDebugUI() override;
 	void render() override;
 	void renderOverlay() override;

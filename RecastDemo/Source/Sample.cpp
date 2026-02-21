@@ -22,20 +22,29 @@
 #include "DetourDebugDraw.h"
 #include "InputGeom.h"
 #include "RecastDebugDraw.h"
+#include "Tool_ConvexVolume.h"
+#include "Tool_Crowd.h"
+#include "Tool_NavMeshPrune.h"
+#include "Tool_NavMeshTester.h"
+#include "Tool_NavMeshTile.h"
+#include "Tool_OffMeshConnection.h"
+#include "Tool_TempObstacleCreate.h"
+#include "Tool_TempObstacleHighlight.h"
 #include "imguiHelpers.h"
 
 #include <imgui.h>
 
+// Indexes here must match the values of SampleToolType
 const char* toolNames[] = {
 	"None",
-	"Create Tiles",
-	"Highlight Tile Cache",
-	"Create Temp Obstacles",
 	"Test Navmesh",
 	"Prune Navmesh",
 	"Create Off-Mesh Connections",
 	"Create Convex Volumes",
 	"Create Crowds",
+	"Create Tiles",
+	"Highlight Tile Cache",
+	"Create Temp Obstacles",
 };
 
 namespace
@@ -100,17 +109,48 @@ Sample::~Sample()
 	dtFreeNavMeshQuery(navQuery);
 	dtFreeNavMesh(navMesh);
 	dtFreeCrowd(crowd);
-	delete tool;
 	for (int i = 0; i < static_cast<int>(SampleToolType::MAX_TOOLS); i++)
 	{
 		delete toolStates[i];
 	}
 }
 
-void Sample::setTool(SampleTool* newTool)
+void Sample::setTool(SampleToolType toolType)
 {
-	delete tool;
-	tool = newTool;
+	this->currentTool = toolType;
+	switch (toolType)
+	{
+	case SampleToolType::NONE:
+		tool = nullptr;
+	case SampleToolType::NAVMESH_TILE:
+		tool = std::make_unique<NavMeshTileTool>();
+		break;
+	case SampleToolType::TEMP_OBSTACLE_HIGHLIGHT:
+		tool = std::make_unique<TempObstacleHighlightTool>();
+		break;
+	case SampleToolType::TEMP_OBSTACLE_CREATE:
+		tool = std::make_unique<TempObstacleCreateTool>();
+		break;
+	case SampleToolType::NAVMESH_TESTER:
+		tool = std::make_unique<NavMeshTesterTool>();
+		break;
+	case SampleToolType::NAVMESH_PRUNE:
+		tool = std::make_unique<NavMeshPruneTool>();
+		break;
+	case SampleToolType::OFFMESH_CONNECTION:
+		tool = std::make_unique<OffMeshConnectionTool>();
+		break;
+	case SampleToolType::CONVEX_VOLUME:
+		tool = std::make_unique<ConvexVolumeTool>();
+		break;
+	case SampleToolType::CROWD:
+		tool = std::make_unique<CrowdTool>();
+		break;
+	case SampleToolType::MAX_TOOLS:
+		printf("ERROR: Unknown tool type!\n");
+		break;
+	}
+
 	if (tool)
 	{
 		tool->init(this);
@@ -119,7 +159,39 @@ void Sample::setTool(SampleTool* newTool)
 
 void Sample::drawSettingsUI() {}
 
-void Sample::drawToolsUI() {}
+void Sample::drawToolsUI()
+{
+	if (ImGui::BeginCombo("##Tool Selection", toolNames[static_cast<uint8_t>(this->currentTool)]))
+	{
+		for (uint8_t toolIndex = 1; toolIndex < static_cast<uint8_t>(SampleToolType::MAX_TOOLS); toolIndex++)
+		{
+			const auto toolType = static_cast<SampleToolType>(toolIndex);
+			ImGui::BeginDisabled(!supportsTool(toolType));
+
+			const bool selected = toolType == this->currentTool;
+			if (ImGui::Selectable(toolNames[toolIndex], selected))
+			{
+				this->setTool(toolType);
+			}
+
+			// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+			if (selected)
+			{
+				ImGui::SetItemDefaultFocus();
+			}
+
+			ImGui::EndDisabled();
+		}
+		ImGui::EndCombo();
+	}
+
+	ImGui::SeparatorText("Settings");
+
+	if (tool)
+	{
+		tool->drawMenuUI();
+	}
+}
 
 void Sample::drawDebugUI() {}
 

@@ -21,6 +21,7 @@
 #include "SampleInterfaces.h"
 
 #include <cstdint>
+#include <memory>
 
 class Sample;
 class InputGeom;
@@ -33,14 +34,14 @@ enum class SampleToolType : uint8_t
 {
 	NONE = 0,
 
-	TILE_EDIT,
-	TILE_HIGHLIGHT,
-	TEMP_OBSTACLE,
 	NAVMESH_TESTER,
 	NAVMESH_PRUNE,
 	OFFMESH_CONNECTION,
 	CONVEX_VOLUME,
 	CROWD,
+	NAVMESH_TILE,
+	TEMP_OBSTACLE_HIGHLIGHT,
+	TEMP_OBSTACLE_CREATE,
 
 	MAX_TOOLS
 };
@@ -150,7 +151,8 @@ public:
 	bool filterLedgeSpans = true;
 	bool filterWalkableLowHeightSpans = true;
 
-	SampleTool* tool = nullptr;
+	SampleToolType currentTool = SampleToolType::NONE;
+	std::unique_ptr<SampleTool> tool = nullptr;
 	SampleToolState* toolStates[static_cast<size_t>(SampleToolType::MAX_TOOLS)] = {};
 
 	BuildContext* buildContext = nullptr;
@@ -165,10 +167,11 @@ public:
 	Sample& operator=(const Sample&) = delete;
 	Sample& operator=(const Sample&&) = delete;
 
-	void setTool(SampleTool* tool);
+	void setTool(SampleToolType toolType);
+	virtual bool supportsTool(SampleToolType toolType) const = 0;
 
 	virtual void drawSettingsUI();
-	virtual void drawToolsUI();
+	void drawToolsUI();
 	virtual void drawDebugUI();
 
 	virtual void onClick(const float* rayStartPos, const float* rayHitPos, bool shift);

@@ -26,7 +26,7 @@
 
 SampleToolType NavMeshTileTool::type()
 {
-	return SampleToolType::TILE_EDIT;
+	return SampleToolType::NAVMESH_TILE;
 }
 
 void NavMeshTileTool::init(Sample* inSample)

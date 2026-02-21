@@ -24,7 +24,7 @@
 
 SampleToolType TempObstacleCreateTool::type()
 {
-	return SampleToolType::TEMP_OBSTACLE;
+	return SampleToolType::TEMP_OBSTACLE_CREATE;
 }
 
 void TempObstacleCreateTool::init(Sample* sample)

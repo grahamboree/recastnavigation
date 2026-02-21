@@ -25,7 +25,7 @@
 
 SampleToolType TempObstacleHighlightTool::type()
 {
-	return SampleToolType::TILE_HIGHLIGHT;
+	return SampleToolType::TEMP_OBSTACLE_HIGHLIGHT;
 }
 
 void TempObstacleHighlightTool::init(Sample* sample)

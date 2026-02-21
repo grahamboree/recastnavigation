@@ -53,7 +53,7 @@ const char* Sample_SoloMesh::drawModeNames[]{
 
 Sample_SoloMesh::Sample_SoloMesh()
 {
-	setTool(new NavMeshTesterTool);
+	setTool(SampleToolType::NAVMESH_TESTER);
 }
 
 Sample_SoloMesh::~Sample_SoloMesh()
@@ -79,6 +79,13 @@ void Sample_SoloMesh::cleanup()
 	navMesh = nullptr;
 }
 
+bool Sample_SoloMesh::supportsTool(const SampleToolType toolType) const
+{
+	return toolType == SampleToolType::NAVMESH_TESTER || toolType == SampleToolType::NAVMESH_PRUNE ||
+	       toolType == SampleToolType::OFFMESH_CONNECTION || toolType == SampleToolType::CONVEX_VOLUME ||
+	       toolType == SampleToolType::CROWD;
+}
+
 void Sample_SoloMesh::drawSettingsUI()
 {
 	static const char* fileName = "solo_navmesh.bin";
@@ -100,33 +107,6 @@ void Sample_SoloMesh::drawSettingsUI()
 	}
 
 	ImGui::Text("Build Time: %.1fms", totalBuildTimeMs);
-}
-
-void Sample_SoloMesh::drawToolsUI()
-{
-	ImGui::SeparatorText("Tool Selection");
-	const SampleToolType currentType = !tool ? SampleToolType::NONE : tool->type();
-
-#define TOOL(toolType, toolClass)                                      \
-	if (ImGui::RadioButton(                                            \
-			toolNames[static_cast<uint8_t>(SampleToolType::toolType)], \
-			currentType == SampleToolType::toolType))                  \
-	{                                                                  \
-		setTool(new (toolClass){});                                    \
-	}
-	TOOL(NAVMESH_TESTER, NavMeshTesterTool)
-	TOOL(NAVMESH_PRUNE, NavMeshPruneTool)
-	TOOL(OFFMESH_CONNECTION, OffMeshConnectionTool)
-	TOOL(CONVEX_VOLUME, ConvexVolumeTool)
-	TOOL(CROWD, CrowdTool)
-#undef TOOL
-
-	ImGui::SeparatorText("Tool Settings");
-
-	if (tool)
-	{
-		tool->drawMenuUI();
-	}
 }
 
 void Sample_SoloMesh::UI_DrawModeOption(const DrawMode drawMode, const bool enabled)

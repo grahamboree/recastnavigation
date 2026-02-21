@@ -94,7 +94,7 @@ const char* Sample_TileMesh::drawModeNames[]{
 Sample_TileMesh::Sample_TileMesh()
 {
 	resetCommonSettings();
-	setTool(new NavMeshTileTool);
+	setTool(SampleToolType::NAVMESH_TILE);
 }
 
 Sample_TileMesh::~Sample_TileMesh()
@@ -118,6 +118,13 @@ void Sample_TileMesh::cleanup()
 	polyMesh = nullptr;
 	rcFreePolyMeshDetail(detailPolyMesh);
 	detailPolyMesh = nullptr;
+}
+
+bool Sample_TileMesh::supportsTool(const SampleToolType toolType) const
+{
+	return toolType == SampleToolType::NAVMESH_TESTER || toolType == SampleToolType::NAVMESH_PRUNE ||
+	       toolType == SampleToolType::NAVMESH_TILE || toolType == SampleToolType::OFFMESH_CONNECTION ||
+	       toolType == SampleToolType::CONVEX_VOLUME || toolType == SampleToolType::CROWD;
 }
 
 void Sample_TileMesh::drawSettingsUI()
@@ -181,33 +188,6 @@ void Sample_TileMesh::drawSettingsUI()
 	ImGui::Text("Build Time: %.1fms", totalBuildTimeMs);
 
 	ImGui::Separator();
-}
-
-void Sample_TileMesh::drawToolsUI()
-{
-	ImGui::SeparatorText("Tool Selection");
-	const SampleToolType currentType = !tool ? SampleToolType::NONE : tool->type();
-#define TOOL(toolType, toolClass)                                      \
-	if (ImGui::RadioButton(                                            \
-			toolNames[static_cast<uint8_t>(SampleToolType::toolType)], \
-			currentType == SampleToolType::toolType))                  \
-	{                                                                  \
-		setTool(new (toolClass){});                                    \
-	}
-	TOOL(NAVMESH_TESTER, NavMeshTesterTool)
-	TOOL(NAVMESH_PRUNE, NavMeshPruneTool)
-	TOOL(TILE_EDIT, NavMeshTileTool)
-	TOOL(OFFMESH_CONNECTION, OffMeshConnectionTool)
-	TOOL(CONVEX_VOLUME, ConvexVolumeTool)
-	TOOL(CROWD, CrowdTool)
-#undef TOOL
-
-	ImGui::SeparatorText("Tool Settings");
-
-	if (tool)
-	{
-		tool->drawMenuUI();
-	}
 }
 
 void Sample_TileMesh::UI_DrawModeOption(DrawMode drawMode, bool enabled)

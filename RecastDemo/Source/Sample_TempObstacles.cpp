@@ -724,7 +724,7 @@ Sample_TempObstacles::Sample_TempObstacles()
 	tCompressor = new FastLZCompressor;
 	tMeshProcess = new MeshProcess;
 
-	setTool(new TempObstacleCreateTool);
+	setTool(SampleToolType::TEMP_OBSTACLE_CREATE);
 }
 
 Sample_TempObstacles::~Sample_TempObstacles()
@@ -732,6 +732,13 @@ Sample_TempObstacles::~Sample_TempObstacles()
 	dtFreeNavMesh(navMesh);
 	navMesh = 0;
 	dtFreeTileCache(tileCache);
+}
+
+bool Sample_TempObstacles::supportsTool(const SampleToolType toolType) const
+{
+	return toolType == SampleToolType::NAVMESH_TESTER || toolType == SampleToolType::TEMP_OBSTACLE_HIGHLIGHT ||
+	       toolType == SampleToolType::TEMP_OBSTACLE_CREATE || toolType == SampleToolType::OFFMESH_CONNECTION ||
+	       toolType == SampleToolType::CONVEX_VOLUME || toolType == SampleToolType::CROWD;
 }
 
 void Sample_TempObstacles::drawSettingsUI()
@@ -812,26 +819,6 @@ void Sample_TempObstacles::drawSettingsUI()
 	ImGui::Unindent();
 
 	ImGui::Separator();
-}
-
-void Sample_TempObstacles::drawToolsUI()
-{
-	const SampleToolType currentTool = !tool ? SampleToolType::NONE : tool->type();
-#define TOOL(toolType, toolClass) if (ImGui::RadioButton(toolNames[static_cast<int>(SampleToolType::toolType)], currentTool == SampleToolType::toolType)) { setTool(new toolClass{}); }
-	TOOL(NAVMESH_TESTER, NavMeshTesterTool)
-	TOOL(TILE_HIGHLIGHT, TempObstacleHighlightTool)
-	TOOL(TEMP_OBSTACLE, TempObstacleCreateTool)
-	TOOL(OFFMESH_CONNECTION, OffMeshConnectionTool)
-	TOOL(CONVEX_VOLUME, ConvexVolumeTool)
-	TOOL(CROWD, CrowdTool)
-#undef TOOL
-
-	ImGui::Separator();
-
-	if (tool)
-	{
-		tool->drawMenuUI();
-	}
 }
 
 void Sample_TempObstacles::drawDebugUI()
