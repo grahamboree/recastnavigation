@@ -33,7 +33,7 @@ unsigned int duDebugDraw::areaToCol(unsigned int area)
 	return area == 0 ? duRGBA(0, 192, 255, 255) : duIntToCol(area, 255);
 }
 
-inline int bit(int a, int b)
+static int bit(int a, int b)
 {
 	return (a & (1 << b)) >> b;
 }
@@ -46,14 +46,14 @@ unsigned int duIntToCol(int i, int a)
 	return duRGBA(r * 63, g * 63, b * 63, a);
 }
 
-void duIntToCol(int i, float* col)
+void duIntToCol(int i, float* color)
 {
 	int r = bit(i, 0) + bit(i, 3) * 2 + 1;
 	int g = bit(i, 1) + bit(i, 4) * 2 + 1;
 	int b = bit(i, 2) + bit(i, 5) * 2 + 1;
-	col[0] = 1 - r * 63.0f / 255.0f;
-	col[1] = 1 - g * 63.0f / 255.0f;
-	col[2] = 1 - b * 63.0f / 255.0f;
+	color[0] = 1 - r * 63.0f / 255.0f;
+	color[1] = 1 - g * 63.0f / 255.0f;
+	color[2] = 1 - b * 63.0f / 255.0f;
 }
 
 void duCalcBoxColors(unsigned int* colors, unsigned int colTop, unsigned int colSide)
@@ -79,7 +79,7 @@ void duDebugDrawCylinderWire(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -88,7 +88,7 @@ void duDebugDrawCylinderWire(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendCylinderWire(dd, minx, miny, minz, maxx, maxy, maxz, col);
+	duAppendCylinderWire(dd, minx, miny, minz, maxx, maxy, maxz, color);
 	dd->end();
 }
 
@@ -100,7 +100,7 @@ void duDebugDrawBoxWire(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -109,7 +109,7 @@ void duDebugDrawBoxWire(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendBoxWire(dd, minx, miny, minz, maxx, maxy, maxz, col);
+	duAppendBoxWire(dd, minx, miny, minz, maxx, maxy, maxz, color);
 	dd->end();
 }
 
@@ -121,10 +121,10 @@ void duDebugDrawArc(
 	const float x1,
 	const float y1,
 	const float z1,
-	const float h,
-	const float as0,
-	const float as1,
-	unsigned int col,
+	const float arcHeight,
+	const float arrowSize0,
+	const float arrowSize1,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -133,7 +133,7 @@ void duDebugDrawArc(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendArc(dd, x0, y0, z0, x1, y1, z1, h, as0, as1, col);
+	duAppendArc(dd, x0, y0, z0, x1, y1, z1, arcHeight, arrowSize0, arrowSize1, color);
 	dd->end();
 }
 
@@ -145,9 +145,9 @@ void duDebugDrawArrow(
 	const float x1,
 	const float y1,
 	const float z1,
-	const float as0,
-	const float as1,
-	unsigned int col,
+	const float arrowSize0,
+	const float arrowSize1,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -156,7 +156,7 @@ void duDebugDrawArrow(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendArrow(dd, x0, y0, z0, x1, y1, z1, as0, as1, col);
+	duAppendArrow(dd, x0, y0, z0, x1, y1, z1, arrowSize0, arrowSize1, color);
 	dd->end();
 }
 
@@ -165,8 +165,8 @@ void duDebugDrawCircle(
 	const float x,
 	const float y,
 	const float z,
-	const float r,
-	unsigned int col,
+	const float radius,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -175,7 +175,7 @@ void duDebugDrawCircle(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendCircle(dd, x, y, z, r, col);
+	duAppendCircle(dd, x, y, z, radius, color);
 	dd->end();
 }
 
@@ -185,7 +185,7 @@ void duDebugDrawCross(
 	const float y,
 	const float z,
 	const float size,
-	unsigned int col,
+	unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -194,7 +194,7 @@ void duDebugDrawCross(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	duAppendCross(dd, x, y, z, size, col);
+	duAppendCross(dd, x, y, z, size, color);
 	dd->end();
 }
 
@@ -206,7 +206,7 @@ void duDebugDrawBox(
 	float maxx,
 	float maxy,
 	float maxz,
-	const unsigned int* fcol)
+	const unsigned int* cornerColors)
 {
 	if (!dd)
 	{
@@ -214,7 +214,7 @@ void duDebugDrawBox(
 	}
 
 	dd->begin(DU_DRAW_QUADS);
-	duAppendBox(dd, minx, miny, minz, maxx, maxy, maxz, fcol);
+	duAppendBox(dd, minx, miny, minz, maxx, maxy, maxz, cornerColors);
 	dd->end();
 }
 
@@ -226,7 +226,7 @@ void duDebugDrawCylinder(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col)
+	unsigned int color)
 {
 	if (!dd)
 	{
@@ -234,19 +234,19 @@ void duDebugDrawCylinder(
 	}
 
 	dd->begin(DU_DRAW_TRIS);
-	duAppendCylinder(dd, minx, miny, minz, maxx, maxy, maxz, col);
+	duAppendCylinder(dd, minx, miny, minz, maxx, maxy, maxz, color);
 	dd->end();
 }
 
 void duDebugDrawGridXZ(
 	duDebugDraw* dd,
-	const float ox,
-	const float oy,
-	const float oz,
-	const int w,
-	const int h,
-	const float size,
-	const unsigned int col,
+	const float x,
+	const float y,
+	const float z,
+	const int width,
+	const int height,
+	const float cellSize,
+	const unsigned int color,
 	const float lineWidth)
 {
 	if (!dd)
@@ -255,15 +255,15 @@ void duDebugDrawGridXZ(
 	}
 
 	dd->begin(DU_DRAW_LINES, lineWidth);
-	for (int i = 0; i <= h; ++i)
+	for (int i = 0; i <= height; ++i)
 	{
-		dd->vertex(ox, oy, oz + i * size, col);
-		dd->vertex(ox + w * size, oy, oz + i * size, col);
+		dd->vertex(x, y, z + i * cellSize, color);
+		dd->vertex(x + width * cellSize, y, z + i * cellSize, color);
 	}
-	for (int i = 0; i <= w; ++i)
+	for (int i = 0; i <= width; ++i)
 	{
-		dd->vertex(ox + i * size, oy, oz, col);
-		dd->vertex(ox + i * size, oy, oz + h * size, col);
+		dd->vertex(x + i * cellSize, y, z, color);
+		dd->vertex(x + i * cellSize, y, z + height * cellSize, color);
 	}
 	dd->end();
 }
@@ -276,7 +276,7 @@ void duAppendCylinderWire(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col)
+	unsigned int color)
 {
 	if (!dd)
 	{
@@ -304,15 +304,15 @@ void duAppendCylinderWire(
 
 	for (int i = 0, j = NUM_SEG - 1; i < NUM_SEG; j = i++)
 	{
-		dd->vertex(cx + dir[j * 2 + 0] * rx, miny, cz + dir[j * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, col);
+		dd->vertex(cx + dir[j * 2 + 0] * rx, miny, cz + dir[j * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, color);
 	}
 	for (int i = 0; i < NUM_SEG; i += NUM_SEG / 4)
 	{
-		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, col);
+		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, color);
 	}
 }
 
@@ -324,41 +324,41 @@ void duAppendBoxWire(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col)
+	unsigned int color)
 {
 	if (!dd)
 	{
 		return;
 	}
 	// Top
-	dd->vertex(minx, miny, minz, col);
-	dd->vertex(maxx, miny, minz, col);
-	dd->vertex(maxx, miny, minz, col);
-	dd->vertex(maxx, miny, maxz, col);
-	dd->vertex(maxx, miny, maxz, col);
-	dd->vertex(minx, miny, maxz, col);
-	dd->vertex(minx, miny, maxz, col);
-	dd->vertex(minx, miny, minz, col);
+	dd->vertex(minx, miny, minz, color);
+	dd->vertex(maxx, miny, minz, color);
+	dd->vertex(maxx, miny, minz, color);
+	dd->vertex(maxx, miny, maxz, color);
+	dd->vertex(maxx, miny, maxz, color);
+	dd->vertex(minx, miny, maxz, color);
+	dd->vertex(minx, miny, maxz, color);
+	dd->vertex(minx, miny, minz, color);
 
 	// bottom
-	dd->vertex(minx, maxy, minz, col);
-	dd->vertex(maxx, maxy, minz, col);
-	dd->vertex(maxx, maxy, minz, col);
-	dd->vertex(maxx, maxy, maxz, col);
-	dd->vertex(maxx, maxy, maxz, col);
-	dd->vertex(minx, maxy, maxz, col);
-	dd->vertex(minx, maxy, maxz, col);
-	dd->vertex(minx, maxy, minz, col);
+	dd->vertex(minx, maxy, minz, color);
+	dd->vertex(maxx, maxy, minz, color);
+	dd->vertex(maxx, maxy, minz, color);
+	dd->vertex(maxx, maxy, maxz, color);
+	dd->vertex(maxx, maxy, maxz, color);
+	dd->vertex(minx, maxy, maxz, color);
+	dd->vertex(minx, maxy, maxz, color);
+	dd->vertex(minx, maxy, minz, color);
 
 	// Sides
-	dd->vertex(minx, miny, minz, col);
-	dd->vertex(minx, maxy, minz, col);
-	dd->vertex(maxx, miny, minz, col);
-	dd->vertex(maxx, maxy, minz, col);
-	dd->vertex(maxx, miny, maxz, col);
-	dd->vertex(maxx, maxy, maxz, col);
-	dd->vertex(minx, miny, maxz, col);
-	dd->vertex(minx, maxy, maxz, col);
+	dd->vertex(minx, miny, minz, color);
+	dd->vertex(minx, maxy, minz, color);
+	dd->vertex(maxx, miny, minz, color);
+	dd->vertex(maxx, maxy, minz, color);
+	dd->vertex(maxx, miny, maxz, color);
+	dd->vertex(maxx, maxy, maxz, color);
+	dd->vertex(minx, miny, maxz, color);
+	dd->vertex(minx, maxy, maxz, color);
 }
 
 void duAppendBoxPoints(
@@ -369,31 +369,31 @@ void duAppendBoxPoints(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col)
+	unsigned int color)
 {
 	if (!dd)
 	{
 		return;
 	}
 	// Top
-	dd->vertex(minx, miny, minz, col);
-	dd->vertex(maxx, miny, minz, col);
-	dd->vertex(maxx, miny, minz, col);
-	dd->vertex(maxx, miny, maxz, col);
-	dd->vertex(maxx, miny, maxz, col);
-	dd->vertex(minx, miny, maxz, col);
-	dd->vertex(minx, miny, maxz, col);
-	dd->vertex(minx, miny, minz, col);
+	dd->vertex(minx, miny, minz, color);
+	dd->vertex(maxx, miny, minz, color);
+	dd->vertex(maxx, miny, minz, color);
+	dd->vertex(maxx, miny, maxz, color);
+	dd->vertex(maxx, miny, maxz, color);
+	dd->vertex(minx, miny, maxz, color);
+	dd->vertex(minx, miny, maxz, color);
+	dd->vertex(minx, miny, minz, color);
 
 	// bottom
-	dd->vertex(minx, maxy, minz, col);
-	dd->vertex(maxx, maxy, minz, col);
-	dd->vertex(maxx, maxy, minz, col);
-	dd->vertex(maxx, maxy, maxz, col);
-	dd->vertex(maxx, maxy, maxz, col);
-	dd->vertex(minx, maxy, maxz, col);
-	dd->vertex(minx, maxy, maxz, col);
-	dd->vertex(minx, maxy, minz, col);
+	dd->vertex(minx, maxy, minz, color);
+	dd->vertex(maxx, maxy, minz, color);
+	dd->vertex(maxx, maxy, minz, color);
+	dd->vertex(maxx, maxy, maxz, color);
+	dd->vertex(maxx, maxy, maxz, color);
+	dd->vertex(minx, maxy, maxz, color);
+	dd->vertex(minx, maxy, maxz, color);
+	dd->vertex(minx, maxy, minz, color);
 }
 
 void duAppendBox(
@@ -404,7 +404,7 @@ void duAppendBox(
 	float maxx,
 	float maxy,
 	float maxz,
-	const unsigned int* fcol)
+	const unsigned int* cornerColors)
 {
 	if (!dd)
 	{
@@ -421,13 +421,13 @@ void duAppendBox(
 	const unsigned char* in = inds;
 	for (int i = 0; i < 6; ++i)
 	{
-		dd->vertex(&verts[*in * 3], fcol[i]);
+		dd->vertex(&verts[*in * 3], cornerColors[i]);
 		in++;
-		dd->vertex(&verts[*in * 3], fcol[i]);
+		dd->vertex(&verts[*in * 3], cornerColors[i]);
 		in++;
-		dd->vertex(&verts[*in * 3], fcol[i]);
+		dd->vertex(&verts[*in * 3], cornerColors[i]);
 		in++;
-		dd->vertex(&verts[*in * 3], fcol[i]);
+		dd->vertex(&verts[*in * 3], cornerColors[i]);
 		in++;
 	}
 }
@@ -440,7 +440,7 @@ void duAppendCylinder(
 	float maxx,
 	float maxy,
 	float maxz,
-	unsigned int col)
+	unsigned int color)
 {
 	if (!dd)
 	{
@@ -461,7 +461,7 @@ void duAppendCylinder(
 		}
 	}
 
-	unsigned int col2 = duMultCol(col, 160);
+	unsigned int col2 = duMultCol(color, 160);
 
 	const float cx = (maxx + minx) / 2;
 	const float cz = (maxz + minz) / 2;
@@ -478,19 +478,19 @@ void duAppendCylinder(
 	for (int i = 2; i < NUM_SEG; ++i)
 	{
 		const int a = 0, b = i, c = i - 1;
-		dd->vertex(cx + dir[a * 2 + 0] * rx, maxy, cz + dir[a * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[b * 2 + 0] * rx, maxy, cz + dir[b * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[c * 2 + 0] * rx, maxy, cz + dir[c * 2 + 1] * rz, col);
+		dd->vertex(cx + dir[a * 2 + 0] * rx, maxy, cz + dir[a * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[b * 2 + 0] * rx, maxy, cz + dir[b * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[c * 2 + 0] * rx, maxy, cz + dir[c * 2 + 1] * rz, color);
 	}
 	for (int i = 0, j = NUM_SEG - 1; i < NUM_SEG; j = i++)
 	{
 		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, col2);
 		dd->vertex(cx + dir[j * 2 + 0] * rx, miny, cz + dir[j * 2 + 1] * rz, col2);
-		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, col);
+		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, color);
 
 		dd->vertex(cx + dir[i * 2 + 0] * rx, miny, cz + dir[i * 2 + 1] * rz, col2);
-		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, col);
-		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, col);
+		dd->vertex(cx + dir[j * 2 + 0] * rx, maxy, cz + dir[j * 2 + 1] * rz, color);
+		dd->vertex(cx + dir[i * 2 + 0] * rx, maxy, cz + dir[i * 2 + 1] * rz, color);
 	}
 }
 
@@ -540,7 +540,7 @@ inline float vdistSqr(const float* v1, const float* v2)
 	return x * x + y * y + z * z;
 }
 
-void appendArrowHead(duDebugDraw* dd, const float* p, const float* q, const float s, unsigned int col)
+void appendArrowHead(duDebugDraw* dd, const float* p, const float* q, const float s, unsigned int color)
 {
 	const float eps = 0.001f;
 	if (!dd)
@@ -558,13 +558,13 @@ void appendArrowHead(duDebugDraw* dd, const float* p, const float* q, const floa
 	vcross(ay, az, ax);
 	vnormalize(ay);
 
-	dd->vertex(p, col);
+	dd->vertex(p, color);
 	//	dd->vertex(p[0]+az[0]*s+ay[0]*s/2, p[1]+az[1]*s+ay[1]*s/2, p[2]+az[2]*s+ay[2]*s/2, col);
-	dd->vertex(p[0] + az[0] * s + ax[0] * s / 3, p[1] + az[1] * s + ax[1] * s / 3, p[2] + az[2] * s + ax[2] * s / 3, col);
+	dd->vertex(p[0] + az[0] * s + ax[0] * s / 3, p[1] + az[1] * s + ax[1] * s / 3, p[2] + az[2] * s + ax[2] * s / 3, color);
 
-	dd->vertex(p, col);
+	dd->vertex(p, color);
 	//	dd->vertex(p[0]+az[0]*s-ay[0]*s/2, p[1]+az[1]*s-ay[1]*s/2, p[2]+az[2]*s-ay[2]*s/2, col);
-	dd->vertex(p[0] + az[0] * s - ax[0] * s / 3, p[1] + az[1] * s - ax[1] * s / 3, p[2] + az[2] * s - ax[2] * s / 3, col);
+	dd->vertex(p[0] + az[0] * s - ax[0] * s / 3, p[1] + az[1] * s - ax[1] * s / 3, p[2] + az[2] * s - ax[2] * s / 3, color);
 }
 
 void duAppendArc(
@@ -576,9 +576,9 @@ void duAppendArc(
 	const float y1,
 	const float z1,
 	const float h,
-	const float as0,
-	const float as1,
-	unsigned int col)
+	const float arrowSize0,
+	const float arrowSize1,
+	unsigned int color)
 {
 	if (!dd)
 	{
@@ -598,28 +598,28 @@ void duAppendArc(
 		const float u = PAD + i * ARC_PTS_SCALE;
 		float pt[3];
 		evalArc(x0, y0, z0, dx, dy, dz, len * h, u, pt);
-		dd->vertex(prev[0], prev[1], prev[2], col);
-		dd->vertex(pt[0], pt[1], pt[2], col);
+		dd->vertex(prev[0], prev[1], prev[2], color);
+		dd->vertex(pt[0], pt[1], pt[2], color);
 		prev[0] = pt[0];
 		prev[1] = pt[1];
 		prev[2] = pt[2];
 	}
 
 	// End arrows
-	if (as0 > 0.001f)
+	if (arrowSize0 > 0.001f)
 	{
 		float p[3], q[3];
 		evalArc(x0, y0, z0, dx, dy, dz, len * h, PAD, p);
 		evalArc(x0, y0, z0, dx, dy, dz, len * h, PAD + 0.05f, q);
-		appendArrowHead(dd, p, q, as0, col);
+		appendArrowHead(dd, p, q, arrowSize0, color);
 	}
 
-	if (as1 > 0.001f)
+	if (arrowSize1 > 0.001f)
 	{
 		float p[3], q[3];
 		evalArc(x0, y0, z0, dx, dy, dz, len * h, 1 - PAD, p);
 		evalArc(x0, y0, z0, dx, dy, dz, len * h, 1 - (PAD + 0.05f), q);
-		appendArrowHead(dd, p, q, as1, col);
+		appendArrowHead(dd, p, q, arrowSize1, color);
 	}
 }
 
@@ -631,31 +631,31 @@ void duAppendArrow(
 	const float x1,
 	const float y1,
 	const float z1,
-	const float as0,
-	const float as1,
-	unsigned int col)
+	const float arrowSize0,
+	const float arrowSize1,
+	unsigned int color)
 {
 	if (!dd)
 	{
 		return;
 	}
 
-	dd->vertex(x0, y0, z0, col);
-	dd->vertex(x1, y1, z1, col);
+	dd->vertex(x0, y0, z0, color);
+	dd->vertex(x1, y1, z1, color);
 
 	// End arrows
 	const float p[3] = {x0, y0, z0}, q[3] = {x1, y1, z1};
-	if (as0 > 0.001f)
+	if (arrowSize0 > 0.001f)
 	{
-		appendArrowHead(dd, p, q, as0, col);
+		appendArrowHead(dd, p, q, arrowSize0, color);
 	}
-	if (as1 > 0.001f)
+	if (arrowSize1 > 0.001f)
 	{
-		appendArrowHead(dd, q, p, as1, col);
+		appendArrowHead(dd, q, p, arrowSize1, color);
 	}
 }
 
-void duAppendCircle(duDebugDraw* dd, const float x, const float y, const float z, const float r, unsigned int col)
+void duAppendCircle(duDebugDraw* dd, const float x, const float y, const float z, const float r, unsigned int color)
 {
 	if (!dd)
 	{
@@ -677,23 +677,23 @@ void duAppendCircle(duDebugDraw* dd, const float x, const float y, const float z
 
 	for (int i = 0, j = NUM_SEG - 1; i < NUM_SEG; j = i++)
 	{
-		dd->vertex(x + dir[j * 2 + 0] * r, y, z + dir[j * 2 + 1] * r, col);
-		dd->vertex(x + dir[i * 2 + 0] * r, y, z + dir[i * 2 + 1] * r, col);
+		dd->vertex(x + dir[j * 2 + 0] * r, y, z + dir[j * 2 + 1] * r, color);
+		dd->vertex(x + dir[i * 2 + 0] * r, y, z + dir[i * 2 + 1] * r, color);
 	}
 }
 
-void duAppendCross(duDebugDraw* dd, const float x, const float y, const float z, const float s, unsigned int col)
+void duAppendCross(duDebugDraw* dd, const float x, const float y, const float z, const float s, unsigned int color)
 {
 	if (!dd)
 	{
 		return;
 	}
-	dd->vertex(x - s, y, z, col);
-	dd->vertex(x + s, y, z, col);
-	dd->vertex(x, y - s, z, col);
-	dd->vertex(x, y + s, z, col);
-	dd->vertex(x, y, z - s, col);
-	dd->vertex(x, y, z + s, col);
+	dd->vertex(x - s, y, z, color);
+	dd->vertex(x + s, y, z, color);
+	dd->vertex(x, y - s, z, color);
+	dd->vertex(x, y + s, z, color);
+	dd->vertex(x, y, z - s, color);
+	dd->vertex(x, y, z + s, color);
 }
 
 duDisplayList::duDisplayList(int cap)

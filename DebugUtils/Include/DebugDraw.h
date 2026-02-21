@@ -78,30 +78,30 @@ inline unsigned int duRGBA(int r, int g, int b, int a)
 	return ((unsigned int)r) | ((unsigned int)g << 8) | ((unsigned int)b << 16) | ((unsigned int)a << 24);
 }
 
-inline unsigned int duRGBAf(float fr, float fg, float fb, float fa)
+inline unsigned int duRGBAf(float r, float g, float b, float a)
 {
-	unsigned char r = (unsigned char)(fr * 255.0f);
-	unsigned char g = (unsigned char)(fg * 255.0f);
-	unsigned char b = (unsigned char)(fb * 255.0f);
-	unsigned char a = (unsigned char)(fa * 255.0f);
-	return duRGBA(r, g, b, a);
+	return duRGBA(
+		(unsigned char)(r * 255.0f),
+		(unsigned char)(g * 255.0f),
+		(unsigned char)(b * 255.0f),
+		(unsigned char)(a * 255.0f));
 }
 
 unsigned int duIntToCol(int i, int a);
-void duIntToCol(int i, float* col);
+void duIntToCol(int i, float* color);
 
-inline unsigned int duMultCol(const unsigned int col, const unsigned int d)
+inline unsigned int duMultCol(const unsigned int color, const unsigned int d)
 {
-	const unsigned int r = col & 0xff;
-	const unsigned int g = (col >> 8) & 0xff;
-	const unsigned int b = (col >> 16) & 0xff;
-	const unsigned int a = (col >> 24) & 0xff;
+	const unsigned int r = color & 0xff;
+	const unsigned int g = (color >> 8) & 0xff;
+	const unsigned int b = (color >> 16) & 0xff;
+	const unsigned int a = (color >> 24) & 0xff;
 	return duRGBA((r * d) >> 8, (g * d) >> 8, (b * d) >> 8, a);
 }
 
-inline unsigned int duDarkenCol(unsigned int col)
+inline unsigned int duDarkenCol(unsigned int color)
 {
-	return ((col >> 1) & 0x007f7f7f) | (col & 0xff000000);
+	return ((color >> 1) & 0x007f7f7f) | (color & 0xff000000);
 }
 
 inline unsigned int duLerpCol(unsigned int ca, unsigned int cb, unsigned int u)
@@ -129,183 +129,26 @@ inline unsigned int duTransCol(unsigned int c, unsigned int a)
 
 void duCalcBoxColors(unsigned int* colors, unsigned int colTop, unsigned int colSide);
 
-void duDebugDrawCylinderWire(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int col,
-	float lineWidth);
+void duDebugDrawArc(duDebugDraw* dd, float x0, float y0, float z0, float x1, float y1, float z1, float arcHeight, float arrowSize0, float arrowSize1, unsigned int color, float lineWidth);
+void duDebugDrawArrow(duDebugDraw* dd, float x0, float y0, float z0, float x1, float y1, float z1, float arrowSize0, float arrowSize1, unsigned int color, float lineWidth);
+void duDebugDrawBox(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int* cornerColors);
+void duDebugDrawBoxWire(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color, float lineWidth);
+void duDebugDrawCircle(duDebugDraw* dd, float x, float y, float z, float radius, unsigned int color, float lineWidth);
+void duDebugDrawCross(duDebugDraw* dd, float x, float y, float z, float size, unsigned int color, float lineWidth);
+void duDebugDrawCylinder(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color);
+void duDebugDrawCylinderWire(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color, float lineWidth);
+void duDebugDrawGridXZ(duDebugDraw* dd, float x, float y, float z, int width, int height, float cellSize, unsigned int color, float lineWidth);
 
-void duDebugDrawBoxWire(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int col,
-	float lineWidth);
-
-void duDebugDrawArc(
-	duDebugDraw* dd,
-	float x0,
-	float y0,
-	float z0,
-	float x1,
-	float y1,
-	float z1,
-	float h,
-	float as0,
-	float as1,
-	unsigned int col,
-	float lineWidth);
-
-void duDebugDrawArrow(
-	duDebugDraw* dd,
-	float x0,
-	float y0,
-	float z0,
-	float x1,
-	float y1,
-	float z1,
-	float as0,
-	float as1,
-	unsigned int col,
-	float lineWidth);
-
-void duDebugDrawCircle(
-	duDebugDraw* dd,
-	float x,
-	float y,
-	float z,
-	float r,
-	unsigned int col,
-	float lineWidth);
-
-void duDebugDrawCross(
-	duDebugDraw* dd,
-	float x,
-	float y,
-	float z,
-	float size,
-	unsigned int col,
-	float lineWidth);
-
-void duDebugDrawBox(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	const unsigned int* fcol);
-
-void duDebugDrawCylinder(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int col);
-
-void duDebugDrawGridXZ(
-	duDebugDraw* dd,
-	float ox,
-	float oy,
-	float oz,
-	int w,
-	int h,
-	float size,
-	unsigned int color,
-	float lineWidth);
-
-// Versions without begin/end, can be used to draw multiple primitives.
-void duAppendCylinderWire(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int color);
-
-void duAppendBoxWire(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int color);
-
-void duAppendBoxPoints(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int color);
-
-void duAppendArc(
-	duDebugDraw* dd,
-	float x0,
-	float y0,
-	float z0,
-	float x1,
-	float y1,
-	float z1,
-	float h,
-	float as0,
-	float as1,
-	unsigned int color);
-
-void duAppendArrow(
-	duDebugDraw* dd,
-	float x0,
-	float y0,
-	float z0,
-	float x1,
-	float y1,
-	float z1,
-	float as0,
-	float as1,
-	unsigned int color);
-
-void duAppendCircle(duDebugDraw* dd, float x, float y, float z, float r, unsigned int col);
-
-void duAppendCross(duDebugDraw* dd, float x, float y, float z, float size, unsigned int col);
-
-void duAppendBox(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	const unsigned int* fcol);
-
-void duAppendCylinder(
-	duDebugDraw* dd,
-	float minx,
-	float miny,
-	float minz,
-	float maxx,
-	float maxy,
-	float maxz,
-	unsigned int color);
+// Versions without begin/end, can be used to draw multiple primitives in one go.
+void duAppendArc(duDebugDraw* dd, float x0, float y0, float z0, float x1, float y1, float z1, float h, float arrowSize0, float arrowSize1, unsigned int color);
+void duAppendArrow(duDebugDraw* dd, float x0, float y0, float z0, float x1, float y1, float z1, float arrowSize0, float arrowSize1, unsigned int color);
+void duAppendBox(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int* cornerColors);
+void duAppendBoxWire(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color);
+void duAppendBoxPoints(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color);
+void duAppendCircle(duDebugDraw* dd, float x, float y, float z, float r, unsigned int color);
+void duAppendCross(duDebugDraw* dd, float x, float y, float z, float size, unsigned int color);
+void duAppendCylinder(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color);
+void duAppendCylinderWire(duDebugDraw* dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color);
 
 class duDisplayList : public duDebugDraw
 {
