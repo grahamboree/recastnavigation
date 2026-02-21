@@ -29,6 +29,7 @@
 #include "Tool_Crowd.h"
 #include "Tool_NavMeshPrune.h"
 #include "Tool_NavMeshTester.h"
+#include "Tool_NavMeshTile.h"
 #include "Tool_OffMeshConnection.h"
 #include "imguiHelpers.h"
 
@@ -89,99 +90,6 @@ const char* Sample_TileMesh::drawModeNames[]{
 	"Contours",
 	"Poly Mesh",
 	"Poly Mesh Detail"};
-
-class NavMeshTileTool : public SampleTool
-{
-	Sample_TileMesh* sample = nullptr;
-	float hitPos[3] = {0, 0, 0};
-	bool hitPosSet = false;
-
-public:
-	~NavMeshTileTool() override = default;
-
-	SampleToolType type() override { return SampleToolType::TILE_EDIT; }
-	void init(Sample* inSample) override { sample = static_cast<Sample_TileMesh*>(inSample); }
-	void reset() override {}
-
-	void drawMenuUI() override
-	{
-		ImGui::Text("Create Tiles");
-		if (ImGui::Button("Create All"))
-		{
-			if (sample)
-			{
-				sample->buildAllTiles();
-			}
-		}
-		if (ImGui::Button("Remove All"))
-		{
-			if (sample)
-			{
-				sample->removeAllTiles();
-			}
-		}
-	}
-
-	void onClick(const float* /*s*/, const float* p, bool shift) override
-	{
-		hitPosSet = true;
-		rcVcopy(hitPos, p);
-		if (sample)
-		{
-			if (shift)
-			{
-				sample->removeTile(hitPos);
-			}
-			else
-			{
-				sample->buildTile(hitPos);
-			}
-		}
-	}
-
-	void onToggle() override {}
-
-	void singleStep() override {}
-
-	void update(const float /*dt*/) override {}
-
-	void render() override
-	{
-		if (!hitPosSet)
-		{
-			return;
-		}
-
-		const float s = sample->agentRadius;
-		glColor4ub(0, 0, 0, 128);
-		glLineWidth(2.0f);
-		glBegin(GL_LINES);
-		glVertex3f(hitPos[0] - s, hitPos[1] + 0.1f, hitPos[2]);
-		glVertex3f(hitPos[0] + s, hitPos[1] + 0.1f, hitPos[2]);
-		glVertex3f(hitPos[0], hitPos[1] - s + 0.1f, hitPos[2]);
-		glVertex3f(hitPos[0], hitPos[1] + s + 0.1f, hitPos[2]);
-		glVertex3f(hitPos[0], hitPos[1] + 0.1f, hitPos[2] - s);
-		glVertex3f(hitPos[0], hitPos[1] + 0.1f, hitPos[2] + s);
-		glEnd();
-		glLineWidth(1.0f);
-	}
-
-	void drawOverlayUI() override
-	{
-		if (hitPosSet)
-		{
-			int tx = 0;
-			int ty = 0;
-			sample->getTilePos(hitPos, tx, ty);
-			char text[32];
-			snprintf(text, 32, "(%d,%d)", tx, ty);
-			DrawWorldspaceText(hitPos[0], hitPos[1], hitPos[2], IM_COL32(0, 0, 0, 220), text);
-		}
-
-		// Tool help
-		DrawScreenspaceText(280, 40, IM_COL32(255, 255, 255, 192), "LMB: Rebuild selected tile.  Shift+LMB: Clear tile selection.");
-	}
-};
 
 Sample_TileMesh::Sample_TileMesh()
 {
