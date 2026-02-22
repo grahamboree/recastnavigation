@@ -1,6 +1,7 @@
 #include "SampleInterfaces.h"
 
 #include "SDL_opengl.h"
+#include "Sample.h"
 
 #include <algorithm>
 #include <cstdarg>
@@ -31,20 +32,15 @@ void BuildContext::doLog(const rcLogCategory category, const char* msg, const in
 		return;
 	}
 
-	std::string& message = logMessages.emplace_back();
+	std::string message;
 	switch (category)
 	{
-	case RC_LOG_PROGRESS:
-		message.append("INFO:\t");
-		break;
-	case RC_LOG_WARNING:
-		message.append("WARN:\t");
-		break;
-	case RC_LOG_ERROR:
-		message.append("ERROR:\t");
-		break;
+	case RC_LOG_PROGRESS: message = "INFO:\t"; break;
+	case RC_LOG_WARNING: message = "WARN:\t"; break;
+	case RC_LOG_ERROR: message = "ERROR:\t"; break;
 	}
 	message.append(msg);
+	logMessages.emplace_back(std::move(message));
 }
 
 void BuildContext::doResetTimers()
@@ -79,7 +75,7 @@ int BuildContext::doGetAccumulatedTime(const rcTimerLabel label) const
 	return getPerfTimeUsec(accTime[label]);
 }
 
-void BuildContext::dumpLog(const char* format, ...)
+void BuildContext::dumpLog(const char* format, ...) const
 {
 	// Print header.
 	va_list ap;
@@ -88,40 +84,9 @@ void BuildContext::dumpLog(const char* format, ...)
 	va_end(ap);
 	printf("\n");
 
-	// Print messages
-	const int TAB_STOPS[4] = {28, 36, 44, 52};
-	for (int i = 0; i < static_cast<int>(logMessages.size()); ++i)
+	for (auto& message : logMessages)
 	{
-		std::string& message = logMessages[i];
-		const char* msg = message.c_str() + 1;
-		int n = 0;
-		while (*msg)
-		{
-			if (*msg == '\t')
-			{
-				int count = 1;
-				for (int j = 0; j < 4; ++j)
-				{
-					if (n < TAB_STOPS[j])
-					{
-						count = TAB_STOPS[j] - n;
-						break;
-					}
-				}
-				while (--count)
-				{
-					putchar(' ');
-					n++;
-				}
-			}
-			else
-			{
-				putchar(*msg);
-				n++;
-			}
-			msg++;
-		}
-		putchar('\n');
+		printf("%s\n", message.c_str());
 	}
 }
 
@@ -190,12 +155,12 @@ public:
 };
 static GLCheckerTexture g_tex;
 
-void DebugDrawGL::depthMask(bool state)
+void DebugDrawSDL::depthMask(bool state)
 {
 	glDepthMask(state ? GL_TRUE : GL_FALSE);
 }
 
-void DebugDrawGL::texture(bool state)
+void DebugDrawSDL::texture(bool state)
 {
 	if (state)
 	{
@@ -208,7 +173,7 @@ void DebugDrawGL::texture(bool state)
 	}
 }
 
-void DebugDrawGL::begin(duDebugDrawPrimitives prim, float size)
+void DebugDrawSDL::begin(duDebugDrawPrimitives prim, float size)
 {
 	switch (prim)
 	{
@@ -229,37 +194,65 @@ void DebugDrawGL::begin(duDebugDrawPrimitives prim, float size)
 	}
 }
 
-void DebugDrawGL::vertex(const float* pos, unsigned int color)
+void DebugDrawSDL::vertex(const float* pos, unsigned int color)
 {
 	glColor4ubv((GLubyte*)&color);
 	glVertex3fv(pos);
 }
 
-void DebugDrawGL::vertex(const float x, const float y, const float z, unsigned int color)
+void DebugDrawSDL::vertex(const float x, const float y, const float z, unsigned int color)
 {
 	glColor4ubv((GLubyte*)&color);
 	glVertex3f(x, y, z);
 }
 
-void DebugDrawGL::vertex(const float* pos, unsigned int color, const float* uv)
+void DebugDrawSDL::vertex(const float* pos, unsigned int color, const float* uv)
 {
 	glColor4ubv((GLubyte*)&color);
 	glTexCoord2fv(uv);
 	glVertex3fv(pos);
 }
 
-void DebugDrawGL::vertex(const float x, const float y, const float z, unsigned int color, const float u, const float v)
+void DebugDrawSDL::vertex(const float x, const float y, const float z, unsigned int color, const float u, const float v)
 {
 	glColor4ubv((GLubyte*)&color);
 	glTexCoord2f(u, v);
 	glVertex3f(x, y, z);
 }
 
-void DebugDrawGL::end()
+void DebugDrawSDL::end()
 {
 	glEnd();
 	glLineWidth(1.0f);
 	glPointSize(1.0f);
+}
+
+unsigned int DebugDrawSDL::areaToCol(unsigned int area)
+{
+	switch (area)
+	{
+		// Ground (0) : light blue
+	case SAMPLE_POLYAREA_GROUND:
+		return duRGBA(0, 192, 255, 255);
+		// Water : blue
+	case SAMPLE_POLYAREA_WATER:
+		return duRGBA(0, 0, 255, 255);
+		// Road : brown
+	case SAMPLE_POLYAREA_ROAD:
+		return duRGBA(50, 20, 12, 255);
+		// Door : cyan
+	case SAMPLE_POLYAREA_DOOR:
+		return duRGBA(0, 255, 255, 255);
+		// Grass : green
+	case SAMPLE_POLYAREA_GRASS:
+		return duRGBA(0, 255, 0, 255);
+		// Jump : yellow
+	case SAMPLE_POLYAREA_JUMP:
+		return duRGBA(255, 255, 0, 255);
+		// Unexpected : red
+	default:
+		return duRGBA(255, 0, 0, 255);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

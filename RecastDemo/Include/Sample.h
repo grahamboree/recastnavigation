@@ -84,12 +84,6 @@ enum DrawDetailType
 	DRAWDETAIL_MESH
 };
 
-class SampleDebugDraw : public DebugDrawGL
-{
-public:
-	unsigned int areaToCol(unsigned int area) override;
-};
-
 struct SampleTool
 {
 	virtual ~SampleTool() = default;
@@ -128,7 +122,7 @@ public:
 	dtNavMesh* navMesh = nullptr;
 	dtNavMeshQuery* navQuery = nullptr;
 	dtCrowd* crowd = nullptr;
-	SampleDebugDraw debugDraw;
+	DebugDrawSDL debugDraw;
 
 	unsigned char navMeshDrawFlags;
 

@@ -41,7 +41,7 @@ public:
 	BuildContext();
 
 	/// Dumps the log to stdout.
-	void dumpLog(const char* format, ...);
+	void dumpLog(const char* format, ...) const;
 	/// Returns number of log messages.
 	[[nodiscard]] int getLogCount() const;
 	/// Returns log message text.
@@ -56,8 +56,8 @@ protected:
 	[[nodiscard]] int doGetAccumulatedTime(rcTimerLabel label) const override;
 };
 
-/// OpenGL debug draw implementation.
-class DebugDrawGL : public duDebugDraw
+/// Debug draw implementation.
+class DebugDrawSDL : public duDebugDraw
 {
 public:
 	void depthMask(bool state) override;
@@ -68,6 +68,7 @@ public:
 	void vertex(float x, float y, float z, unsigned int color) override;
 	void vertex(float x, float y, float z, unsigned int color, float u, float v) override;
 	void end() override;
+	unsigned int areaToCol(unsigned int area) override;
 };
 
 /// stdio file implementation.
