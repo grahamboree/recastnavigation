@@ -42,19 +42,20 @@ protected:
 	int cacheLayerCount = 0;
 	unsigned int cacheBuildMemUsage = 0;
 
-	enum DrawMode
+	enum class DrawMode : uint8_t
 	{
-		DRAWMODE_NAVMESH,
-		DRAWMODE_NAVMESH_TRANS,
-		DRAWMODE_NAVMESH_BVTREE,
-		DRAWMODE_NAVMESH_NODES,
-		DRAWMODE_NAVMESH_PORTALS,
-		DRAWMODE_NAVMESH_INVIS,
-		DRAWMODE_MESH,
-		DRAWMODE_CACHE_BOUNDS,
+		NAVMESH,
+		NAVMESH_TRANS,
+		NAVMESH_BVTREE,
+		NAVMESH_NODES,
+		NAVMESH_PORTALS,
+		NAVMESH_INVIS,
+		MESH,
+		CACHE_BOUNDS,
+
 		MAX_DRAWMODE
 	};
-	DrawMode drawMode = DRAWMODE_NAVMESH;
+	DrawMode drawMode = DrawMode::NAVMESH;
 
 	int maxTiles = 0;
 	int maxPolysPerTile = 0;

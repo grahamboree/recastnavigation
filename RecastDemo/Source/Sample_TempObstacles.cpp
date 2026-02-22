@@ -824,26 +824,26 @@ void Sample_TempObstacles::drawSettingsUI()
 void Sample_TempObstacles::drawDebugUI()
 {
 	// Check which modes are valid.
-	bool valid[MAX_DRAWMODE];
-	for (int i = 0; i < MAX_DRAWMODE; ++i)
+	bool valid[static_cast<uint8_t>(DrawMode::MAX_DRAWMODE)];
+	for (uint8_t i = 0; i < static_cast<uint8_t>(DrawMode::MAX_DRAWMODE); ++i)
 	{
 		valid[i] = false;
 	}
 
 	if (inputGeometry)
 	{
-		valid[DRAWMODE_NAVMESH] = navMesh != 0;
-		valid[DRAWMODE_NAVMESH_TRANS] = navMesh != 0;
-		valid[DRAWMODE_NAVMESH_BVTREE] = navMesh != 0;
-		valid[DRAWMODE_NAVMESH_NODES] = navQuery != 0;
-		valid[DRAWMODE_NAVMESH_PORTALS] = navMesh != 0;
-		valid[DRAWMODE_NAVMESH_INVIS] = navMesh != 0;
-		valid[DRAWMODE_MESH] = true;
-		valid[DRAWMODE_CACHE_BOUNDS] = true;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH)] = navMesh != 0;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH_TRANS)] = navMesh != 0;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH_BVTREE)] = navMesh != 0;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH_NODES)] = navQuery != 0;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH_PORTALS)] = navMesh != 0;
+		valid[static_cast<uint8_t>(DrawMode::NAVMESH_INVIS)] = navMesh != 0;
+		valid[static_cast<uint8_t>(DrawMode::MESH)] = true;
+		valid[static_cast<uint8_t>(DrawMode::CACHE_BOUNDS)] = true;
 	}
 
 	int unavail = 0;
-	for (int i = 0; i < MAX_DRAWMODE; ++i)
+	for (uint8_t i = 0; i < static_cast<uint8_t>(DrawMode::MAX_DRAWMODE); ++i)
 	{
 		if (!valid[i])
 		{
@@ -851,58 +851,58 @@ void Sample_TempObstacles::drawDebugUI()
 		}
 	}
 
-	if (unavail == MAX_DRAWMODE)
+	if (unavail == static_cast<uint8_t>(DrawMode::MAX_DRAWMODE))
 	{
 		return;
 	}
 
 	ImGui::Text("Draw");
-	ImGui::BeginDisabled(!valid[DRAWMODE_MESH]);
-	if (ImGui::RadioButton("Input Mesh", drawMode == DRAWMODE_MESH))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::MESH)]);
+	if (ImGui::RadioButton("Input Mesh", drawMode == DrawMode::MESH))
 	{
-		drawMode = DRAWMODE_MESH;
+		drawMode = DrawMode::MESH;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH]);
-	if (ImGui::RadioButton("Navmesh", drawMode == DRAWMODE_NAVMESH))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH)]);
+	if (ImGui::RadioButton("Navmesh", drawMode == DrawMode::NAVMESH))
 	{
-		drawMode = DRAWMODE_NAVMESH;
+		drawMode = DrawMode::NAVMESH;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH_INVIS]);
-	if (ImGui::RadioButton("Navmesh Invis", drawMode == DRAWMODE_NAVMESH_INVIS))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH_INVIS)]);
+	if (ImGui::RadioButton("Navmesh Invis", drawMode == DrawMode::NAVMESH_INVIS))
 	{
-		drawMode = DRAWMODE_NAVMESH_INVIS;
+		drawMode = DrawMode::NAVMESH_INVIS;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH_TRANS]);
-	if (ImGui::RadioButton("Navmesh Trans", drawMode == DRAWMODE_NAVMESH_TRANS))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH_TRANS)]);
+	if (ImGui::RadioButton("Navmesh Trans", drawMode == DrawMode::NAVMESH_TRANS))
 	{
-		drawMode = DRAWMODE_NAVMESH_TRANS;
+		drawMode = DrawMode::NAVMESH_TRANS;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH_BVTREE]);
-	if (ImGui::RadioButton("Navmesh BVTree", drawMode == DRAWMODE_NAVMESH_BVTREE))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH_BVTREE)]);
+	if (ImGui::RadioButton("Navmesh BVTree", drawMode == DrawMode::NAVMESH_BVTREE))
 	{
-		drawMode = DRAWMODE_NAVMESH_BVTREE;
+		drawMode = DrawMode::NAVMESH_BVTREE;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH_NODES]);
-	if (ImGui::RadioButton("Navmesh Nodes", drawMode == DRAWMODE_NAVMESH_NODES))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH_NODES)]);
+	if (ImGui::RadioButton("Navmesh Nodes", drawMode == DrawMode::NAVMESH_NODES))
 	{
-		drawMode = DRAWMODE_NAVMESH_NODES;
+		drawMode = DrawMode::NAVMESH_NODES;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_NAVMESH_PORTALS]);
-	if (ImGui::RadioButton("Navmesh Portals", drawMode == DRAWMODE_NAVMESH_PORTALS))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::NAVMESH_PORTALS)]);
+	if (ImGui::RadioButton("Navmesh Portals", drawMode == DrawMode::NAVMESH_PORTALS))
 	{
-		drawMode = DRAWMODE_NAVMESH_PORTALS;
+		drawMode = DrawMode::NAVMESH_PORTALS;
 	}
 	ImGui::EndDisabled();
-	ImGui::BeginDisabled(!valid[DRAWMODE_CACHE_BOUNDS]);
-	if (ImGui::RadioButton("Cache Bounds", drawMode == DRAWMODE_CACHE_BOUNDS))
+	ImGui::BeginDisabled(!valid[static_cast<uint8_t>(DrawMode::CACHE_BOUNDS)]);
+	if (ImGui::RadioButton("Cache Bounds", drawMode == DrawMode::CACHE_BOUNDS))
 	{
-		drawMode = DRAWMODE_CACHE_BOUNDS;
+		drawMode = DrawMode::CACHE_BOUNDS;
 	}
 	ImGui::EndDisabled();
 
@@ -924,7 +924,7 @@ void Sample_TempObstacles::render()
 	const float texScale = 1.0f / (cellSize * 10.0f);
 
 	// Draw mesh
-	if (drawMode != DRAWMODE_NAVMESH_TRANS)
+	if (drawMode != DrawMode::NAVMESH_TRANS)
 	{
 		// Draw mesh
 		duDebugDrawTriMeshSlope(
@@ -939,7 +939,7 @@ void Sample_TempObstacles::render()
 		inputGeometry->drawOffMeshConnections(&debugDraw);
 	}
 
-	if (tileCache && drawMode == DRAWMODE_CACHE_BOUNDS)
+	if (tileCache && drawMode == DrawMode::CACHE_BOUNDS)
 	{
 		drawTiles(&debugDraw, tileCache);
 	}
@@ -966,23 +966,23 @@ void Sample_TempObstacles::render()
 	duDebugDrawGridXZ(&debugDraw, minBounds[0], minBounds[1], minBounds[2], tw, th, s, duRGBA(0, 0, 0, 64), 1.0f);
 
 	if (navMesh && navQuery &&
-	    (drawMode == DRAWMODE_NAVMESH || drawMode == DRAWMODE_NAVMESH_TRANS || drawMode == DRAWMODE_NAVMESH_BVTREE ||
-	     drawMode == DRAWMODE_NAVMESH_NODES || drawMode == DRAWMODE_NAVMESH_PORTALS ||
-	     drawMode == DRAWMODE_NAVMESH_INVIS))
+	    (drawMode == DrawMode::NAVMESH || drawMode == DrawMode::NAVMESH_TRANS || drawMode == DrawMode::NAVMESH_BVTREE ||
+	     drawMode == DrawMode::NAVMESH_NODES || drawMode == DrawMode::NAVMESH_PORTALS ||
+	     drawMode == DrawMode::NAVMESH_INVIS))
 	{
-		if (drawMode != DRAWMODE_NAVMESH_INVIS)
+		if (drawMode != DrawMode::NAVMESH_INVIS)
 		{
 			duDebugDrawNavMeshWithClosedList(&debugDraw, *navMesh, *navQuery, navMeshDrawFlags /*|DU_DRAWNAVMESH_COLOR_TILES*/);
 		}
-		if (drawMode == DRAWMODE_NAVMESH_BVTREE)
+		if (drawMode == DrawMode::NAVMESH_BVTREE)
 		{
 			duDebugDrawNavMeshBVTree(&debugDraw, *navMesh);
 		}
-		if (drawMode == DRAWMODE_NAVMESH_PORTALS)
+		if (drawMode == DrawMode::NAVMESH_PORTALS)
 		{
 			duDebugDrawNavMeshPortals(&debugDraw, *navMesh);
 		}
-		if (drawMode == DRAWMODE_NAVMESH_NODES)
+		if (drawMode == DrawMode::NAVMESH_NODES)
 		{
 			duDebugDrawNavMeshNodes(&debugDraw, *navQuery);
 		}
