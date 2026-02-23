@@ -65,5 +65,5 @@ public:
 	void doTests(dtNavMesh* navmesh, dtNavMeshQuery* query);
 
 	void render() const;
-	bool renderOverlay() const;
+	void renderOverlay() const;
 };

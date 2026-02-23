@@ -379,7 +379,7 @@ void TestCase::render() const
 	glLineWidth(1.0f);
 }
 
-bool TestCase::renderOverlay() const
+void TestCase::renderOverlay() const
 {
 	char text[64];
 	int n = 0;
@@ -438,6 +438,4 @@ bool TestCase::renderOverlay() const
 	}
 
 	ImGui::End();
-
-	return false;
 }

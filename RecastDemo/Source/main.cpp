@@ -18,54 +18,30 @@
 
 #include "AppState.h"
 #include "InputGeom.h"
-#include "SDL.h"
-#include "SDL_keycode.h"
 #include "SDL_opengl.h"
 #include "Sample.h"
-#include "Sample_SoloMesh.h"
-#include "Sample_TempObstacles.h"
-#include "Sample_TileMesh.h"
 #include "TestCase.h"
-#include "imguiHelpers.h"
+//#include "imguiHelpers.h"
 
-#include <imgui.h>
 #include <imgui_impl_opengl2.h>
 #include <imgui_impl_sdl2.h>
 #include <implot.h>
 
-#include <functional>
-#include <string>
 #ifdef __APPLE__
 #	include <OpenGL/glu.h>
 #else
 #	include <GL/glu.h>
 #endif
 
-struct SampleItem
-{
-	std::string name;
-	std::function<std::unique_ptr<Sample>()> create;
-};
 
-// Constants
 namespace
 {
+// Constants
 constexpr float UPDATE_TIME = 1.0f / 60.0f;  // update at 60Hz
 constexpr float FOG_COLOR[4] = {0.32f, 0.31f, 0.30f, 1.0f};
 
 constexpr float CAM_MOVE_SPEED = 4.0f;
 constexpr float CAM_FAST_MOVE_SPEED = 22.0f;
-
-SampleItem g_samples[] = {
-	{.name = "Solo Mesh",      .create = []() { return std::make_unique<Sample_SoloMesh>(); }     },
-	{.name = "Tile Mesh",      .create = []() { return std::make_unique<Sample_TileMesh>(); }     },
-	{.name = "Temp Obstacles", .create = []() { return std::make_unique<Sample_TempObstacles>(); }},
-};
-
-constexpr ImGuiWindowFlags staticWindowFlags = ImGuiWindowFlags_NoMove
-	| ImGuiWindowFlags_NoResize
-	| ImGuiWindowFlags_NoSavedSettings
-	| ImGuiWindowFlags_NoCollapse;
 }
 
 AppState app;
@@ -126,15 +102,13 @@ int main(int /*argc*/, char** /*argv*/)
 	ImPlot::CreateContext();
 	ImGui_ImplSDL2_InitForOpenGL(app.window, app.glContext);
 	ImGui_ImplOpenGL2_Init();
+	ImGui::StyleColorsDark();
 
 	ImGuiIO& io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("DroidSans.ttf", 16.0f);  // Size in pixels
+	io.Fonts->AddFontFromFileTTF("DroidSans.ttf", 16.0f);
 	ImGui::PushFont(io.Fonts->Fonts[0]);
 
 	app.updateUIScale();
-
-	// Set style
-	ImGui::StyleColorsDark();
 
 	app.prevFrameTime = SDL_GetTicks();
 
@@ -145,7 +119,7 @@ int main(int /*argc*/, char** /*argv*/)
 	glFogf(GL_FOG_END, app.camr * 1.25f);
 	glFogfv(GL_FOG_COLOR, FOG_COLOR);
 
-	// OpenGL settings
+	// Enable backface culling
 	glEnable(GL_CULL_FACE);
 	glDepthFunc(GL_LEQUAL);
 
@@ -403,279 +377,7 @@ int main(int /*argc*/, char** /*argv*/)
 			app.testCase->renderOverlay();
 		}
 
-		bool newMeshSelected = false;
-		bool newSampleSelected = false;
-		if (app.showMenu)
-		{
-			// Help text.
-			DrawScreenspaceText(280.0f, 20.0f, IM_COL32(255, 255, 255, 128), "W/A/S/D: Move  RMB: Rotate");
-
-			constexpr int uiColumnWidth = 250;
-			constexpr int uiWindowPadding = 10;
-			// Properties window
-			{
-				ImGui::SetNextWindowPos(ImVec2(static_cast<float>(app.width - uiColumnWidth - uiWindowPadding), uiWindowPadding), ImGuiCond_Always);
-				ImGui::SetNextWindowSize(ImVec2(uiColumnWidth, static_cast<float>(app.height - uiWindowPadding * 2)), ImGuiCond_Always);
-				ImGui::Begin("Properties", nullptr, staticWindowFlags);
-
-				ImGui::Text("Show");
-				ImGui::Checkbox("Build Log", &app.showLog);
-				ImGui::Checkbox("Tools Panel", &app.showTools);
-
-				ImGui::SeparatorText("Sample");
-
-				if (ImGui::BeginCombo("##sampleCombo", app.sampleIndex >= 0 ? g_samples[app.sampleIndex].name.c_str() : "Choose Sample...", 0))
-				{
-					for (int sampleIndex = 0; sampleIndex < IM_ARRAYSIZE(g_samples); ++sampleIndex)
-					{
-						const bool selected = (app.sampleIndex == sampleIndex);
-						if (ImGui::Selectable(g_samples[sampleIndex].name.c_str(), selected))
-						{
-							newSampleSelected = !selected;
-							app.sampleIndex = sampleIndex;
-						}
-
-						// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-						if (selected)
-						{
-							ImGui::SetItemDefaultFocus();
-						}
-					}
-					ImGui::EndCombo();
-				}
-
-				ImGui::SeparatorText("Input Mesh");
-
-				if (ImGui::BeginCombo("##inputMesh", app.meshName.c_str(), 0))
-				{
-					app.files.clear();
-					FileIO::scanDirectory(app.meshesFolder, ".obj", app.files);
-					FileIO::scanDirectory(app.meshesFolder, ".gset", app.files);
-
-					for (const auto& file : app.files)
-					{
-						const bool is_selected = (app.meshName == file);
-						if (ImGui::Selectable(file.c_str(), is_selected) && !is_selected)
-						{
-							app.meshName = file;
-							newMeshSelected = true;
-						}
-
-						// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-						if (is_selected)
-						{
-							ImGui::SetItemDefaultFocus();
-						}
-					}
-					ImGui::EndCombo();
-				}
-
-				if (app.inputGeometry)
-				{
-					DrawRightAlignedText(
-						"Verts: %.1fk  Tris: %.1fk",
-						static_cast<float>(app.inputGeometry->mesh.getVertCount()) / 1000.0f,
-						static_cast<float>(app.inputGeometry->mesh.getTriCount()) / 1000.0f);
-				}
-
-				if (app.sample)
-				{
-					if (app.inputGeometry)
-					{
-						app.sample->drawSettingsUI();
-
-						if (ImGui::Button("Build"))
-						{
-							app.buildContext.resetLog();
-							if (!app.sample->build())
-							{
-								app.showLog = true;
-								app.logScroll = 0;
-							}
-							app.buildContext.dumpLog("Build log %s:", app.meshName.c_str());
-
-							// Clear test.
-							app.testCase.reset();
-						}
-					}
-
-					ImGui::SeparatorText("Debug Settings");
-					app.sample->drawDebugUI();
-				}
-
-				ImGui::End();
-			}
-
-			// Log
-			if (app.showLog && app.showMenu)
-			{
-				constexpr int logWindowHeight = 200;
-				ImGui::SetNextWindowPos(ImVec2(uiColumnWidth + 2 * uiWindowPadding, static_cast<float>(app.height - logWindowHeight - uiWindowPadding)), ImGuiCond_FirstUseEver);  // Position in screen space
-				ImGui::SetNextWindowSize(ImVec2(static_cast<float>(app.width - 2 * uiColumnWidth - 4 * uiWindowPadding), logWindowHeight), ImGuiCond_FirstUseEver);     // Size of the window
-				ImGui::Begin("Log", nullptr, ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse);
-
-				for (int i = 0; i < app.buildContext.getLogCount(); ++i)
-				{
-					ImGui::TextUnformatted(app.buildContext.getLogText(i));
-				}
-
-				ImGui::End();
-			}
-
-			// Left column tools menu
-			if (!app.showTestCases && app.showTools && app.showMenu)
-			{
-				ImGui::SetNextWindowPos(ImVec2(10, 10), ImGuiCond_Always);  // Position in screen space
-				ImGui::SetNextWindowSize(ImVec2(250, static_cast<float>(app.height - 20)), ImGuiCond_Always);     // Size of the window
-				ImGui::Begin("Tools", nullptr, staticWindowFlags);
-
-				if (app.sample)
-				{
-					app.sample->drawToolsUI();
-				}
-
-				ImGui::End();
-			}
-		}
-
-		if (newSampleSelected)
-		{
-			app.sample = g_samples[app.sampleIndex].create();
-			app.sample->buildContext = &app.buildContext;
-			if (app.inputGeometry)
-			{
-				app.sample->onMeshChanged(app.inputGeometry.get());
-				app.resetCamera();
-			}
-		}
-
-		if (newMeshSelected)
-		{
-			std::string path = app.meshesFolder + "/" + app.meshName;
-
-			app.inputGeometry = std::make_unique<InputGeom>();
-			if (!app.inputGeometry->load(&app.buildContext, path))
-			{
-				app.inputGeometry.reset();
-
-				// Destroy the sample if it already had geometry loaded, as we've just deleted it!
-				if (app.sample && app.sample->inputGeometry)
-				{
-					app.sample.reset();
-				}
-
-				app.showLog = true;
-				app.logScroll = 0;
-				app.buildContext.dumpLog("geom load log %s:", app.meshName.c_str());
-			}
-			app.resetCamera();
-			if (app.sample)
-			{
-				app.sample->onMeshChanged(app.inputGeometry.get());
-			}
-		}
-
-		// Test cases
-		if (app.showTestCases)
-		{
-			ImGui::SetNextWindowPos(ImVec2(static_cast<float>(app.width - 10 - 250 - 10 - 200), static_cast<float>(app.height - 10 - 450)), ImGuiCond_Always);  // Position in screen space
-			ImGui::SetNextWindowSize(ImVec2(200, 450), ImGuiCond_Always);
-			ImGui::Begin("Test Cases", nullptr, staticWindowFlags);
-
-			static int currentTest = 0;
-			int newTest = currentTest;
-			if (ImGui::BeginCombo("Choose Test", app.files[0].c_str()))
-			{
-				for (int i = 0; i < static_cast<int>(app.files.size()); ++i)
-				{
-					if (ImGui::Selectable(app.files[i].c_str(), currentTest == i))
-					{
-						newTest = i;
-					}
-
-					if (currentTest == i)
-					{
-						ImGui::SetItemDefaultFocus();  // Sets keyboard focus
-					}
-				}
-				ImGui::EndCombo();
-			}
-
-			if (newTest != currentTest)
-			{
-				currentTest = newTest;
-
-				std::string path = app.testCasesFolder + "/" + app.files[currentTest];
-
-				// Load the test.
-				app.testCase = std::make_unique<TestCase>();
-				if (!app.testCase->load(path))
-				{
-					app.testCase.reset();
-				}
-
-				// Create sample
-				for (int sampleIndex = 0; sampleIndex < IM_ARRAYSIZE(g_samples); ++sampleIndex)
-				{
-					if (g_samples[sampleIndex].name == app.testCase->sampleName)
-					{
-						app.sample = g_samples[sampleIndex].create();
-						app.sampleIndex = sampleIndex;
-					}
-				}
-
-				if (app.sample)
-				{
-					app.sample->buildContext = &app.buildContext;
-				}
-
-				// Load geom.
-				app.meshName = app.testCase->geomFileName;
-
-				path = app.meshesFolder + "/" + app.meshName;
-
-				app.inputGeometry = std::make_unique<InputGeom>();
-				if (!app.inputGeometry->load(&app.buildContext, path))
-				{
-					app.inputGeometry.reset();
-					app.sample.reset();
-
-					app.showLog = true;
-					app.logScroll = 0;
-					app.buildContext.dumpLog("geom load log %s:", app.meshName.c_str());
-				}
-
-				if (app.sample)
-				{
-					if (app.inputGeometry)
-					{
-						app.sample->onMeshChanged(app.inputGeometry.get());
-					}
-
-					// This will ensure that tile & poly bits are updated in tiled sample.
-					app.sample->drawSettingsUI();
-
-					app.buildContext.resetLog();
-					if (!app.sample->build())
-					{
-						app.buildContext.dumpLog("Build log %s:", app.meshName.c_str());
-					}
-				}
-
-				if (app.inputGeometry || app.sample)
-				{
-					app.resetCamera();
-				}
-
-				// Do the tests.
-				if (app.sample)
-				{
-					app.testCase->doTests(app.sample->navMesh, app.sample->navQuery);
-				}
-			}
-
-			ImGui::End();
-		}
+		app.drawUI();
 
 		ImGui::Render();
 		ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
