@@ -98,49 +98,48 @@ $(document).ready(function(){initNavTree('DebugDraw_8cpp.html',''); initResizabl
   <div class="headertitle"><div class="title">DebugDraw.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="DebugDraw_8h_source.html">DebugDraw.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="DebugDraw_8h_source.html">DebugDraw.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="DetourMath_8h_source.html">DetourMath.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="DetourNavMesh_8h_source.html">DetourNavMesh.h</a>&quot;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a540a122c002c99d142af5bfaac50b43d" id="r_a540a122c002c99d142af5bfaac50b43d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a540a122c002c99d142af5bfaac50b43d">bit</a> (int a, int b)</td></tr>
-<tr class="separator:a540a122c002c99d142af5bfaac50b43d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30da7bd990a7e1bf09f334d3959d6af3" id="r_a30da7bd990a7e1bf09f334d3959d6af3"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a30da7bd990a7e1bf09f334d3959d6af3">bit</a> (int a, int b)</td></tr>
+<tr class="separator:a30da7bd990a7e1bf09f334d3959d6af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a731cb6ff6a2a2f0ef9867339999cc615" id="r_a731cb6ff6a2a2f0ef9867339999cc615"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a731cb6ff6a2a2f0ef9867339999cc615">duIntToCol</a> (int i, int a)</td></tr>
 <tr class="separator:a731cb6ff6a2a2f0ef9867339999cc615"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7ed02712813d056a5a092b0eb30b23f" id="r_aa7ed02712813d056a5a092b0eb30b23f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#aa7ed02712813d056a5a092b0eb30b23f">duIntToCol</a> (int i, float *col)</td></tr>
-<tr class="separator:aa7ed02712813d056a5a092b0eb30b23f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f75ec9586c38fada8bf68d172abf670" id="r_a1f75ec9586c38fada8bf68d172abf670"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a1f75ec9586c38fada8bf68d172abf670">duIntToCol</a> (int i, float *color)</td></tr>
+<tr class="separator:a1f75ec9586c38fada8bf68d172abf670"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed1355423ffd7e15f1114ff985836be0" id="r_aed1355423ffd7e15f1114ff985836be0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#aed1355423ffd7e15f1114ff985836be0">duCalcBoxColors</a> (unsigned int *colors, unsigned int colTop, unsigned int colSide)</td></tr>
 <tr class="separator:aed1355423ffd7e15f1114ff985836be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d197b1cb938eb6a5d395fe86454fbc8" id="r_a8d197b1cb938eb6a5d395fe86454fbc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a8d197b1cb938eb6a5d395fe86454fbc8">duDebugDrawCylinderWire</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:a8d197b1cb938eb6a5d395fe86454fbc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa351fc1c5dd7f39140446690e6784395" id="r_aa351fc1c5dd7f39140446690e6784395"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#aa351fc1c5dd7f39140446690e6784395">duDebugDrawBoxWire</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:aa351fc1c5dd7f39140446690e6784395"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f9e91a48539eaead1b44f1f1235093d" id="r_a5f9e91a48539eaead1b44f1f1235093d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a5f9e91a48539eaead1b44f1f1235093d">duDebugDrawArc</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float h, const float as0, const float as1, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:a5f9e91a48539eaead1b44f1f1235093d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf367a1fd1a0fbb2993beb99454e095c" id="r_abf367a1fd1a0fbb2993beb99454e095c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#abf367a1fd1a0fbb2993beb99454e095c">duDebugDrawArrow</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float as0, const float as1, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:abf367a1fd1a0fbb2993beb99454e095c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9701dd640ff0167c71e02921bb5004e2" id="r_a9701dd640ff0167c71e02921bb5004e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a9701dd640ff0167c71e02921bb5004e2">duDebugDrawCircle</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float r, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:a9701dd640ff0167c71e02921bb5004e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf7aba36432ed758d110faac052043f" id="r_afbf7aba36432ed758d110faac052043f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#afbf7aba36432ed758d110faac052043f">duDebugDrawCross</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float size, unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:afbf7aba36432ed758d110faac052043f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a445be6c90ff146c39c5ba3c9c4597be1" id="r_a445be6c90ff146c39c5ba3c9c4597be1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a445be6c90ff146c39c5ba3c9c4597be1">duDebugDrawBox</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int *fcol)</td></tr>
-<tr class="separator:a445be6c90ff146c39c5ba3c9c4597be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02552e2c7419bd786631e6f443826004" id="r_a02552e2c7419bd786631e6f443826004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a02552e2c7419bd786631e6f443826004">duDebugDrawCylinder</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col)</td></tr>
-<tr class="separator:a02552e2c7419bd786631e6f443826004"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe21ceb0657dac9e04e7314e1636b6c7" id="r_abe21ceb0657dac9e04e7314e1636b6c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#abe21ceb0657dac9e04e7314e1636b6c7">duDebugDrawGridXZ</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float ox, const float oy, const float oz, const int w, const int h, const float size, const unsigned int col, const float lineWidth)</td></tr>
-<tr class="separator:abe21ceb0657dac9e04e7314e1636b6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb1f308b5bc7bf286afdde8b5bfeda7f" id="r_abb1f308b5bc7bf286afdde8b5bfeda7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#abb1f308b5bc7bf286afdde8b5bfeda7f">duAppendCylinderWire</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col)</td></tr>
-<tr class="separator:abb1f308b5bc7bf286afdde8b5bfeda7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8477d27dac2e71ac54ab62b57681444" id="r_ad8477d27dac2e71ac54ab62b57681444"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ad8477d27dac2e71ac54ab62b57681444">duAppendBoxWire</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col)</td></tr>
-<tr class="separator:ad8477d27dac2e71ac54ab62b57681444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af642edb7bee9ad03a4888734aabc8722" id="r_af642edb7bee9ad03a4888734aabc8722"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#af642edb7bee9ad03a4888734aabc8722">duAppendBoxPoints</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col)</td></tr>
-<tr class="separator:af642edb7bee9ad03a4888734aabc8722"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31e157d9851ea970b3846f2e414a7a6b" id="r_a31e157d9851ea970b3846f2e414a7a6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a31e157d9851ea970b3846f2e414a7a6b">duAppendBox</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int *fcol)</td></tr>
-<tr class="separator:a31e157d9851ea970b3846f2e414a7a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8e97c3691067f8e62ed9f8eb3b255f7" id="r_ac8e97c3691067f8e62ed9f8eb3b255f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ac8e97c3691067f8e62ed9f8eb3b255f7">duAppendCylinder</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int col)</td></tr>
-<tr class="separator:ac8e97c3691067f8e62ed9f8eb3b255f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e632f3940cf7c4fe87b8effbc20f4c6" id="r_a1e632f3940cf7c4fe87b8effbc20f4c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a1e632f3940cf7c4fe87b8effbc20f4c6">duDebugDrawCylinderWire</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a1e632f3940cf7c4fe87b8effbc20f4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e95d4756f23384bc1e9f7860f79bc2" id="r_ad3e95d4756f23384bc1e9f7860f79bc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ad3e95d4756f23384bc1e9f7860f79bc2">duDebugDrawBoxWire</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:ad3e95d4756f23384bc1e9f7860f79bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a5a2b71ce119a1d889beb2daae5bc94" id="r_a0a5a2b71ce119a1d889beb2daae5bc94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a0a5a2b71ce119a1d889beb2daae5bc94">duDebugDrawArc</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float arcHeight, const float arrowSize0, const float arrowSize1, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a0a5a2b71ce119a1d889beb2daae5bc94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cdbd401161c67ab5dc67d752d0716bc" id="r_a3cdbd401161c67ab5dc67d752d0716bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a3cdbd401161c67ab5dc67d752d0716bc">duDebugDrawArrow</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float arrowSize0, const float arrowSize1, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a3cdbd401161c67ab5dc67d752d0716bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ce6adbbf9129581ccd2dfdeddf162c1" id="r_a1ce6adbbf9129581ccd2dfdeddf162c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a1ce6adbbf9129581ccd2dfdeddf162c1">duDebugDrawCircle</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float radius, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a1ce6adbbf9129581ccd2dfdeddf162c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a116f4303b3ad0a3d470b221d68ebd747" id="r_a116f4303b3ad0a3d470b221d68ebd747"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a116f4303b3ad0a3d470b221d68ebd747">duDebugDrawCross</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float size, unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a116f4303b3ad0a3d470b221d68ebd747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9899f9b88d4e975053a4413af080b22a" id="r_a9899f9b88d4e975053a4413af080b22a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a9899f9b88d4e975053a4413af080b22a">duDebugDrawBox</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int *cornerColors)</td></tr>
+<tr class="separator:a9899f9b88d4e975053a4413af080b22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ed9c96026c646b17e1169d3aecd0294" id="r_a3ed9c96026c646b17e1169d3aecd0294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a3ed9c96026c646b17e1169d3aecd0294">duDebugDrawCylinder</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color)</td></tr>
+<tr class="separator:a3ed9c96026c646b17e1169d3aecd0294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cb59c9d2aa1877f9573e67cac74d361" id="r_a1cb59c9d2aa1877f9573e67cac74d361"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a1cb59c9d2aa1877f9573e67cac74d361">duDebugDrawGridXZ</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const int width, const int height, const float cellSize, const unsigned int color, const float lineWidth)</td></tr>
+<tr class="separator:a1cb59c9d2aa1877f9573e67cac74d361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2a9aa04e19811f4bb2d74c0f8f9ebe8" id="r_ad2a9aa04e19811f4bb2d74c0f8f9ebe8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ad2a9aa04e19811f4bb2d74c0f8f9ebe8">duAppendCylinderWire</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color)</td></tr>
+<tr class="separator:ad2a9aa04e19811f4bb2d74c0f8f9ebe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6851f645d944337af6e6d928aca06db" id="r_ae6851f645d944337af6e6d928aca06db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ae6851f645d944337af6e6d928aca06db">duAppendBoxWire</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color)</td></tr>
+<tr class="separator:ae6851f645d944337af6e6d928aca06db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a6ac0e6a5555e685595d37fa9c7031" id="r_a28a6ac0e6a5555e685595d37fa9c7031"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a28a6ac0e6a5555e685595d37fa9c7031">duAppendBoxPoints</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color)</td></tr>
+<tr class="separator:a28a6ac0e6a5555e685595d37fa9c7031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac6a7a19638ee63c8806576f366c655" id="r_a8ac6a7a19638ee63c8806576f366c655"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a8ac6a7a19638ee63c8806576f366c655">duAppendBox</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, const unsigned int *cornerColors)</td></tr>
+<tr class="separator:a8ac6a7a19638ee63c8806576f366c655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81365e68e8493ebc194f1a270b8dc096" id="r_a81365e68e8493ebc194f1a270b8dc096"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a81365e68e8493ebc194f1a270b8dc096">duAppendCylinder</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, float minx, float miny, float minz, float maxx, float maxy, float maxz, unsigned int color)</td></tr>
+<tr class="separator:a81365e68e8493ebc194f1a270b8dc096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1981953ed43c0c1f2bf6c49dff16b092" id="r_a1981953ed43c0c1f2bf6c49dff16b092"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a1981953ed43c0c1f2bf6c49dff16b092">evalArc</a> (const float x0, const float y0, const float z0, const float dx, const float dy, const float dz, const float h, const float u, float *res)</td></tr>
 <tr class="separator:a1981953ed43c0c1f2bf6c49dff16b092"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a053fd5d6f9516c4e4e00ba86fcc602f8" id="r_a053fd5d6f9516c4e4e00ba86fcc602f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a053fd5d6f9516c4e4e00ba86fcc602f8">vcross</a> (float *dest, const float *v1, const float *v2)</td></tr>
@@ -151,20 +150,20 @@ Functions</h2></td></tr>
 <tr class="separator:a5d1da618860cf741dca5e79581948dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4417fb2f20aaaa3e0d8e4a7e20b5cad9" id="r_a4417fb2f20aaaa3e0d8e4a7e20b5cad9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a4417fb2f20aaaa3e0d8e4a7e20b5cad9">vdistSqr</a> (const float *v1, const float *v2)</td></tr>
 <tr class="separator:a4417fb2f20aaaa3e0d8e4a7e20b5cad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92fe9ab381b78d4826302d41f9e3445a" id="r_a92fe9ab381b78d4826302d41f9e3445a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a92fe9ab381b78d4826302d41f9e3445a">appendArrowHead</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float *p, const float *q, const float s, unsigned int col)</td></tr>
-<tr class="separator:a92fe9ab381b78d4826302d41f9e3445a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4abde7bf119bbc15c7ce11e0fd29f433" id="r_a4abde7bf119bbc15c7ce11e0fd29f433"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a4abde7bf119bbc15c7ce11e0fd29f433">duAppendArc</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float h, const float as0, const float as1, unsigned int col)</td></tr>
-<tr class="separator:a4abde7bf119bbc15c7ce11e0fd29f433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af903a7d4db1e5a0b5199530b30fa0d04" id="r_af903a7d4db1e5a0b5199530b30fa0d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#af903a7d4db1e5a0b5199530b30fa0d04">duAppendArrow</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float as0, const float as1, unsigned int col)</td></tr>
-<tr class="separator:af903a7d4db1e5a0b5199530b30fa0d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20f175472f6ec05add11a46ea87216ac" id="r_a20f175472f6ec05add11a46ea87216ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a20f175472f6ec05add11a46ea87216ac">duAppendCircle</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float r, unsigned int col)</td></tr>
-<tr class="separator:a20f175472f6ec05add11a46ea87216ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39a74525468b9153cc928f670a1bff6b" id="r_a39a74525468b9153cc928f670a1bff6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a39a74525468b9153cc928f670a1bff6b">duAppendCross</a> (struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float s, unsigned int col)</td></tr>
-<tr class="separator:a39a74525468b9153cc928f670a1bff6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00a7ee9169766850bb0ce0772836d1b2" id="r_a00a7ee9169766850bb0ce0772836d1b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a00a7ee9169766850bb0ce0772836d1b2">appendArrowHead</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float *p, const float *q, const float s, unsigned int color)</td></tr>
+<tr class="separator:a00a7ee9169766850bb0ce0772836d1b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add0f6022db1160815c080baddab17e17" id="r_add0f6022db1160815c080baddab17e17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#add0f6022db1160815c080baddab17e17">duAppendArc</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float h, const float arrowSize0, const float arrowSize1, unsigned int color)</td></tr>
+<tr class="separator:add0f6022db1160815c080baddab17e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bac1fd078df404d183c7ac4c47d918d" id="r_a3bac1fd078df404d183c7ac4c47d918d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a3bac1fd078df404d183c7ac4c47d918d">duAppendArrow</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x0, const float y0, const float z0, const float x1, const float y1, const float z1, const float arrowSize0, const float arrowSize1, unsigned int color)</td></tr>
+<tr class="separator:a3bac1fd078df404d183c7ac4c47d918d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98b7c6e4d01ba08d90ae7b7d01d86696" id="r_a98b7c6e4d01ba08d90ae7b7d01d86696"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#a98b7c6e4d01ba08d90ae7b7d01d86696">duAppendCircle</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float r, unsigned int color)</td></tr>
+<tr class="separator:a98b7c6e4d01ba08d90ae7b7d01d86696"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1760baa9127c5ae3e15579d329971b7" id="r_ae1760baa9127c5ae3e15579d329971b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="DebugDraw_8cpp.html#ae1760baa9127c5ae3e15579d329971b7">duAppendCross</a> (<a class="el" href="structduDebugDraw.html">duDebugDraw</a> *dd, const float x, const float y, const float z, const float s, unsigned int color)</td></tr>
+<tr class="separator:ae1760baa9127c5ae3e15579d329971b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a92fe9ab381b78d4826302d41f9e3445a" name="a92fe9ab381b78d4826302d41f9e3445a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92fe9ab381b78d4826302d41f9e3445a">&#9670;&#160;</a></span>appendArrowHead()</h2>
+<a id="a00a7ee9169766850bb0ce0772836d1b2" name="a00a7ee9169766850bb0ce0772836d1b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00a7ee9169766850bb0ce0772836d1b2">&#9670;&#160;</a></span>appendArrowHead()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +171,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void appendArrowHead </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -197,7 +196,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -209,8 +208,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a540a122c002c99d142af5bfaac50b43d" name="a540a122c002c99d142af5bfaac50b43d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a540a122c002c99d142af5bfaac50b43d">&#9670;&#160;</a></span>bit()</h2>
+<a id="a30da7bd990a7e1bf09f334d3959d6af3" name="a30da7bd990a7e1bf09f334d3959d6af3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30da7bd990a7e1bf09f334d3959d6af3">&#9670;&#160;</a></span>bit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +218,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int bit </td>
+          <td class="memname">static int bit </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -238,15 +237,15 @@ Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a4abde7bf119bbc15c7ce11e0fd29f433" name="a4abde7bf119bbc15c7ce11e0fd29f433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4abde7bf119bbc15c7ce11e0fd29f433">&#9670;&#160;</a></span>duAppendArc()</h2>
+<a id="add0f6022db1160815c080baddab17e17" name="add0f6022db1160815c080baddab17e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add0f6022db1160815c080baddab17e17">&#9670;&#160;</a></span>duAppendArc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -254,7 +253,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendArc </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -303,19 +302,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as0</em>, </td>
+          <td class="paramname"><em>arrowSize0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as1</em>, </td>
+          <td class="paramname"><em>arrowSize1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -327,8 +326,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af903a7d4db1e5a0b5199530b30fa0d04" name="af903a7d4db1e5a0b5199530b30fa0d04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af903a7d4db1e5a0b5199530b30fa0d04">&#9670;&#160;</a></span>duAppendArrow()</h2>
+<a id="a3bac1fd078df404d183c7ac4c47d918d" name="a3bac1fd078df404d183c7ac4c47d918d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bac1fd078df404d183c7ac4c47d918d">&#9670;&#160;</a></span>duAppendArrow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +335,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendArrow </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -379,19 +378,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as0</em>, </td>
+          <td class="paramname"><em>arrowSize0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as1</em>, </td>
+          <td class="paramname"><em>arrowSize1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -403,8 +402,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a31e157d9851ea970b3846f2e414a7a6b" name="a31e157d9851ea970b3846f2e414a7a6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31e157d9851ea970b3846f2e414a7a6b">&#9670;&#160;</a></span>duAppendBox()</h2>
+<a id="a8ac6a7a19638ee63c8806576f366c655" name="a8ac6a7a19638ee63c8806576f366c655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ac6a7a19638ee63c8806576f366c655">&#9670;&#160;</a></span>duAppendBox()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +411,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendBox </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -455,7 +454,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned int *&#160;</td>
-          <td class="paramname"><em>fcol</em>&#160;</td>
+          <td class="paramname"><em>cornerColors</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -467,8 +466,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af642edb7bee9ad03a4888734aabc8722" name="af642edb7bee9ad03a4888734aabc8722"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af642edb7bee9ad03a4888734aabc8722">&#9670;&#160;</a></span>duAppendBoxPoints()</h2>
+<a id="a28a6ac0e6a5555e685595d37fa9c7031" name="a28a6ac0e6a5555e685595d37fa9c7031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a6ac0e6a5555e685595d37fa9c7031">&#9670;&#160;</a></span>duAppendBoxPoints()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -476,7 +475,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendBoxPoints </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -519,7 +518,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -531,8 +530,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ad8477d27dac2e71ac54ab62b57681444" name="ad8477d27dac2e71ac54ab62b57681444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8477d27dac2e71ac54ab62b57681444">&#9670;&#160;</a></span>duAppendBoxWire()</h2>
+<a id="ae6851f645d944337af6e6d928aca06db" name="ae6851f645d944337af6e6d928aca06db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6851f645d944337af6e6d928aca06db">&#9670;&#160;</a></span>duAppendBoxWire()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -540,7 +539,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendBoxWire </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -583,7 +582,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -595,8 +594,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a20f175472f6ec05add11a46ea87216ac" name="a20f175472f6ec05add11a46ea87216ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20f175472f6ec05add11a46ea87216ac">&#9670;&#160;</a></span>duAppendCircle()</h2>
+<a id="a98b7c6e4d01ba08d90ae7b7d01d86696" name="a98b7c6e4d01ba08d90ae7b7d01d86696"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98b7c6e4d01ba08d90ae7b7d01d86696">&#9670;&#160;</a></span>duAppendCircle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -604,7 +603,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendCircle </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -635,7 +634,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -647,8 +646,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a39a74525468b9153cc928f670a1bff6b" name="a39a74525468b9153cc928f670a1bff6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39a74525468b9153cc928f670a1bff6b">&#9670;&#160;</a></span>duAppendCross()</h2>
+<a id="ae1760baa9127c5ae3e15579d329971b7" name="ae1760baa9127c5ae3e15579d329971b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1760baa9127c5ae3e15579d329971b7">&#9670;&#160;</a></span>duAppendCross()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -656,7 +655,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendCross </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -687,7 +686,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -699,8 +698,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac8e97c3691067f8e62ed9f8eb3b255f7" name="ac8e97c3691067f8e62ed9f8eb3b255f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8e97c3691067f8e62ed9f8eb3b255f7">&#9670;&#160;</a></span>duAppendCylinder()</h2>
+<a id="a81365e68e8493ebc194f1a270b8dc096" name="a81365e68e8493ebc194f1a270b8dc096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81365e68e8493ebc194f1a270b8dc096">&#9670;&#160;</a></span>duAppendCylinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -708,7 +707,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendCylinder </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -751,7 +750,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -763,8 +762,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abb1f308b5bc7bf286afdde8b5bfeda7f" name="abb1f308b5bc7bf286afdde8b5bfeda7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb1f308b5bc7bf286afdde8b5bfeda7f">&#9670;&#160;</a></span>duAppendCylinderWire()</h2>
+<a id="ad2a9aa04e19811f4bb2d74c0f8f9ebe8" name="ad2a9aa04e19811f4bb2d74c0f8f9ebe8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2a9aa04e19811f4bb2d74c0f8f9ebe8">&#9670;&#160;</a></span>duAppendCylinderWire()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -772,7 +771,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duAppendCylinderWire </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -815,7 +814,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -861,8 +860,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f9e91a48539eaead1b44f1f1235093d" name="a5f9e91a48539eaead1b44f1f1235093d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f9e91a48539eaead1b44f1f1235093d">&#9670;&#160;</a></span>duDebugDrawArc()</h2>
+<a id="a0a5a2b71ce119a1d889beb2daae5bc94" name="a0a5a2b71ce119a1d889beb2daae5bc94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a5a2b71ce119a1d889beb2daae5bc94">&#9670;&#160;</a></span>duDebugDrawArc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -870,7 +869,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawArc </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -913,25 +912,25 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>h</em>, </td>
+          <td class="paramname"><em>arcHeight</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as0</em>, </td>
+          <td class="paramname"><em>arrowSize0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as1</em>, </td>
+          <td class="paramname"><em>arrowSize1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -949,8 +948,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abf367a1fd1a0fbb2993beb99454e095c" name="abf367a1fd1a0fbb2993beb99454e095c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf367a1fd1a0fbb2993beb99454e095c">&#9670;&#160;</a></span>duDebugDrawArrow()</h2>
+<a id="a3cdbd401161c67ab5dc67d752d0716bc" name="a3cdbd401161c67ab5dc67d752d0716bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cdbd401161c67ab5dc67d752d0716bc">&#9670;&#160;</a></span>duDebugDrawArrow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -958,7 +957,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawArrow </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1001,19 +1000,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as0</em>, </td>
+          <td class="paramname"><em>arrowSize0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>as1</em>, </td>
+          <td class="paramname"><em>arrowSize1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1031,8 +1030,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a445be6c90ff146c39c5ba3c9c4597be1" name="a445be6c90ff146c39c5ba3c9c4597be1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a445be6c90ff146c39c5ba3c9c4597be1">&#9670;&#160;</a></span>duDebugDrawBox()</h2>
+<a id="a9899f9b88d4e975053a4413af080b22a" name="a9899f9b88d4e975053a4413af080b22a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9899f9b88d4e975053a4413af080b22a">&#9670;&#160;</a></span>duDebugDrawBox()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1040,7 +1039,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawBox </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1083,7 +1082,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned int *&#160;</td>
-          <td class="paramname"><em>fcol</em>&#160;</td>
+          <td class="paramname"><em>cornerColors</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1095,8 +1094,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa351fc1c5dd7f39140446690e6784395" name="aa351fc1c5dd7f39140446690e6784395"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa351fc1c5dd7f39140446690e6784395">&#9670;&#160;</a></span>duDebugDrawBoxWire()</h2>
+<a id="ad3e95d4756f23384bc1e9f7860f79bc2" name="ad3e95d4756f23384bc1e9f7860f79bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e95d4756f23384bc1e9f7860f79bc2">&#9670;&#160;</a></span>duDebugDrawBoxWire()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1104,7 +1103,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawBoxWire </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1147,7 +1146,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1165,8 +1164,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9701dd640ff0167c71e02921bb5004e2" name="a9701dd640ff0167c71e02921bb5004e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9701dd640ff0167c71e02921bb5004e2">&#9670;&#160;</a></span>duDebugDrawCircle()</h2>
+<a id="a1ce6adbbf9129581ccd2dfdeddf162c1" name="a1ce6adbbf9129581ccd2dfdeddf162c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ce6adbbf9129581ccd2dfdeddf162c1">&#9670;&#160;</a></span>duDebugDrawCircle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1174,7 +1173,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawCircle </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1199,13 +1198,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
+          <td class="paramname"><em>radius</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1223,8 +1222,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="afbf7aba36432ed758d110faac052043f" name="afbf7aba36432ed758d110faac052043f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbf7aba36432ed758d110faac052043f">&#9670;&#160;</a></span>duDebugDrawCross()</h2>
+<a id="a116f4303b3ad0a3d470b221d68ebd747" name="a116f4303b3ad0a3d470b221d68ebd747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a116f4303b3ad0a3d470b221d68ebd747">&#9670;&#160;</a></span>duDebugDrawCross()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1232,7 +1231,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawCross </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1263,7 +1262,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1281,8 +1280,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a02552e2c7419bd786631e6f443826004" name="a02552e2c7419bd786631e6f443826004"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02552e2c7419bd786631e6f443826004">&#9670;&#160;</a></span>duDebugDrawCylinder()</h2>
+<a id="a3ed9c96026c646b17e1169d3aecd0294" name="a3ed9c96026c646b17e1169d3aecd0294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed9c96026c646b17e1169d3aecd0294">&#9670;&#160;</a></span>duDebugDrawCylinder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1290,7 +1289,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawCylinder </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1333,7 +1332,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1345,8 +1344,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d197b1cb938eb6a5d395fe86454fbc8" name="a8d197b1cb938eb6a5d395fe86454fbc8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d197b1cb938eb6a5d395fe86454fbc8">&#9670;&#160;</a></span>duDebugDrawCylinderWire()</h2>
+<a id="a1e632f3940cf7c4fe87b8effbc20f4c6" name="a1e632f3940cf7c4fe87b8effbc20f4c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e632f3940cf7c4fe87b8effbc20f4c6">&#9670;&#160;</a></span>duDebugDrawCylinderWire()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1354,7 +1353,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawCylinderWire </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
@@ -1397,7 +1396,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1415,8 +1414,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abe21ceb0657dac9e04e7314e1636b6c7" name="abe21ceb0657dac9e04e7314e1636b6c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe21ceb0657dac9e04e7314e1636b6c7">&#9670;&#160;</a></span>duDebugDrawGridXZ()</h2>
+<a id="a1cb59c9d2aa1877f9573e67cac74d361" name="a1cb59c9d2aa1877f9573e67cac74d361"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cb59c9d2aa1877f9573e67cac74d361">&#9670;&#160;</a></span>duDebugDrawGridXZ()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1424,50 +1423,50 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void duDebugDrawGridXZ </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="structduDebugDraw.html">duDebugDraw</a> *&#160;</td>
           <td class="paramname"><em>dd</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>ox</em>, </td>
+          <td class="paramname"><em>x</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>oy</em>, </td>
+          <td class="paramname"><em>y</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>oz</em>, </td>
+          <td class="paramname"><em>z</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>w</em>, </td>
+          <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const int&#160;</td>
-          <td class="paramname"><em>h</em>, </td>
+          <td class="paramname"><em>height</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const float&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramname"><em>cellSize</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const unsigned int&#160;</td>
-          <td class="paramname"><em>col</em>, </td>
+          <td class="paramname"><em>color</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1485,8 +1484,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aa7ed02712813d056a5a092b0eb30b23f" name="aa7ed02712813d056a5a092b0eb30b23f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7ed02712813d056a5a092b0eb30b23f">&#9670;&#160;</a></span>duIntToCol() <span class="overload">[1/2]</span></h2>
+<a id="a1f75ec9586c38fada8bf68d172abf670" name="a1f75ec9586c38fada8bf68d172abf670"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f75ec9586c38fada8bf68d172abf670">&#9670;&#160;</a></span>duIntToCol() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1501,7 +1500,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

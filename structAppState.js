@@ -1,5 +1,6 @@
 var structAppState =
 [
+    [ "drawUI", "structAppState.html#a9167acb7f93ca9d42330837de32adaf0", null ],
     [ "resetCamera", "structAppState.html#aace9061b31a946ae7c118a7ee56ff723", null ],
     [ "updateUIScale", "structAppState.html#ab61533cbedd1009fec52b126b27eb3d3", null ],
     [ "updateWindowSize", "structAppState.html#a35b4ed9b06ee282ffe2394aca05a29cc", null ],

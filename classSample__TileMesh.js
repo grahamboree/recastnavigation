@@ -10,7 +10,6 @@ var classSample__TileMesh =
     [ "collectSettings", "classSample__TileMesh.html#ab2bda388d49ef798a238b07dab9f8fbf", null ],
     [ "drawDebugUI", "classSample__TileMesh.html#ad4ddf05222e1170281920b1af0d3acc1", null ],
     [ "drawSettingsUI", "classSample__TileMesh.html#a336166d8ce22dc45f8947ecb589b03bd", null ],
-    [ "drawToolsUI", "classSample__TileMesh.html#a512ce987b58351d151f7f6cc77fca364", null ],
     [ "getTilePos", "classSample__TileMesh.html#a3d93fe956fe5af8cfaf2c83a9dde2817", null ],
     [ "onMeshChanged", "classSample__TileMesh.html#af1a5db8f0c2b3e7ad5161ba28cb6a919", null ],
     [ "operator=", "classSample__TileMesh.html#aee6012c5c615f2c3317338b6e42e8349", null ],
@@ -18,5 +17,6 @@ var classSample__TileMesh =
     [ "removeAllTiles", "classSample__TileMesh.html#aa4bd535b083189bd0cf4c638fa79c833", null ],
     [ "removeTile", "classSample__TileMesh.html#acb20fb7f98bae7e834d9e013a2bfab99", null ],
     [ "render", "classSample__TileMesh.html#a7ed472dadd36e6fa488ee2911c90d193", null ],
-    [ "renderOverlay", "classSample__TileMesh.html#a1a9c9a8a3f8f9de2d4a2c29b992443cc", null ]
+    [ "renderOverlay", "classSample__TileMesh.html#a1a9c9a8a3f8f9de2d4a2c29b992443cc", null ],
+    [ "supportsTool", "classSample__TileMesh.html#af2c0391f2105404af5abbcc2bbd46014", null ]
 ];

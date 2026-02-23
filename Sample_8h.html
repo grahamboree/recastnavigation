@@ -102,13 +102,12 @@ $(document).ready(function(){initNavTree('Sample_8h.html',''); initResizable(); 
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="SampleInterfaces_8h_source.html">SampleInterfaces.h</a>&quot;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="Sample_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSampleDebugDraw.html">SampleDebugDraw</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSampleTool.html">SampleTool</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSampleToolState.html">SampleToolState</a></td></tr>
@@ -120,16 +119,16 @@ Classes</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a8b7905ae89a9d21531c2fe65110bebc1" id="r_a8b7905ae89a9d21531c2fe65110bebc1"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a> : uint8_t { <br />
 &#160;&#160;<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693">NONE</a> = 0
-, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a51be1ace90af5ea9d836a7f8498fac87">TILE_EDIT</a>
-, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a256fc5c1aed48268750fdedc29b47079">TILE_HIGHLIGHT</a>
-, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a6eee38d969cb457212b4dc525a24ec9c">TEMP_OBSTACLE</a>
-, <br />
-&#160;&#160;<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a40c52dfb795cef659dccbc99ed798c00">NAVMESH_TESTER</a>
+, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a40c52dfb795cef659dccbc99ed798c00">NAVMESH_TESTER</a>
 , <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a366638a99cc30a5605e48187c7a3463c">NAVMESH_PRUNE</a>
 , <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adfe732610d1431a2723d8f851895a3ad">OFFMESH_CONNECTION</a>
-, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adbfd86821e2b262ac197472e1a21879f">CONVEX_VOLUME</a>
 , <br />
-&#160;&#160;<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adb2f668eda4022cbebc528b605ce84cf">CROWD</a>
+&#160;&#160;<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adbfd86821e2b262ac197472e1a21879f">CONVEX_VOLUME</a>
+, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adb2f668eda4022cbebc528b605ce84cf">CROWD</a>
+, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a5fa2622ce28f20a015809fe8f5366469">NAVMESH_TILE</a>
+, <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a91417d44a39bfc453bdbe2812614059a">TEMP_OBSTACLE_HIGHLIGHT</a>
+, <br />
+&#160;&#160;<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a325e0a1445b77364e0e4015163ef4b14">TEMP_OBSTACLE_CREATE</a>
 , <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c">MAX_TOOLS</a>
 <br />
  }</td></tr>
@@ -163,6 +162,12 @@ Enumerations</h2></td></tr>
 , <a class="el" href="Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60ab934b953171009520c7f7336a552801b">LAYERS</a>
  }</td></tr>
 <tr class="separator:afbdbec55cd7e47cdf94167ba9dc3ca60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b411d5626ca18669a36dbce259699a" id="r_a07b411d5626ca18669a36dbce259699a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699a">DrawDetailType</a> { <a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2b3e973aac1d955e6f393405f46a975f">DRAWDETAIL_AREAS</a>
+, <a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699aa9298e963d230a3f0d094748821ecc09c">DRAWDETAIL_REGIONS</a>
+, <a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2f2ebb162afcf9d8049d46c65724a304">DRAWDETAIL_CONTOURS</a>
+, <a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2583848fa9a65a13d8d705a41b45ac81">DRAWDETAIL_MESH</a>
+ }</td></tr>
+<tr class="separator:a07b411d5626ca18669a36dbce259699a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -170,6 +175,26 @@ Variables</h2></td></tr>
 <tr class="separator:a120bc69e1ed454430337ba8231f2aee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a07b411d5626ca18669a36dbce259699a" name="a07b411d5626ca18669a36dbce259699a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b411d5626ca18669a36dbce259699a">&#9670;&#160;</a></span>DrawDetailType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="Sample_8h.html#a07b411d5626ca18669a36dbce259699a">DrawDetailType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a07b411d5626ca18669a36dbce259699aa2b3e973aac1d955e6f393405f46a975f" name="a07b411d5626ca18669a36dbce259699aa2b3e973aac1d955e6f393405f46a975f"></a>DRAWDETAIL_AREAS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a07b411d5626ca18669a36dbce259699aa9298e963d230a3f0d094748821ecc09c" name="a07b411d5626ca18669a36dbce259699aa9298e963d230a3f0d094748821ecc09c"></a>DRAWDETAIL_REGIONS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a07b411d5626ca18669a36dbce259699aa2f2ebb162afcf9d8049d46c65724a304" name="a07b411d5626ca18669a36dbce259699aa2f2ebb162afcf9d8049d46c65724a304"></a>DRAWDETAIL_CONTOURS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a07b411d5626ca18669a36dbce259699aa2583848fa9a65a13d8d705a41b45ac81" name="a07b411d5626ca18669a36dbce259699aa2583848fa9a65a13d8d705a41b45ac81"></a>DRAWDETAIL_MESH&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
 <a id="afbdbec55cd7e47cdf94167ba9dc3ca60" name="afbdbec55cd7e47cdf94167ba9dc3ca60"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afbdbec55cd7e47cdf94167ba9dc3ca60">&#9670;&#160;</a></span>SamplePartitionType</h2>
 
@@ -267,14 +292,14 @@ Variables</h2></td></tr>
 <p>Tool types. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693" name="a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693"></a>NONE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a51be1ace90af5ea9d836a7f8498fac87" name="a8b7905ae89a9d21531c2fe65110bebc1a51be1ace90af5ea9d836a7f8498fac87"></a>TILE_EDIT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a256fc5c1aed48268750fdedc29b47079" name="a8b7905ae89a9d21531c2fe65110bebc1a256fc5c1aed48268750fdedc29b47079"></a>TILE_HIGHLIGHT&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a6eee38d969cb457212b4dc525a24ec9c" name="a8b7905ae89a9d21531c2fe65110bebc1a6eee38d969cb457212b4dc525a24ec9c"></a>TEMP_OBSTACLE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a40c52dfb795cef659dccbc99ed798c00" name="a8b7905ae89a9d21531c2fe65110bebc1a40c52dfb795cef659dccbc99ed798c00"></a>NAVMESH_TESTER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a366638a99cc30a5605e48187c7a3463c" name="a8b7905ae89a9d21531c2fe65110bebc1a366638a99cc30a5605e48187c7a3463c"></a>NAVMESH_PRUNE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1adfe732610d1431a2723d8f851895a3ad" name="a8b7905ae89a9d21531c2fe65110bebc1adfe732610d1431a2723d8f851895a3ad"></a>OFFMESH_CONNECTION&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1adbfd86821e2b262ac197472e1a21879f" name="a8b7905ae89a9d21531c2fe65110bebc1adbfd86821e2b262ac197472e1a21879f"></a>CONVEX_VOLUME&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1adb2f668eda4022cbebc528b605ce84cf" name="a8b7905ae89a9d21531c2fe65110bebc1adb2f668eda4022cbebc528b605ce84cf"></a>CROWD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a5fa2622ce28f20a015809fe8f5366469" name="a8b7905ae89a9d21531c2fe65110bebc1a5fa2622ce28f20a015809fe8f5366469"></a>NAVMESH_TILE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a91417d44a39bfc453bdbe2812614059a" name="a8b7905ae89a9d21531c2fe65110bebc1a91417d44a39bfc453bdbe2812614059a"></a>TEMP_OBSTACLE_HIGHLIGHT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a325e0a1445b77364e0e4015163ef4b14" name="a8b7905ae89a9d21531c2fe65110bebc1a325e0a1445b77364e0e4015163ef4b14"></a>TEMP_OBSTACLE_CREATE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c" name="a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c"></a>MAX_TOOLS&#160;</td><td class="fielddoc"></td></tr>
 </table>
 

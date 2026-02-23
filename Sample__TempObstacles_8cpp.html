@@ -94,8 +94,7 @@ $(document).ready(function(){initNavTree('Sample__TempObstacles_8cpp.html',''); 
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle"><div class="title">Sample_TempObstacles.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -114,6 +113,8 @@ $(document).ready(function(){initNavTree('Sample__TempObstacles_8cpp.html',''); 
 <code>#include &quot;<a class="el" href="Tool__Crowd_8h_source.html">Tool_Crowd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Tool__NavMeshTester_8h_source.html">Tool_NavMeshTester.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Tool__OffMeshConnection_8h_source.html">Tool_OffMeshConnection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Tool__TempObstacleCreate_8h_source.html">Tool_TempObstacleCreate.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Tool__TempObstacleHighlight_8h_source.html">Tool_TempObstacleHighlight.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="imguiHelpers_8h_source.html">imguiHelpers.h</a>&quot;</code><br />
 <code>#include &lt;fastlz.h&gt;</code><br />
 <code>#include &lt;imgui.h&gt;</code><br />
@@ -132,49 +133,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structRasterizationContext.html">RasterizationContext</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTempObstacleHighlightTool.html">TempObstacleHighlightTool</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTempObstacleCreateTool.html">TempObstacleCreateTool</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTileCacheSetHeader.html">TileCacheSetHeader</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTileCacheTileHeader.html">TileCacheTileHeader</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a5333eff9abec7c9a7d902bef73309daa" id="r_a5333eff9abec7c9a7d902bef73309daa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Sample__TempObstacles_8cpp.html#a5333eff9abec7c9a7d902bef73309daa">TOOL</a>(toolType,  toolClass)&#160;&#160;&#160;if (ImGui::RadioButton(<a class="el" href="Sample_8h.html#a120bc69e1ed454430337ba8231f2aee4">toolNames</a>[static_cast&lt;int&gt;(SampleToolType::toolType)], currentTool == SampleToolType::toolType)) { setTool(new toolClass{}); }</td></tr>
-<tr class="separator:a5333eff9abec7c9a7d902bef73309daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a5333eff9abec7c9a7d902bef73309daa" name="a5333eff9abec7c9a7d902bef73309daa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5333eff9abec7c9a7d902bef73309daa">&#9670;&#160;</a></span>TOOL</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TOOL</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">toolType, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">toolClass&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;if (ImGui::RadioButton(<a class="el" href="Sample_8h.html#a120bc69e1ed454430337ba8231f2aee4">toolNames</a>[static_cast&lt;int&gt;(SampleToolType::toolType)], currentTool == SampleToolType::toolType)) { setTool(new toolClass{}); }</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.8.6-->

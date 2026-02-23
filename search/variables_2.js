@@ -38,12 +38,12 @@ var searchData=
   ['cost_35',['cost',['../structdtNode.html#a253defdaa9ea8dbe9ea5991bcfb75b32',1,'dtNode']]],
   ['count_36',['count',['../structrcCompactCell.html#a70bb509654a28a8c9d67bcb469d0b3ce',1,'rcCompactCell']]],
   ['cpoly_37',['cpoly',['../structdtTempContour.html#a0d3c890707733eb165076c44202b9058',1,'dtTempContour']]],
-  ['create_38',['create',['../structSampleItem.html#aa418d2af087c087fa363b1245ca2da21',1,'SampleItem']]],
-  ['crowd_39',['crowd',['../classSample.html#a635463e829a780cd5a3fdeb1eef005b1',1,'Sample']]],
-  ['cs_40',['cs',['../structdtNavMeshCreateParams.html#a2297125898dd39b19c515638d31cacfc',1,'dtNavMeshCreateParams::cs'],['../structrcPolyMesh.html#a4c3ca520c55f96037cffcf6a92809563',1,'rcPolyMesh::cs'],['../structrcContourSet.html#a1dbf04db7e828a3757e951e4f8499c95',1,'rcContourSet::cs'],['../structrcHeightfieldLayer.html#af0311febcc96aa2a2b611e0a65478f49',1,'rcHeightfieldLayer::cs'],['../structrcCompactHeightfield.html#a75ee8e198d672db29a2f98c7463c0b31',1,'rcCompactHeightfield::cs'],['../structrcHeightfield.html#a3f28962585b2f726d809b1a86b925edb',1,'rcHeightfield::cs'],['../structrcConfig.html#ae74c4bd2b0477f29a65a53ca9c59196d',1,'rcConfig::cs'],['../structdtTileCacheParams.html#aa3d397344d70e8d65300ceec47bf6512',1,'dtTileCacheParams::cs']]],
-  ['cset_5fmagic_41',['CSET_MAGIC',['../RecastDump_8cpp.html#a715b66346d870827210e9b90b9e5add9',1,'RecastDump.cpp']]],
-  ['cset_5fversion_42',['CSET_VERSION',['../RecastDump_8cpp.html#a8888aaa743f054b6efd0e2ac8529df62',1,'RecastDump.cpp']]],
-  ['currentdrawmode_43',['currentDrawMode',['../classSample__SoloMesh.html#a09b0c1f32495b81ca90fb46713486f9d',1,'Sample_SoloMesh']]],
+  ['crowd_38',['crowd',['../classSample.html#a635463e829a780cd5a3fdeb1eef005b1',1,'Sample']]],
+  ['cs_39',['cs',['../structdtTileCacheParams.html#aa3d397344d70e8d65300ceec47bf6512',1,'dtTileCacheParams::cs'],['../structrcPolyMesh.html#a4c3ca520c55f96037cffcf6a92809563',1,'rcPolyMesh::cs'],['../structrcContourSet.html#a1dbf04db7e828a3757e951e4f8499c95',1,'rcContourSet::cs'],['../structrcHeightfieldLayer.html#af0311febcc96aa2a2b611e0a65478f49',1,'rcHeightfieldLayer::cs'],['../structrcCompactHeightfield.html#a75ee8e198d672db29a2f98c7463c0b31',1,'rcCompactHeightfield::cs'],['../structrcHeightfield.html#a3f28962585b2f726d809b1a86b925edb',1,'rcHeightfield::cs'],['../structrcConfig.html#ae74c4bd2b0477f29a65a53ca9c59196d',1,'rcConfig::cs'],['../structdtNavMeshCreateParams.html#a2297125898dd39b19c515638d31cacfc',1,'dtNavMeshCreateParams::cs']]],
+  ['cset_5fmagic_40',['CSET_MAGIC',['../RecastDump_8cpp.html#a715b66346d870827210e9b90b9e5add9',1,'RecastDump.cpp']]],
+  ['cset_5fversion_41',['CSET_VERSION',['../RecastDump_8cpp.html#a8888aaa743f054b6efd0e2ac8529df62',1,'RecastDump.cpp']]],
+  ['currentdrawmode_42',['currentDrawMode',['../classSample__SoloMesh.html#a09b0c1f32495b81ca90fb46713486f9d',1,'Sample_SoloMesh']]],
+  ['currenttool_43',['currentTool',['../classSample.html#a0c20435abb2dd4b7579233af316ae537',1,'Sample']]],
   ['cverts_44',['cverts',['../structdtTempContour.html#af7144f4b212231221298f01f47e461d3',1,'dtTempContour']]],
   ['cylinder_45',['cylinder',['../structdtTileCacheObstacle.html#a6e42e7ac7564db49c70b849f3cc49a39',1,'dtTileCacheObstacle']]]
 ];

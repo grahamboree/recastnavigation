@@ -24,10 +24,10 @@ var searchData=
   ['alloc_21',['alloc',['../structLinearAllocator.html#a32073fa3e2cc07194df36ed782fc43d9',1,'LinearAllocator::alloc()'],['../structdtTileCacheAlloc.html#afc894a69df9f38eee8431762983f571d',1,'dtTileCacheAlloc::alloc()']]],
   ['alloclink_22',['allocLink',['../DetourNavMesh_8cpp.html#aa74dd7666e6d665dd48779e18f5d4ed9',1,'DetourNavMesh.cpp']]],
   ['allocspan_23',['allocSpan',['../RecastRasterization_8cpp.html#afe4a4f775822e89230ebda67d4046989',1,'RecastRasterization.cpp']]],
-  ['appendarrowhead_24',['appendArrowHead',['../DebugDraw_8cpp.html#a92fe9ab381b78d4826302d41f9e3445a',1,'DebugDraw.cpp']]],
+  ['appendarrowhead_24',['appendArrowHead',['../DebugDraw_8cpp.html#a00a7ee9169766850bb0ce0772836d1b2',1,'DebugDraw.cpp']]],
   ['appendstacks_25',['appendStacks',['../RecastRegion_8cpp.html#acae78c0a97b367d4ace3294d6dcb8216',1,'RecastRegion.cpp']]],
   ['appendvertex_26',['appendVertex',['../DetourTileCacheBuilder_8cpp.html#a7b70b108373f83e39073cd995c83342e',1,'DetourTileCacheBuilder.cpp']]],
   ['area2_27',['area2',['../DetourTileCacheBuilder_8cpp.html#a4026446823c064e1eee76b85985e82cd',1,'area2(const unsigned char *a, const unsigned char *b, const unsigned char *c):&#160;DetourTileCacheBuilder.cpp'],['../RecastContour_8cpp.html#a09ae1f04327bcd46a12ace0769a8f266',1,'area2(const int *a, const int *b, const int *c):&#160;RecastContour.cpp'],['../RecastMesh_8cpp.html#a09ae1f04327bcd46a12ace0769a8f266',1,'area2(const int *a, const int *b, const int *c):&#160;RecastMesh.cpp']]],
-  ['areatocol_28',['areatocol',['../classSampleDebugDraw.html#a8b70994eb9f346d3871a2210481ddd82',1,'SampleDebugDraw::areaToCol()'],['../structduDebugDraw.html#aabdd9cd0f4381c686c3e0beaf50d3d13',1,'duDebugDraw::areaToCol()']]],
+  ['areatocol_28',['areatocol',['../classDebugDrawSDL.html#a20206aa70a1ef50fcad3030f6cc19447',1,'DebugDrawSDL::areaToCol()'],['../structduDebugDraw.html#aabdd9cd0f4381c686c3e0beaf50d3d13',1,'duDebugDraw::areaToCol()']]],
   ['assign_29',['assign',['../classrcVectorBase.html#a55225c4d52eda5e77c10b41c34deab95',1,'rcVectorBase::assign(const T *begin, const T *end)'],['../classrcVectorBase.html#af2d02ea6aea5354a3954a5902527a7ab',1,'rcVectorBase::assign(rcSizeType count, const T &amp;value)']]]
 ];

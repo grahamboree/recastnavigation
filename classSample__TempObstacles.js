@@ -1,15 +1,15 @@
 var classSample__TempObstacles =
 [
-    [ "DrawMode", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646a", [
-      [ "DRAWMODE_NAVMESH", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aaf041b173541f65f9d180dc5ce6c4faca", null ],
-      [ "DRAWMODE_NAVMESH_TRANS", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa31dbf6b027635abacf086f1039c4a59f", null ],
-      [ "DRAWMODE_NAVMESH_BVTREE", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa2c426926db47a33bbb2d0568be000eb1", null ],
-      [ "DRAWMODE_NAVMESH_NODES", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa20a287a5fb92a18accd304ff5a90ff27", null ],
-      [ "DRAWMODE_NAVMESH_PORTALS", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa18ab8dd09107286c83c01da1701eef5b", null ],
-      [ "DRAWMODE_NAVMESH_INVIS", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aadf002a04b3f50bc4732a5f0e83fe2b82", null ],
-      [ "DRAWMODE_MESH", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa03124cf65d838b25406a05e61fe30ce0", null ],
-      [ "DRAWMODE_CACHE_BOUNDS", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aad240eab884b6fce214ae17ee58ff1fc5", null ],
-      [ "MAX_DRAWMODE", "classSample__TempObstacles.html#a6ab371394b122966ab5de8619bd8646aa6b45d4a6889c8d9b98d386cfbcd3e7a3", null ]
+    [ "DrawMode", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3", [
+      [ "NAVMESH", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3aa7e72d66e799f19876d1ba9c72a8946c", null ],
+      [ "NAVMESH_TRANS", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3abd8c0792c80051fb9cfeac77682b3a57", null ],
+      [ "NAVMESH_BVTREE", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3abac9ed898cbfd21b3258f06d6405f69b", null ],
+      [ "NAVMESH_NODES", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a7760c97857d6977905edc8df12ff98aa", null ],
+      [ "NAVMESH_PORTALS", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3abe7fae589d346652801259db8f63669a", null ],
+      [ "NAVMESH_INVIS", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3aedd2549ee4a7bb6a5fee7e9a7b756fda", null ],
+      [ "MESH", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a5b65fe46c5dd90ebcec69c472c3be1d9", null ],
+      [ "CACHE_BOUNDS", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a2035dfdda4fdf2f718a405215b5afd1e", null ],
+      [ "MAX_DRAWMODE", "classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a700ea45ebb0c21630ae73a3c14e61823", null ]
     ] ],
     [ "Sample_TempObstacles", "classSample__TempObstacles.html#a8b4c95ce918a73325cd1a703eccedc0f", null ],
     [ "~Sample_TempObstacles", "classSample__TempObstacles.html#ab818828c04876c0735be113c566b185d", null ],
@@ -20,7 +20,6 @@ var classSample__TempObstacles =
     [ "clearAllTempObstacles", "classSample__TempObstacles.html#a6e19e7d6560bd83d87a1212fcde16b04", null ],
     [ "drawDebugUI", "classSample__TempObstacles.html#a9da7356ffaba5eb4cc478a1d1b0cc4db", null ],
     [ "drawSettingsUI", "classSample__TempObstacles.html#ad98900955078c8ddbdc52b26a03f0bca", null ],
-    [ "drawToolsUI", "classSample__TempObstacles.html#aaf85c6d4abfa653f5aa47736283d54c5", null ],
     [ "getTilePos", "classSample__TempObstacles.html#a079e060f05421edf67dc12e8f494c830", null ],
     [ "loadAll", "classSample__TempObstacles.html#a59f560706b1c693ebefde44c1f8046cb", null ],
     [ "onMeshChanged", "classSample__TempObstacles.html#a7438573b07649535db67ee778a1082fd", null ],
@@ -32,6 +31,7 @@ var classSample__TempObstacles =
     [ "renderCachedTileOverlay", "classSample__TempObstacles.html#a5333f6e4cfef5823ef4daf4b09caae30", null ],
     [ "renderOverlay", "classSample__TempObstacles.html#a715b7c6755f4a2a4c2bff2b386a627fe", null ],
     [ "saveAll", "classSample__TempObstacles.html#a52ccd7d7dff0437f2c0eb2f1174eca86", null ],
+    [ "supportsTool", "classSample__TempObstacles.html#a55265c7fa2532922614eedf47b095af0", null ],
     [ "update", "classSample__TempObstacles.html#ad71426b4748145fc458d3f6d8ebcb79a", null ],
     [ "cacheBuildMemUsage", "classSample__TempObstacles.html#ab2caa0b24cd812a267e0e8f234b67205", null ],
     [ "cacheBuildTimeMs", "classSample__TempObstacles.html#a1aac34bd2466f3ef2c3cc8f0730cfe06", null ],

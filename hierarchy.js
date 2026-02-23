@@ -70,9 +70,7 @@ var hierarchy =
     [ "dtTileCachePolyMesh", "structdtTileCachePolyMesh.html", null ],
     [ "dtTileState", "structdtTileState.html", null ],
     [ "duDebugDraw", "structduDebugDraw.html", [
-      [ "DebugDrawGL", "classDebugDrawGL.html", [
-        [ "SampleDebugDraw", "classSampleDebugDraw.html", null ]
-      ] ],
+      [ "DebugDrawSDL", "classDebugDrawSDL.html", null ],
       [ "duDisplayList", "classduDisplayList.html", null ]
     ] ],
     [ "duFileIO", "structduFileIO.html", [
@@ -131,7 +129,6 @@ var hierarchy =
       [ "Sample_TempObstacles", "classSample__TempObstacles.html", null ],
       [ "Sample_TileMesh", "classSample__TileMesh.html", null ]
     ] ],
-    [ "SampleItem", "structSampleItem.html", null ],
     [ "SampleTool", "structSampleTool.html", [
       [ "ConvexVolumeTool", "classConvexVolumeTool.html", null ],
       [ "CrowdTool", "classCrowdTool.html", null ],

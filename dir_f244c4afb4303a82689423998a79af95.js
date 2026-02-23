@@ -15,6 +15,9 @@ var dir_f244c4afb4303a82689423998a79af95 =
     [ "Tool_Crowd.h", "Tool__Crowd_8h.html", "Tool__Crowd_8h" ],
     [ "Tool_NavMeshPrune.h", "Tool__NavMeshPrune_8h.html", "Tool__NavMeshPrune_8h" ],
     [ "Tool_NavMeshTester.h", "Tool__NavMeshTester_8h.html", "Tool__NavMeshTester_8h" ],
+    [ "Tool_NavMeshTile.h", "Tool__NavMeshTile_8h.html", "Tool__NavMeshTile_8h" ],
     [ "Tool_OffMeshConnection.h", "Tool__OffMeshConnection_8h.html", "Tool__OffMeshConnection_8h" ],
+    [ "Tool_TempObstacleCreate.h", "Tool__TempObstacleCreate_8h.html", "Tool__TempObstacleCreate_8h" ],
+    [ "Tool_TempObstacleHighlight.h", "Tool__TempObstacleHighlight_8h.html", "Tool__TempObstacleHighlight_8h" ],
     [ "ValueHistory.h", "ValueHistory_8h.html", "ValueHistory_8h" ]
 ];

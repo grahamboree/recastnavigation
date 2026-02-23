@@ -1,6 +1,6 @@
 var SampleInterfaces_8h =
 [
     [ "BuildContext", "classBuildContext.html", "classBuildContext" ],
-    [ "DebugDrawGL", "classDebugDrawGL.html", "classDebugDrawGL" ],
+    [ "DebugDrawSDL", "classDebugDrawSDL.html", "classDebugDrawSDL" ],
     [ "FileIO", "classFileIO.html", "classFileIO" ]
 ];

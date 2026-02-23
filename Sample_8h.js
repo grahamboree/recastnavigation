@@ -1,9 +1,14 @@
 var Sample_8h =
 [
-    [ "SampleDebugDraw", "classSampleDebugDraw.html", "classSampleDebugDraw" ],
     [ "SampleTool", "structSampleTool.html", "structSampleTool" ],
     [ "SampleToolState", "structSampleToolState.html", "structSampleToolState" ],
     [ "Sample", "classSample.html", "classSample" ],
+    [ "DrawDetailType", "Sample_8h.html#a07b411d5626ca18669a36dbce259699a", [
+      [ "DRAWDETAIL_AREAS", "Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2b3e973aac1d955e6f393405f46a975f", null ],
+      [ "DRAWDETAIL_REGIONS", "Sample_8h.html#a07b411d5626ca18669a36dbce259699aa9298e963d230a3f0d094748821ecc09c", null ],
+      [ "DRAWDETAIL_CONTOURS", "Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2f2ebb162afcf9d8049d46c65724a304", null ],
+      [ "DRAWDETAIL_MESH", "Sample_8h.html#a07b411d5626ca18669a36dbce259699aa2583848fa9a65a13d8d705a41b45ac81", null ]
+    ] ],
     [ "SamplePartitionType", "Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60", [
       [ "WATERSHED", "Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60ac2f2890e29f7dbe371b5a48e6db70dac", null ],
       [ "MONOTONE", "Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60a0f9e8e3552c7f87e044893e7620b476d", null ],
@@ -27,14 +32,14 @@ var Sample_8h =
     ] ],
     [ "SampleToolType", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1", [
       [ "NONE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693", null ],
-      [ "TILE_EDIT", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a51be1ace90af5ea9d836a7f8498fac87", null ],
-      [ "TILE_HIGHLIGHT", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a256fc5c1aed48268750fdedc29b47079", null ],
-      [ "TEMP_OBSTACLE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a6eee38d969cb457212b4dc525a24ec9c", null ],
       [ "NAVMESH_TESTER", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a40c52dfb795cef659dccbc99ed798c00", null ],
       [ "NAVMESH_PRUNE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a366638a99cc30a5605e48187c7a3463c", null ],
       [ "OFFMESH_CONNECTION", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adfe732610d1431a2723d8f851895a3ad", null ],
       [ "CONVEX_VOLUME", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adbfd86821e2b262ac197472e1a21879f", null ],
       [ "CROWD", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1adb2f668eda4022cbebc528b605ce84cf", null ],
+      [ "NAVMESH_TILE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a5fa2622ce28f20a015809fe8f5366469", null ],
+      [ "TEMP_OBSTACLE_HIGHLIGHT", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a91417d44a39bfc453bdbe2812614059a", null ],
+      [ "TEMP_OBSTACLE_CREATE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a325e0a1445b77364e0e4015163ef4b14", null ],
       [ "MAX_TOOLS", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c", null ]
     ] ],
     [ "toolNames", "Sample_8h.html#a120bc69e1ed454430337ba8231f2aee4", null ]

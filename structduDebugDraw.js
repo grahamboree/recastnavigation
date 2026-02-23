@@ -8,6 +8,6 @@ var structduDebugDraw =
     [ "texture", "structduDebugDraw.html#afd70102a49177ea8068508139c8cdb1e", null ],
     [ "vertex", "structduDebugDraw.html#a8fac1072846b60be4ce4810c68140ee8", null ],
     [ "vertex", "structduDebugDraw.html#a711146a2e4be2ef9e0d6de7be8c714bc", null ],
-    [ "vertex", "structduDebugDraw.html#a2af291d6e63081ce1d3f34e1851ae5e0", null ],
-    [ "vertex", "structduDebugDraw.html#a0f76c61eb9f274f17c91308c739211eb", null ]
+    [ "vertex", "structduDebugDraw.html#ad3dad673fcb8bcb9c02719603fbbe67a", null ],
+    [ "vertex", "structduDebugDraw.html#a896e89d6c18d32af8a3616d87f9d6085", null ]
 ];

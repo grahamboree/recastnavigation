@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('classSample.html',''); initResizable()
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classSample-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Sample Class Reference</div></div>
+  <div class="headertitle"><div class="title">Sample Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -132,11 +132,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0e9429a23d06ba44e8d6a38c693177fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ea0da3484d888cc46e030008907a181" id="r_a9ea0da3484d888cc46e030008907a181"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSample.html">Sample</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a9ea0da3484d888cc46e030008907a181">operator=</a> (const <a class="el" href="classSample.html">Sample</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:a9ea0da3484d888cc46e030008907a181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0602082aea4402bd6db027a5aa4f33a0" id="r_a0602082aea4402bd6db027a5aa4f33a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a0602082aea4402bd6db027a5aa4f33a0">setTool</a> (<a class="el" href="structSampleTool.html">SampleTool</a> *<a class="el" href="classSample.html#a13b074060115ae98db2eff71073dd7ea">tool</a>)</td></tr>
-<tr class="separator:a0602082aea4402bd6db027a5aa4f33a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27b7999767e036d378b4e743c284595" id="r_ab27b7999767e036d378b4e743c284595"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#ab27b7999767e036d378b4e743c284595">setTool</a> (<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a> toolType)</td></tr>
+<tr class="separator:ab27b7999767e036d378b4e743c284595"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c46fd28e8f60d8488734c9cdbd59cb3" id="r_a8c46fd28e8f60d8488734c9cdbd59cb3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a8c46fd28e8f60d8488734c9cdbd59cb3">supportsTool</a> (<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a> toolType) const =0</td></tr>
+<tr class="separator:a8c46fd28e8f60d8488734c9cdbd59cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd109c867e235c0b54db227509ce8f17" id="r_abd109c867e235c0b54db227509ce8f17"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#abd109c867e235c0b54db227509ce8f17">drawSettingsUI</a> ()</td></tr>
 <tr class="separator:abd109c867e235c0b54db227509ce8f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f610a9556989a84fba7ea9ad9e18a21" id="r_a8f610a9556989a84fba7ea9ad9e18a21"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a8f610a9556989a84fba7ea9ad9e18a21">drawToolsUI</a> ()</td></tr>
+<tr class="memitem:a8f610a9556989a84fba7ea9ad9e18a21" id="r_a8f610a9556989a84fba7ea9ad9e18a21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a8f610a9556989a84fba7ea9ad9e18a21">drawToolsUI</a> ()</td></tr>
 <tr class="separator:a8f610a9556989a84fba7ea9ad9e18a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aede4ad1e2c28e8e0885edb7ef7d67482" id="r_aede4ad1e2c28e8e0885edb7ef7d67482"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#aede4ad1e2c28e8e0885edb7ef7d67482">drawDebugUI</a> ()</td></tr>
 <tr class="separator:aede4ad1e2c28e8e0885edb7ef7d67482"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,8 +185,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ac1757883d39e6ce69196d33f7fbb3f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a635463e829a780cd5a3fdeb1eef005b1" id="r_a635463e829a780cd5a3fdeb1eef005b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdtCrowd.html">dtCrowd</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a635463e829a780cd5a3fdeb1eef005b1">crowd</a> = nullptr</td></tr>
 <tr class="separator:a635463e829a780cd5a3fdeb1eef005b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae99863cd3d733df71c284be6f92c68dd" id="r_ae99863cd3d733df71c284be6f92c68dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classSampleDebugDraw.html">SampleDebugDraw</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#ae99863cd3d733df71c284be6f92c68dd">debugDraw</a></td></tr>
-<tr class="separator:ae99863cd3d733df71c284be6f92c68dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02319ac2c64d62883c2e51f15ddb87d2" id="r_a02319ac2c64d62883c2e51f15ddb87d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classDebugDrawSDL.html">DebugDrawSDL</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a02319ac2c64d62883c2e51f15ddb87d2">debugDraw</a></td></tr>
+<tr class="separator:a02319ac2c64d62883c2e51f15ddb87d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff534dc55af4f82126d5a7dda2a11765" id="r_aff534dc55af4f82126d5a7dda2a11765"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#aff534dc55af4f82126d5a7dda2a11765">navMeshDrawFlags</a></td></tr>
 <tr class="separator:aff534dc55af4f82126d5a7dda2a11765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e0bd3161937c2294d6d8a34ebb859c9" id="r_a5e0bd3161937c2294d6d8a34ebb859c9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a5e0bd3161937c2294d6d8a34ebb859c9">cellSize</a></td></tr>
@@ -221,8 +223,10 @@ Public Attributes</h2></td></tr>
 <tr class="separator:abb1dc88d54d9da198460a077d19a5123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c1b3d45e256c7afcd0b29801b16c6ff" id="r_a2c1b3d45e256c7afcd0b29801b16c6ff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a2c1b3d45e256c7afcd0b29801b16c6ff">filterWalkableLowHeightSpans</a> = true</td></tr>
 <tr class="separator:a2c1b3d45e256c7afcd0b29801b16c6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13b074060115ae98db2eff71073dd7ea" id="r_a13b074060115ae98db2eff71073dd7ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSampleTool.html">SampleTool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a13b074060115ae98db2eff71073dd7ea">tool</a> = nullptr</td></tr>
-<tr class="separator:a13b074060115ae98db2eff71073dd7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c20435abb2dd4b7579233af316ae537" id="r_a0c20435abb2dd4b7579233af316ae537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a0c20435abb2dd4b7579233af316ae537">currentTool</a> = <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693">SampleToolType::NONE</a></td></tr>
+<tr class="separator:a0c20435abb2dd4b7579233af316ae537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16bcc101f7dc96a36cf5ffcdf4813cb1" id="r_a16bcc101f7dc96a36cf5ffcdf4813cb1"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="structSampleTool.html">SampleTool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#a16bcc101f7dc96a36cf5ffcdf4813cb1">tool</a> = nullptr</td></tr>
+<tr class="separator:a16bcc101f7dc96a36cf5ffcdf4813cb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef37c34eef73bc488d433a33bd90bb9f" id="r_aef37c34eef73bc488d433a33bd90bb9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structSampleToolState.html">SampleToolState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#aef37c34eef73bc488d433a33bd90bb9f">toolStates</a> [static_cast&lt; size_t &gt;(<a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c">SampleToolType::MAX_TOOLS</a>)] = {}</td></tr>
 <tr class="separator:aef37c34eef73bc488d433a33bd90bb9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb5acd52dc294f299c71835ec60a3ac8" id="r_afb5acd52dc294f299c71835ec60a3ac8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classBuildContext.html">BuildContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSample.html#afb5acd52dc294f299c71835ec60a3ac8">buildContext</a> = nullptr</td></tr>
@@ -455,9 +459,6 @@ Public Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Sample::drawToolsUI </td>
@@ -466,14 +467,7 @@ Public Attributes</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-
-<p>Reimplemented in <a class="el" href="classSample__SoloMesh.html#ab0f9bafc5f3845a84ba7e0cfb99f73f1">Sample_SoloMesh</a>, <a class="el" href="classSample__TempObstacles.html#aaf85c6d4abfa653f5aa47736283d54c5">Sample_TempObstacles</a>, and <a class="el" href="classSample__TileMesh.html#a512ce987b58351d151f7f6cc77fca364">Sample_TileMesh</a>.</p>
 
 </div>
 </div>
@@ -710,7 +704,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classSample__SoloMesh.html#a0040d39ca836744b79849e954b9e045f">Sample_SoloMesh</a>, <a class="el" href="classSample__TempObstacles.html#a715b7c6755f4a2a4c2bff2b386a627fe">Sample_TempObstacles</a>, and <a class="el" href="classSample__TileMesh.html#a1a9c9a8a3f8f9de2d4a2c29b992443cc">Sample_TileMesh</a>.</p>
+<p>Reimplemented in <a class="el" href="classSample__TempObstacles.html#a715b7c6755f4a2a4c2bff2b386a627fe">Sample_TempObstacles</a>, and <a class="el" href="classSample__TileMesh.html#a1a9c9a8a3f8f9de2d4a2c29b992443cc">Sample_TileMesh</a>.</p>
 
 </div>
 </div>
@@ -810,8 +804,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0602082aea4402bd6db027a5aa4f33a0" name="a0602082aea4402bd6db027a5aa4f33a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0602082aea4402bd6db027a5aa4f33a0">&#9670;&#160;</a></span>setTool()</h2>
+<a id="ab27b7999767e036d378b4e743c284595" name="ab27b7999767e036d378b4e743c284595"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab27b7999767e036d378b4e743c284595">&#9670;&#160;</a></span>setTool()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -819,8 +813,8 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">void Sample::setTool </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structSampleTool.html">SampleTool</a> *&#160;</td>
-          <td class="paramname"><em>tool</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a>&#160;</td>
+          <td class="paramname"><em>toolType</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -850,6 +844,34 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8c46fd28e8f60d8488734c9cdbd59cb3" name="a8c46fd28e8f60d8488734c9cdbd59cb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c46fd28e8f60d8488734c9cdbd59cb3">&#9670;&#160;</a></span>supportsTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool Sample::supportsTool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a>&#160;</td>
+          <td class="paramname"><em>toolType</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classSample__SoloMesh.html#af42b9933142e8b4c8b1a93d302fd124a">Sample_SoloMesh</a>, <a class="el" href="classSample__TempObstacles.html#a55265c7fa2532922614eedf47b095af0">Sample_TempObstacles</a>, and <a class="el" href="classSample__TileMesh.html#af2c0391f2105404af5abbcc2bbd46014">Sample_TileMesh</a>.</p>
 
 </div>
 </div>
@@ -1012,14 +1034,28 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae99863cd3d733df71c284be6f92c68dd" name="ae99863cd3d733df71c284be6f92c68dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae99863cd3d733df71c284be6f92c68dd">&#9670;&#160;</a></span>debugDraw</h2>
+<a id="a0c20435abb2dd4b7579233af316ae537" name="a0c20435abb2dd4b7579233af316ae537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c20435abb2dd4b7579233af316ae537">&#9670;&#160;</a></span>currentTool</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classSampleDebugDraw.html">SampleDebugDraw</a> Sample::debugDraw</td>
+          <td class="memname"><a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1">SampleToolType</a> Sample::currentTool = <a class="el" href="Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1ab50339a10e1de285ac99d4c3990b8693">SampleToolType::NONE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02319ac2c64d62883c2e51f15ddb87d2" name="a02319ac2c64d62883c2e51f15ddb87d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02319ac2c64d62883c2e51f15ddb87d2">&#9670;&#160;</a></span>debugDraw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classDebugDrawSDL.html">DebugDrawSDL</a> Sample::debugDraw</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1222,14 +1258,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a13b074060115ae98db2eff71073dd7ea" name="a13b074060115ae98db2eff71073dd7ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13b074060115ae98db2eff71073dd7ea">&#9670;&#160;</a></span>tool</h2>
+<a id="a16bcc101f7dc96a36cf5ffcdf4813cb1" name="a16bcc101f7dc96a36cf5ffcdf4813cb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16bcc101f7dc96a36cf5ffcdf4813cb1">&#9670;&#160;</a></span>tool</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structSampleTool.html">SampleTool</a>* Sample::tool = nullptr</td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="structSampleTool.html">SampleTool</a>&gt; Sample::tool = nullptr</td>
         </tr>
       </table>
 </div><div class="memdoc">
