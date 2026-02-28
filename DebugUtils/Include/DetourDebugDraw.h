@@ -23,6 +23,7 @@
 #include "DetourTileCacheBuilder.h"
 
 struct duDebugDraw;
+class dtNavMeshQuery;
 
 enum DrawNavMeshFlags
 {
