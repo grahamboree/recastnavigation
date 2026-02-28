@@ -33,7 +33,7 @@ public:
 	void init(Sample* inSample) override;
 	void reset() override;
 	void drawMenuUI() override;
-	void onClick(const float* s, const float* p, bool shift);
+	void onClick(const float* s, const float* p, bool shift) override;
 	void onToggle() override;
 	void singleStep() override;
 	void update(float dt) override;
