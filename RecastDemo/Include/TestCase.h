@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+class dtNavMeshQuery;
+
 class TestCase
 {
 	enum class TestType : uint8_t
