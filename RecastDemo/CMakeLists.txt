@@ -51,7 +51,10 @@ target_sources(RecastDemo PRIVATE
 	Source/Tool_Crowd.cpp
 	Source/Tool_NavMeshPrune.cpp
 	Source/Tool_NavMeshTester.cpp
+	Source/Tool_NavMeshTile.cpp
 	Source/Tool_OffMeshConnection.cpp
+	Source/Tool_TempObstacleCreate.cpp
+	Source/Tool_TempObstacleHighlight.cpp
 	Source/ValueHistory.cpp
 )
 
