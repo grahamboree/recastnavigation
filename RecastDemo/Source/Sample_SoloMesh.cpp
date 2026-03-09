@@ -20,14 +20,11 @@
 
 #include "DetourDebugDraw.h"
 #include "DetourNavMeshBuilder.h"
+#include "DetourNavMeshQuery.h"
 #include "InputGeom.h"
 #include "RecastDebugDraw.h"
 #include "SDL_opengl.h"
-#include "Tool_ConvexVolume.h"
-#include "Tool_Crowd.h"
-#include "Tool_NavMeshPrune.h"
-#include "Tool_NavMeshTester.h"
-#include "Tool_OffMeshConnection.h"
+#include "Sample.h"
 
 #include <imgui.h>
 #include <cmath>
