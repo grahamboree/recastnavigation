@@ -14,13 +14,14 @@ var Sample_8h =
       [ "MONOTONE", "Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60a0f9e8e3552c7f87e044893e7620b476d", null ],
       [ "LAYERS", "Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60ab934b953171009520c7f7336a552801b", null ]
     ] ],
-    [ "SamplePolyAreas", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6da", [
-      [ "SAMPLE_POLYAREA_GROUND", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daade496ba823714eb3b6d31fa9c1297388", null ],
-      [ "SAMPLE_POLYAREA_WATER", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daa08ea8d5a36716a7e74a6c73a25bcadbe", null ],
-      [ "SAMPLE_POLYAREA_ROAD", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daacb78d7e68ad58b5bc62c2313cf3b0e38", null ],
-      [ "SAMPLE_POLYAREA_DOOR", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daa8dde3ccaff5b35fee2ce73d5744cae9e", null ],
-      [ "SAMPLE_POLYAREA_GRASS", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daaa740ac4d510c2a3abe962fbfb793f1dc", null ],
-      [ "SAMPLE_POLYAREA_JUMP", "Sample_8h.html#a588cb37d59e832fa4f2606474769b6daac03a57a3286b6b9f4a5dcc403e269b2e", null ]
+    [ "SamplePolyAreas", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31", [
+      [ "SAMPLE_POLYAREA_GROUND", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31abc5549234e48c4683dbe5041c59a4086", null ],
+      [ "SAMPLE_POLYAREA_WATER", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31a32fc7140a2fca9d15818901d33269776", null ],
+      [ "SAMPLE_POLYAREA_ROAD", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31a2838d7c607f829f6c1c99beb1a184507", null ],
+      [ "SAMPLE_POLYAREA_DOOR", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31a1bcd8379e0a3a38143f7755b603fc7dd", null ],
+      [ "SAMPLE_POLYAREA_GRASS", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31a0732ee2d4e54293db6a61d3332971a29", null ],
+      [ "SAMPLE_POLYAREA_JUMP", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31a36f1fcd5d6666ecb927f658e0ff22ef2", null ],
+      [ "MAX_POLY_AREAS", "Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31ace985f5bcb65bd64454c5490c04ee1ee", null ]
     ] ],
     [ "SamplePolyFlags", "Sample_8h.html#a7f96856c3ec53bcd8dab2396ae743f8d", [
       [ "SAMPLE_POLYFLAGS_WALK", "Sample_8h.html#a7f96856c3ec53bcd8dab2396ae743f8da56be2036bea60e03345da8f4897a4682", null ],
@@ -42,5 +43,6 @@ var Sample_8h =
       [ "TEMP_OBSTACLE_CREATE", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a325e0a1445b77364e0e4015163ef4b14", null ],
       [ "MAX_TOOLS", "Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c", null ]
     ] ],
+    [ "areaNames", "Sample_8h.html#af706d10654c5d965d34858236f4dd96c", null ],
     [ "toolNames", "Sample_8h.html#a120bc69e1ed454430337ba8231f2aee4", null ]
 ];

@@ -1,5 +1,8 @@
 var NAVTREEINDEX8 =
 {
+"structdtSegInterval.html":[7,0,53],
+"structdtSegInterval.html#a4463687b08087da04f076ec79beb5c03":[7,0,53,1],
+"structdtSegInterval.html#a93cb86ab8a97836ee145bb03bab7ed89":[7,0,53,2],
 "structdtSegInterval.html#adeaef89322156ccfb6ecd7fc5e259b70":[7,0,53,0],
 "structdtTempContour.html":[7,0,54],
 "structdtTempContour.html#a0d3c890707733eb165076c44202b9058":[7,0,54,1],

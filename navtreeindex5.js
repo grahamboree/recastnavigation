@@ -1,5 +1,8 @@
 var NAVTREEINDEX5 =
 {
+"classValueHistory.html#aafc75b895663a6d7390146c81c883838":[7,0,128,2],
+"classdtCollectPolysQuery.html":[7,0,12],
+"classdtCollectPolysQuery.html#a30a6baa977d507b2c6f0148a770655b8":[7,0,12,1],
 "classdtCollectPolysQuery.html#a5ebb596db273cdcc454c6ae6f981bf3a":[7,0,12,3],
 "classdtCollectPolysQuery.html#a720fc8d71cb55210dd3db71b77f3db4f":[7,0,12,4],
 "classdtCollectPolysQuery.html#a9bcdd3786ee5580ad5d52680f6edd03f":[7,0,12,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX5 =
 "functions_func_q.html":[7,3,1,14],
 "functions_func_r.html":[7,3,1,15],
 "functions_func_s.html":[7,3,1,16],
-"functions_func_t.html":[7,3,1,17],
-"functions_func_u.html":[7,3,1,18],
-"functions_func_v.html":[7,3,1,19],
-"functions_func_w.html":[7,3,1,20]
+"functions_func_t.html":[7,3,1,17]
 };

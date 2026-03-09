@@ -1,7 +1,8 @@
 var searchData=
 [
   ['max_5fdrawmode_0',['MAX_DRAWMODE',['../classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a700ea45ebb0c21630ae73a3c14e61823',1,'Sample_TempObstacles']]],
-  ['max_5ftools_1',['MAX_TOOLS',['../Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c',1,'Sample.h']]],
-  ['mesh_2',['mesh',['../classSample__SoloMesh.html#abc40cab0ea338a15ec98011f2d6204cba5b65fe46c5dd90ebcec69c472c3be1d9',1,'Sample_SoloMesh::MESH'],['../classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a5b65fe46c5dd90ebcec69c472c3be1d9',1,'Sample_TempObstacles::MESH']]],
-  ['monotone_3',['MONOTONE',['../Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60a0f9e8e3552c7f87e044893e7620b476d',1,'Sample.h']]]
+  ['max_5fpoly_5fareas_1',['MAX_POLY_AREAS',['../Sample_8h.html#ab0e12e30f570d43cfc9f986cb094fc31ace985f5bcb65bd64454c5490c04ee1ee',1,'Sample.h']]],
+  ['max_5ftools_2',['MAX_TOOLS',['../Sample_8h.html#a8b7905ae89a9d21531c2fe65110bebc1a1b2f7fca644d3076648e41ceeb02c78c',1,'Sample.h']]],
+  ['mesh_3',['mesh',['../classSample__SoloMesh.html#abc40cab0ea338a15ec98011f2d6204cba5b65fe46c5dd90ebcec69c472c3be1d9',1,'Sample_SoloMesh::MESH'],['../classSample__TempObstacles.html#a04fbba39cda41f9628af1f9b3293b9b3a5b65fe46c5dd90ebcec69c472c3be1d9',1,'Sample_TempObstacles::MESH']]],
+  ['monotone_4',['MONOTONE',['../Sample_8h.html#afbdbec55cd7e47cdf94167ba9dc3ca60a0f9e8e3552c7f87e044893e7620b476d',1,'Sample.h']]]
 ];

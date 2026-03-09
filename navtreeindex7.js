@@ -1,5 +1,8 @@
 var NAVTREEINDEX7 =
 {
+"structBuildSettings.html#a16f1e96d0f57bca2da50f11813e3819f":[7,0,2,16],
+"structBuildSettings.html#a1c247eac02103152762034a47530086b":[7,0,2,12],
+"structBuildSettings.html#a3d005a4039976ee34798ff06775f6d73":[7,0,2,14],
 "structBuildSettings.html#a5b8f1ba1531e71e839b1a5f340a674e4":[7,0,2,2],
 "structBuildSettings.html#a677f0a3a0d3c600dccd8a4c84ade2bdc":[7,0,2,7],
 "structBuildSettings.html#a83e53cfc86be5ed82d845ef9487f963e":[7,0,2,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX7 =
 "structdtPolyDetail.html#aef53174e1c31d4304bc07da5d677528c":[7,0,47,1],
 "structdtPolyState.html":[7,0,49],
 "structdtPolyState.html#a8e3a8a1c15338bbe761ef4d9ca2b4949":[7,0,49,1],
-"structdtPolyState.html#afd684e7c95d1048ace6dc198457b7c69":[7,0,49,0],
-"structdtSegInterval.html":[7,0,53],
-"structdtSegInterval.html#a4463687b08087da04f076ec79beb5c03":[7,0,53,1],
-"structdtSegInterval.html#a93cb86ab8a97836ee145bb03bab7ed89":[7,0,53,2]
+"structdtPolyState.html#afd684e7c95d1048ace6dc198457b7c69":[7,0,49,0]
 };

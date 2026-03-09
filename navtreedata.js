@@ -159,11 +159,11 @@ var NAVTREEINDEX =
 "DetourNavMeshBuilder_8h.html",
 "RecastAlloc_8h.html#a54afc8f7a7342283d7b432565335ae6f",
 "Recast_8h.html#a374fcf43c2ade76f195d3089b6964833",
-"classNavMeshTesterTool.html#a1a00d08046b93ec7c327cc8f9a560e62",
-"classdtCollectPolysQuery.html#a5ebb596db273cdcc454c6ae6f981bf3a",
-"functions_func_~.html",
-"structBuildSettings.html#a5b8f1ba1531e71e839b1a5f340a674e4",
-"structdtSegInterval.html#adeaef89322156ccfb6ecd7fc5e259b70"
+"classNavMeshPruneTool.html#ade98a8c1615bdb5600b7e7c1b15d5fc5",
+"classValueHistory.html#aafc75b895663a6d7390146c81c883838",
+"functions_func_u.html",
+"structBuildSettings.html#a16f1e96d0f57bca2da50f11813e3819f",
+"structdtSegInterval.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
