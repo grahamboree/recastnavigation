@@ -47,6 +47,16 @@ const char* toolNames[] = {
 	"Create Temp Obstacles",
 };
 
+// Indexes here must match the values of SamplePolyAreas
+const char* areaNames[] = {
+	"ground",
+	"water",
+	"road",
+	"door",
+	"grass",
+	"jump"
+};
+
 namespace
 {
 

@@ -115,29 +115,13 @@ void ConvexVolumeTool::drawMenuUI()
 	ImGui::Text("Area Type");
 
 	ImGui::Indent();
-	if (ImGui::RadioButton("Ground", areaType == SAMPLE_POLYAREA_GROUND))
+	for (int i = 0; i < static_cast<int>(SamplePolyAreas::MAX_POLY_AREAS); ++i)
 	{
-		areaType = SAMPLE_POLYAREA_GROUND;
-	}
-	if (ImGui::RadioButton("Water", areaType == SAMPLE_POLYAREA_WATER))
-	{
-		areaType = SAMPLE_POLYAREA_WATER;
-	}
-	if (ImGui::RadioButton("Road", areaType == SAMPLE_POLYAREA_ROAD))
-	{
-		areaType = SAMPLE_POLYAREA_ROAD;
-	}
-	if (ImGui::RadioButton("Door", areaType == SAMPLE_POLYAREA_DOOR))
-	{
-		areaType = SAMPLE_POLYAREA_DOOR;
-	}
-	if (ImGui::RadioButton("Grass", areaType == SAMPLE_POLYAREA_GRASS))
-	{
-		areaType = SAMPLE_POLYAREA_GRASS;
-	}
-	if (ImGui::RadioButton("Jump", areaType == SAMPLE_POLYAREA_JUMP))
-	{
-		areaType = SAMPLE_POLYAREA_JUMP;
+		SamplePolyAreas polyArea = static_cast<SamplePolyAreas>(i);
+		if (ImGui::RadioButton(areaNames[i] , areaType == polyArea))
+		{
+			areaType = polyArea;
+		}
 	}
 	ImGui::Unindent();
 

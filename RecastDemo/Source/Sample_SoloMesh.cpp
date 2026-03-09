@@ -643,19 +643,20 @@ bool Sample_SoloMesh::build()
 		{
 			if (polyMesh->areas[i] == RC_WALKABLE_AREA)
 			{
-				polyMesh->areas[i] = SAMPLE_POLYAREA_GROUND;
+				polyMesh->areas[i] = static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GROUND);
 			}
 
-			if (polyMesh->areas[i] == SAMPLE_POLYAREA_GROUND || polyMesh->areas[i] == SAMPLE_POLYAREA_GRASS ||
-			    polyMesh->areas[i] == SAMPLE_POLYAREA_ROAD)
+			if (polyMesh->areas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GROUND)
+				|| polyMesh->areas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GRASS)
+				|| polyMesh->areas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_ROAD))
 			{
 				polyMesh->flags[i] = SAMPLE_POLYFLAGS_WALK;
 			}
-			else if (polyMesh->areas[i] == SAMPLE_POLYAREA_WATER)
+			else if (polyMesh->areas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_WATER))
 			{
 				polyMesh->flags[i] = SAMPLE_POLYFLAGS_SWIM;
 			}
-			else if (polyMesh->areas[i] == SAMPLE_POLYAREA_DOOR)
+			else if (polyMesh->areas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_DOOR))
 			{
 				polyMesh->flags[i] = SAMPLE_POLYFLAGS_WALK | SAMPLE_POLYFLAGS_DOOR;
 			}

@@ -229,12 +229,12 @@ void NavMeshTesterTool::init(Sample* newSample)
 	if (sample->navQuery)
 	{
 		// Change costs.
-		filter.setAreaCost(SAMPLE_POLYAREA_GROUND, 1.0f);
-		filter.setAreaCost(SAMPLE_POLYAREA_WATER, 10.0f);
-		filter.setAreaCost(SAMPLE_POLYAREA_ROAD, 1.0f);
-		filter.setAreaCost(SAMPLE_POLYAREA_DOOR, 1.0f);
-		filter.setAreaCost(SAMPLE_POLYAREA_GRASS, 2.0f);
-		filter.setAreaCost(SAMPLE_POLYAREA_JUMP, 1.5f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GROUND), 1.0f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_WATER), 10.0f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_ROAD), 1.0f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_DOOR), 1.0f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GRASS), 2.0f);
+		filter.setAreaCost(static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_JUMP), 1.5f);
 	}
 
 	neighborhoodRadius = sample->agentRadius * 20.0f;

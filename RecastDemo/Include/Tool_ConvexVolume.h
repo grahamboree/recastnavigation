@@ -25,7 +25,7 @@ class ConvexVolumeTool : public SampleTool
 {
 	Sample* sample = nullptr;
 
-	int areaType = SAMPLE_POLYAREA_GRASS;
+	SamplePolyAreas areaType = SamplePolyAreas::SAMPLE_POLYAREA_GRASS;
 	float polyOffset = 0.0f;
 	float boxHeight = 6.0f;
 	float boxDescent = 1.0f;

@@ -437,19 +437,20 @@ struct MeshProcess : dtTileCacheMeshProcess
 		{
 			if (polyAreas[i] == DT_TILECACHE_WALKABLE_AREA)
 			{
-				polyAreas[i] = SAMPLE_POLYAREA_GROUND;
+				polyAreas[i] = static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GROUND);
 			}
 
-			if (polyAreas[i] == SAMPLE_POLYAREA_GROUND || polyAreas[i] == SAMPLE_POLYAREA_GRASS ||
-			    polyAreas[i] == SAMPLE_POLYAREA_ROAD)
+			if (polyAreas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GROUND)
+				|| polyAreas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_GRASS)
+				|| polyAreas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_ROAD))
 			{
 				polyFlags[i] = SAMPLE_POLYFLAGS_WALK;
 			}
-			else if (polyAreas[i] == SAMPLE_POLYAREA_WATER)
+			else if (polyAreas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_WATER))
 			{
 				polyFlags[i] = SAMPLE_POLYFLAGS_SWIM;
 			}
-			else if (polyAreas[i] == SAMPLE_POLYAREA_DOOR)
+			else if (polyAreas[i] == static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_DOOR))
 			{
 				polyFlags[i] = SAMPLE_POLYFLAGS_WALK | SAMPLE_POLYFLAGS_DOOR;
 			}

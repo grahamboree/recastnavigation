@@ -97,7 +97,7 @@ void OffMeshConnectionTool::onClick(const float* /*rayStartPos*/, const float* r
 				rayHitPos,
 				sample->agentRadius,
 				bidirectional ? 1 : 0,
-				SAMPLE_POLYAREA_JUMP,
+				static_cast<unsigned int>(SamplePolyAreas::SAMPLE_POLYAREA_JUMP),
 				SAMPLE_POLYFLAGS_JUMP);
 			hitPosSet = false;
 		}

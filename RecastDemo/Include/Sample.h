@@ -50,15 +50,19 @@ extern const char* toolNames[];
 
 /// These are just sample areas to use consistent values across the samples.
 /// The use should specify these base on his needs.
-enum SamplePolyAreas
+enum class SamplePolyAreas : uint8_t
 {
 	SAMPLE_POLYAREA_GROUND,
 	SAMPLE_POLYAREA_WATER,
 	SAMPLE_POLYAREA_ROAD,
 	SAMPLE_POLYAREA_DOOR,
 	SAMPLE_POLYAREA_GRASS,
-	SAMPLE_POLYAREA_JUMP
+	SAMPLE_POLYAREA_JUMP,
+
+	MAX_POLY_AREAS
 };
+extern const char* areaNames[];
+
 enum SamplePolyFlags
 {
 	SAMPLE_POLYFLAGS_WALK = 1 << 0,      // 0x01,	// Ability to walk (ground, grass, road)
